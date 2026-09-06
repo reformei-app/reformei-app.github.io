@@ -1,0 +1,14 @@
+# Railway injeta a variável PORT. 8080 é só fallback pra rodar local.
+:{$PORT:8080} {
+	root * /srv
+	encode gzip
+	file_server
+	try_files {path} /index.html
+
+	header {
+		# cache curto pro HTML, pra atualização aparecer rápido
+		Cache-Control "public, max-age=300"
+	}
+	@precos path /precos.json
+	header @precos Cache-Control "no-store"
+}
