@@ -1474,7 +1474,7 @@ function renderBudget(){
   const list = store.budget;
   els.budgetSec.hidden = false;
   if (!list.length){
-    els.budgetList.innerHTML = '<p class="budget__empty">Sua lista está vazia. Toque em <b>+ Adicionar ao orçamento</b> nos materiais acima, ou escreva logo abaixo um item que não está na lista.</p>';
+    els.budgetList.innerHTML = '<p class="budget__empty">Nada na lista ainda. Some itens dos materiais acima, ou escreva abaixo.</p>';
     els.budgetTotal.textContent = "—";
     return;
   }
