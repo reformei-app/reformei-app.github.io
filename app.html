@@ -427,17 +427,16 @@
         <a class="howto-link" id="localBtn" target="_blank" rel="noopener noreferrer">📍 Ver casas de material de construção perto de mim</a>
         <button class="stages-toggle" id="stagesToggle" type="button">Abrir todas as etapas</button>
         <div id="stagesWrap"></div>
-      </div>
-    </section>
 
-    <section class="shop">
-      <button class="sec-head" id="decorToggle" type="button" aria-expanded="true">
-        <span class="sec-head__chev" aria-hidden="true">▸</span>
-        <span class="sec-head__ttl" id="decorTitle"></span>
-        <span class="sec-head__meta" id="decorMeta"></span>
+        <div class="stage" id="decorStage">
+      <button class="stage__head" id="decorToggle" type="button" aria-expanded="true">
+        <span class="stage__chev" aria-hidden="true">▸</span>
+        <span class="stage__num" id="decorNum"></span>
+        <span class="stage__ttl" id="decorTitle"></span>
+        <span class="stage__count" id="decorMeta"></span>
       </button>
-      <div class="sec-body" id="decorBody">
-        <p id="decorIntro"></p>
+      <div class="stage__panel" id="decorBody">
+        <p class="stage__note" id="decorIntro"></p>
         <div class="stylenav" id="stylenav" role="tablist" aria-label="Estilo de decoração"></div>
         <div class="mood">
           <span class="swatches" id="moodSwatches" aria-hidden="true"></span>
@@ -445,6 +444,8 @@
         </div>
         <p class="decor-count" id="decorCount"></p>
         <div class="prod-list" id="decorList"></div>
+      </div>
+        </div>
       </div>
     </section>
 
@@ -1448,7 +1449,7 @@ const els = {
   stylenav: $("stylenav"), moodSwatches: $("moodSwatches"), moodText: $("moodText"),
   decorList: $("decorList"), themeBtn: $("themeBtn"),
   obraToggle: $("obraToggle"), obraBody: $("obraBody"), shopMeta: $("shopMeta"),
-  decorToggle: $("decorToggle"), decorBody: $("decorBody"), decorMeta: $("decorMeta"),
+  decorToggle: $("decorToggle"), decorBody: $("decorBody"), decorMeta: $("decorMeta"), decorNum: $("decorNum"),
   homeView: $("homeView"), roomView: $("roomView"), roomgrid: $("roomgrid"),
   backBtn: $("backBtn"), brand: document.querySelector(".brand"),
   budgetSec: $("budgetSec"), budgetList: $("budgetList"), budgetTotal: $("budgetTotal"),
@@ -1584,6 +1585,7 @@ function renderRoom(){
   allStagesOpen = false;
   els.stagesToggle.textContent = "Abrir todas as etapas";
   els.shopMeta.textContent = stages.length + " etapas";
+  els.decorNum.textContent = (stages.length + 1 < 10 ? "0" : "") + (stages.length + 1);
   let gi = 0;
   els.stagesWrap.innerHTML = stages.map((stg, si) => {
     const rows = stg.itens.map((it) => {
