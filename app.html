@@ -186,13 +186,8 @@
   /* ── Vitrines ──────────────────────────────────────────────── */
   .shop h3{margin:0 0 3px;font-family:"Sora","Figtree",sans-serif;font-weight:700;font-size:15px;display:flex;align-items:center;gap:8px}
   .shop h3::before{content:"";width:14px;height:3px;border-radius:2px;background:var(--flame)}
-  .shop > p,.sec-body > p{margin:0 0 12px;font-size:12px;color:var(--text-soft)}
-  .sec-head{width:100%;display:flex;align-items:center;gap:9px;background:none;border:none;padding:4px 0;margin:0;cursor:pointer;font:inherit;color:var(--text);text-align:left}
-  .sec-head:focus-visible{outline:none;box-shadow:var(--ring);border-radius:6px}
-  .sec-head__chev{flex:none;font-size:12px;color:var(--flame);transition:transform .15s ease}
-  .sec-head[aria-expanded="true"] .sec-head__chev{transform:rotate(90deg)}
-  .sec-head__ttl{flex:1;min-width:0;font-family:"Sora","Figtree",sans-serif;font-weight:700;font-size:15px;letter-spacing:-.01em}
-  .sec-head__meta{flex:none;font-size:11px;font-weight:800;color:var(--flame-ink)}
+  .shop > p{margin:0 0 12px;font-size:12px;color:var(--text-soft)}
+  .sec-count{margin-left:auto;flex:none;font-size:11px;font-weight:800;color:var(--flame-ink)}
   .prod-list{display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--border);border-radius:16px;box-shadow:var(--shadow);overflow:hidden}
   .prod{padding:14px}
   .prod + .prod{border-top:1px solid var(--border)}
@@ -260,7 +255,7 @@
   .stage__panel{padding:0 13px 13px}
   .stage__panel .prod-list{box-shadow:none;border-radius:11px}
   .stage__note{margin:0 0 10px;font-size:11.5px;color:var(--text-soft)}
-  @media (prefers-reduced-motion: reduce){ .stage__chev,.sec-head__chev{transition:none} }
+  @media (prefers-reduced-motion: reduce){ .stage__chev{transition:none} }
 
   /* ── "Como medir" — link + janela flutuante ───────────────── */
   .howto-link{
@@ -417,18 +412,13 @@
     <section class="result" id="result" aria-live="polite"></section>
 
     <section class="shop">
-      <button class="sec-head" id="obraToggle" type="button" aria-expanded="true">
-        <span class="sec-head__chev" aria-hidden="true">▸</span>
-        <span class="sec-head__ttl" id="shopTitle"></span>
-        <span class="sec-head__meta" id="shopMeta"></span>
-      </button>
-      <div class="sec-body" id="obraBody">
-        <p id="shopIntro"></p>
-        <a class="howto-link" id="localBtn" target="_blank" rel="noopener noreferrer">📍 Ver casas de material de construção perto de mim</a>
-        <button class="stages-toggle" id="stagesToggle" type="button">Abrir todas as etapas</button>
-        <div id="stagesWrap"></div>
+      <h3><span id="shopTitle"></span><span class="sec-count" id="shopMeta"></span></h3>
+      <p id="shopIntro"></p>
+      <a class="howto-link" id="localBtn" target="_blank" rel="noopener noreferrer">📍 Ver casas de material de construção perto de mim</a>
+      <button class="stages-toggle" id="stagesToggle" type="button">Abrir todas as etapas</button>
+      <div id="stagesWrap"></div>
 
-        <div class="stage" id="decorStage">
+      <div class="stage" id="decorStage">
       <button class="stage__head" id="decorToggle" type="button" aria-expanded="true">
         <span class="stage__chev" aria-hidden="true">▸</span>
         <span class="stage__num" id="decorNum"></span>
@@ -445,8 +435,7 @@
         <p class="decor-count" id="decorCount"></p>
         <div class="prod-list" id="decorList"></div>
       </div>
-        </div>
-      </div>
+    </div>
     </section>
 
     <section class="shop" id="budgetSec" hidden>
@@ -1448,7 +1437,7 @@ const els = {
   decorTitle: $("decorTitle"), decorIntro: $("decorIntro"), decorCount: $("decorCount"),
   stylenav: $("stylenav"), moodSwatches: $("moodSwatches"), moodText: $("moodText"),
   decorList: $("decorList"), themeBtn: $("themeBtn"),
-  obraToggle: $("obraToggle"), obraBody: $("obraBody"), shopMeta: $("shopMeta"),
+  shopMeta: $("shopMeta"),
   decorToggle: $("decorToggle"), decorBody: $("decorBody"), decorMeta: $("decorMeta"), decorNum: $("decorNum"),
   homeView: $("homeView"), roomView: $("roomView"), roomgrid: $("roomgrid"),
   backBtn: $("backBtn"), brand: document.querySelector(".brand"),
@@ -1584,7 +1573,7 @@ function renderRoom(){
   CUR.prod = [];
   allStagesOpen = false;
   els.stagesToggle.textContent = "Abrir todas as etapas";
-  els.shopMeta.textContent = stages.length + " etapas";
+  els.shopMeta.textContent = (stages.length + 1) + " etapas";
   els.decorNum.textContent = (stages.length + 1 < 10 ? "0" : "") + (stages.length + 1);
   let gi = 0;
   els.stagesWrap.innerHTML = stages.map((stg, si) => {
@@ -1714,7 +1703,6 @@ function bindSecToggle(btn, body){
     body.hidden = !open;
   });
 }
-bindSecToggle(els.obraToggle, els.obraBody);
 bindSecToggle(els.decorToggle, els.decorBody);
 
 /* Inputs */
