@@ -100,15 +100,21 @@
   .pwa-cta:focus-visible{outline:none;box-shadow:var(--ring)}
 
   #homeView,#roomView{display:flex;flex-direction:column;gap:16px}
-  .home-q{margin:4px 0 0;font-family:"Sora","Figtree",sans-serif;font-weight:700;font-size:18px;letter-spacing:-.01em;color:var(--text)}
-  .roomgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-  .roomcell{
-    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;
-    min-height:94px;padding:10px 6px;border-radius:14px;cursor:pointer;
-    border:1px solid var(--border);background:var(--surface);color:var(--text);
-    font:inherit;font-weight:700;font-size:11.5px;text-align:center;line-height:1.15;
+  .home-hero{
+    margin:8px 0 0;font-family:"Sora","Figtree",sans-serif;font-weight:800;
+    font-size:25px;line-height:1.18;letter-spacing:-.02em;color:var(--text);text-wrap:balance;
   }
-  .roomcell svg{width:26px;height:26px;fill:none;stroke:var(--flame);stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+  .home-sub{margin:6px 0 0;font-size:13.5px;color:var(--text-soft);max-width:34ch}
+  .home-q{margin:6px 0 0;font-size:14px;font-weight:700;color:var(--text)}
+  .roomgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
+  .roomcell{
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:9px;
+    min-height:106px;padding:12px 6px;border-radius:16px;cursor:pointer;
+    border:1px solid var(--border);background:var(--surface);color:var(--text);
+    font:inherit;font-weight:700;font-size:12px;text-align:center;line-height:1.15;
+  }
+  .roomcell .ic{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;background:var(--flame-wash);color:var(--flame)}
+  .roomcell .ic svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
   .roomcell:hover,.roomcell:focus-visible{border-color:var(--flame);background:var(--flame-wash);color:var(--flame-ink);outline:none}
   .roomcell:active{transform:translateY(1px)}
   .backbtn{
@@ -362,9 +368,12 @@
 
   <main>
     <section id="homeView">
-      <p class="lede">Descubra quanto material sua reforma vai precisar, cômodo por cômodo, e monte um orçamento pra comparar o preço nas lojas ou na casa de material perto de você.</p>
       <button class="pwa-cta" id="pwaInstall" type="button" hidden>📲 Instalar o Reformei no celular</button>
-      <h2 class="home-q">O que você vai reformar?</h2>
+      <div>
+        <h2 class="home-hero">Descubra quanto material sua reforma vai precisar.</h2>
+        <p class="home-sub">Cômodo por cômodo, com orçamento pra levar na loja.</p>
+      </div>
+      <p class="home-q">O que você vai reformar?</p>
       <div class="roomgrid" id="roomgrid"></div>
     </section>
 
@@ -422,11 +431,11 @@
 
     <section class="shop" id="budgetSec" hidden>
       <h3>Meu orçamento para a loja</h3>
-      <p>Junte os itens dos materiais acima, ajuste as quantidades e inclua também o que não está na lista. Depois leve — ou mande pelo WhatsApp — para a casa de material de construção perto de você pedir o preço fechado.</p>
+      <p>Leve para a loja pedir o preço fechado.</p>
       <div class="prod-list" id="budgetList"></div>
       <div class="budget__add">
-        <input id="budgetAddName" type="text" autocomplete="off" placeholder="Item que não está na lista (ex.: torneira de jardim)" />
-        <input id="budgetAddPrice" type="text" inputmode="decimal" autocomplete="off" placeholder="preço aprox. (opcional)" />
+        <input id="budgetAddName" type="text" autocomplete="off" placeholder="Outro item" />
+        <input id="budgetAddPrice" type="text" inputmode="decimal" autocomplete="off" placeholder="R$ (opcional)" />
         <button id="budgetAddBtn" type="button">+ Incluir</button>
       </div>
       <div class="budget__foot">
@@ -441,7 +450,8 @@
     </section>
 
     <footer>
-      Este app usa links de afiliado: se você comprar pelas lojas, o Reformei pode receber uma pequena comissão, sem custo a mais pra você. Como Associado da Amazon, o Reformei recebe por compras qualificadas. As lojas online abrem em nova aba com a busca do produto; "perto de mim" abre o mapa com casas de material de construção. Preços de referência de <span id="precoData">setembro de 2026</span> — variam por região; some cerca de 10% de folga.
+      Preços de referência de <span id="precoData">setembro de 2026</span>, revisados a cada 15 dias. Variam por região — some 10% de folga na hora de comprar.<br />
+      Como Associado da Amazon, o Reformei ganha com compras qualificadas.
     </footer>
   </main>
 
@@ -790,7 +800,7 @@ const ROOMS = [
   {
     id: "banheiro", label: "Banheiro", title: "Banheiro",
     tagline: "Piso + azulejo em todas as paredes",
-    hint: "Meça os dois lados do chão. O app calcula o piso e os azulejos de todas as paredes. Ex.: 1,60 × 2,20.",
+    hint: "Meça os dois lados do chão. Ex.: 1,60 × 2,20.",
     example: { w: "1,60", l: "2,20" },
     compute(w, l){
       const piso = w*l, perim = 2*(w+l), parede = perim*CONFIG.peDireito, revest = piso+parede;
@@ -867,7 +877,7 @@ const ROOMS = [
   {
     id: "quarto", label: "Quarto", title: "Quarto",
     tagline: "Piso + tinta de parede + rodapé",
-    hint: "Meça os dois lados do chão. O app calcula o piso, a tinta das paredes e o rodapé. Ex.: 3,00 × 3,50.",
+    hint: "Meça os dois lados do chão. Ex.: 3,00 × 3,50.",
     example: { w: "3,00", l: "3,50" },
     compute(w, l){
       const piso = w*l, perim = 2*(w+l), parede = perim*CONFIG.peDireito;
@@ -924,7 +934,7 @@ const ROOMS = [
   {
     id: "cozinha", label: "Cozinha", title: "Cozinha",
     tagline: "Piso resistente + revestimento da pia",
-    hint: "Meça os dois lados do chão. O app calcula o piso e uma faixa de azulejo acima da pia. Ex.: 2,40 × 3,20.",
+    hint: "Meça os dois lados do chão. Ex.: 2,40 × 3,20.",
     example: { w: "2,40", l: "3,20" },
     compute(w, l){
       const piso = w*l, perim = 2*(w+l), faixa = perim*0.6, revest = piso+faixa;
@@ -994,7 +1004,7 @@ const ROOMS = [
   {
     id: "sala", label: "Sala", title: "Sala",
     tagline: "Pintura ampla + metros de rodapé",
-    hint: "Meça os dois lados do chão. O app calcula a tinta das paredes e os metros de rodapé. Ex.: 4,00 × 4,50.",
+    hint: "Meça os dois lados do chão. Ex.: 4,00 × 4,50.",
     example: { w: "4,00", l: "4,50" },
     compute(w, l){
       const piso = w*l, perim = 2*(w+l), parede = perim*CONFIG.peDireito;
@@ -1058,7 +1068,7 @@ const ROOMS = [
   {
     id: "lavanderia", label: "Lavanderia", title: "Lavanderia / Área de serviço",
     tagline: "Piso + faixa impermeável da área molhada",
-    hint: "Meça os dois lados do chão. O app calcula o piso e o azulejo da parte que molha. Ex.: 2,00 × 3,00.",
+    hint: "Meça os dois lados do chão. Ex.: 2,00 × 3,00.",
     example: { w: "2,00", l: "3,00" },
     compute(w, l){
       const piso = w*l, perim = 2*(w+l), faixa = perim*1.5, revest = piso+faixa;
@@ -1126,7 +1136,7 @@ const ROOMS = [
   {
     id: "varanda", label: "Varanda", title: "Varanda / Área externa",
     tagline: "Piso externo + impermeabilização",
-    hint: "Meça os dois lados do chão. O app calcula o piso antiderrapante e a impermeabilização. Ex.: 2,50 × 4,00.",
+    hint: "Meça os dois lados do chão. Ex.: 2,50 × 4,00.",
     example: { w: "2,50", l: "4,00" },
     compute(w, l){
       const area = w*l, perim = 2*(w+l);
@@ -1207,7 +1217,7 @@ const ROOMS = [
   {
     id: "escritorio", label: "Escritório", title: "Escritório / Home office",
     tagline: "Piso + pintura + pontos de tomada",
-    hint: "Meça os dois lados do chão. O app calcula piso, tinta e uma ideia de quantas tomadas. Ex.: 2,80 × 3,00.",
+    hint: "Meça os dois lados do chão. Ex.: 2,80 × 3,00.",
     example: { w: "2,80", l: "3,00" },
     compute(w, l){
       const piso = w*l, perim = 2*(w+l), parede = perim*CONFIG.peDireito;
@@ -1268,7 +1278,7 @@ const ROOMS = [
   {
     id: "corredor", label: "Corredor", title: "Corredor / Hall",
     tagline: "Pintura + piso + rodapé de passagem",
-    hint: "Meça a largura e o comprimento do corredor. O app calcula tinta, piso e rodapé dos dois lados. Ex.: 1,20 × 4,00.",
+    hint: "Meça a largura e o comprimento. Ex.: 1,20 × 4,00.",
     example: { w: "1,20", l: "4,00" },
     compute(w, l){
       const piso = w*l, perim = 2*(w+l), parede = perim*CONFIG.peDireito;
@@ -1503,7 +1513,8 @@ function budgetText(){
 /* Tela inicial: escolher o cômodo numa grade */
 function renderRoomGrid(){
   els.roomgrid.innerHTML = ROOMS.map(function (r){
-    return '<button class="roomcell" type="button" data-room="' + r.id + '">' + ICONS[r.id] + '<span>' + esc(r.label) + '</span></button>';
+    return '<button class="roomcell" type="button" data-room="' + r.id + '">' +
+      '<span class="ic">' + ICONS[r.id] + '</span><span>' + esc(r.label) + '</span></button>';
   }).join("");
 }
 function showHome(){
@@ -1536,12 +1547,12 @@ function renderRoom(){
   els.w.value = vals.w || "";
   els.l.value = vals.l || "";
   els.shopTitle.textContent = "Lista completa da obra · " + room.label;
-  els.shopIntro.textContent = "Toque numa etapa para abrir. Cada preço é de referência (" + PRECO.atualizadoEm + ") e por unidade — um saco, um rolo, uma peça. O preço de hoje está nos botões das lojas.";
+  els.shopIntro.textContent = "Toque numa etapa para abrir. Preço por unidade — o valor de hoje está nos botões das lojas.";
   const roomStages = (room.stages || []).filter((s) => s.itens !== ITENS.preparo && s.itens !== ITENS.limpeza);
   const stages = [
-    { etapa: "Preparo e proteção", nota: "Igual em toda reforma: proteja móveis e piso e separe as ferramentas.", itens: ITENS.preparo },
+    { etapa: "Preparo e proteção", nota: "Proteja móveis e piso; separe as ferramentas.", itens: ITENS.preparo },
   ].concat(roomStages, [
-    { etapa: "Limpeza pós-obra", nota: "Igual em toda reforma.", itens: ITENS.limpeza },
+    { etapa: "Limpeza pós-obra", itens: ITENS.limpeza },
   ]);
   CUR.prod = [];
   allStagesOpen = false;
@@ -1580,19 +1591,19 @@ function renderResult(animate){
   if (!(w > 0) || !(l > 0)){
     els.result.innerHTML =
       '<div class="result__hero"><span class="lbl">Resultado</span></div>' +
-      '<p class="result__empty">Preencha os dois lados do cômodo para ver o tamanho e os materiais. Não sabe medir? Toque em "me ajuda" acima.</p>';
+      '<p class="result__empty">Preencha os dois lados para ver o tamanho e os materiais.</p>';
     return;
   }
   const out = room.compute(w, l);
   const lines = out.lines.map(x => "<li><span>" + x.label + "</span><b>" + x.value + "</b></li>").join("");
   const summedNote = (store.summed && store.summed[room.id])
-    ? '<p class="result__note">Você somou as partes de um cômodo irregular. O <b>chão</b> (piso, argamassa, rejunte) está certo. Já <b>tinta e rodapé</b> ficam aproximados — meça a volta toda do cômodo com a trena e compre 10% a mais.</p>'
+    ? '<p class="result__note">Partes somadas: o <b>chão</b> está certo. <b>Tinta e rodapé</b> ficam aproximados — meça a volta toda e some 10%.</p>'
     : '';
   els.result.innerHTML =
     '<div class="result__hero"><span class="lbl">' + out.hero.unit + '</span>' +
     '<span class="big">' + out.hero.value + '<small>m²</small></span></div>' +
     '<ul class="result__list">' + lines + '</ul>' +
-    '<p class="result__note">Esse valor é uma estimativa. Na obra sempre sobra recorte e perda, então compre uns 10% a mais do que a conta mostra.</p>' +
+    '<p class="result__note">Estimativa. Compre 10% a mais para cobrir recortes e perdas.</p>' +
     summedNote;
   if (animate && !reduceMotion){
     els.result.classList.remove("is-updated");
@@ -1633,14 +1644,14 @@ function decorFromBase(item, st){
 function renderDecor(){
   const room = currentRoom(), st = currentStyle();
   els.decorTitle.textContent = "Decoração · " + room.label;
-  els.decorIntro.textContent = "Enfeites para " + room.label.toLowerCase() + " no estilo " + st.label.toLowerCase() + ". Troque o estilo e a lista muda inteira.";
+  els.decorIntro.textContent = "Enfeites de " + room.label.toLowerCase() + " · estilo " + st.label.toLowerCase() + ".";
   els.moodSwatches.innerHTML = st.swatches.map(c => '<i style="background:' + c + '"></i>').join("");
   els.moodText.textContent = st.blurb;
   const extra = (room.decorExtra || []).filter(e => (e.styles || []).indexOf(st.id) > -1);
   const base  = (room.decorBase || []).map(it => decorFromBase(it, st));
   const list  = extra.concat(base);
   CUR.decor = list;
-  els.decorCount.innerHTML = "<b>" + list.length + "</b> ideias de decoração neste estilo · só lojas online";
+  els.decorCount.innerHTML = "<b>" + list.length + "</b> ideias · só lojas online";
   els.decorList.innerHTML = list.map((p, i) => productRow(p, "decor", i)).join("");
 }
 
