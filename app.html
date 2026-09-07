@@ -1682,7 +1682,7 @@ function renderDecor(){
   els.moodText.textContent = st.blurb;
   const extra = (room.decorExtra || []).filter(e => (e.styles || []).indexOf(st.id) > -1);
   const base  = (room.decorBase || []).map(it => decorFromBase(it, st));
-  const list  = extra.concat(base).slice(0, 13);   // lista padrão: 13 ideias por estilo
+  const list  = extra.concat(base);
   CUR.decor = list;
   els.decorMeta.textContent = list.length + " ideias";
   els.decorCount.textContent = "Só nas lojas online — Shopee, Mercado Livre, Amazon.";
