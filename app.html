@@ -184,9 +184,9 @@
   .result__list li{display:flex;align-items:baseline;justify-content:space-between;gap:14px;font-size:13.5px}
   .result__list li span{color:var(--result-soft)}
   .result__list li b{font-weight:700;font-variant-numeric:tabular-nums;color:var(--flame);white-space:nowrap}
-  .result__actions{display:flex;flex-wrap:wrap;gap:7px;margin-top:14px;padding-top:12px;border-top:1px solid rgba(255,255,255,.12)}
-  .result__actions button{flex:1 1 92px;font:inherit;font-weight:800;font-size:12px;padding:9px 10px;border-radius:10px;cursor:pointer;border:1px solid rgba(255,255,255,.24);background:rgba(255,255,255,.07);color:var(--result-text)}
-  .result__actions button.pri{background:var(--flame);border-color:var(--flame);color:#1A2530;flex-basis:100%}
+  .result__actions{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:14px;padding-top:12px;border-top:1px solid rgba(255,255,255,.12)}
+  .result__actions button{width:100%;font:inherit;font-weight:800;font-size:12px;padding:10px;border-radius:10px;cursor:pointer;border:1px solid rgba(255,255,255,.24);background:rgba(255,255,255,.07);color:var(--result-text)}
+  .result__actions button.pri{grid-column:1 / -1;background:var(--flame);border-color:var(--flame);color:#1A2530}
   .result__actions button:focus-visible{outline:none;box-shadow:0 0 0 3px rgba(242,116,32,.55)}
   .result__note{margin:14px 0 0;font-size:11px;color:var(--result-soft);line-height:1.45}
   .result__note b{color:var(--result-text);font-weight:700}
@@ -342,9 +342,9 @@
   .budget__foot{margin-top:13px;display:flex;flex-direction:column;gap:11px}
   .budget__total{font-size:13px;color:var(--text-soft)}
   .budget__total b{font-family:"Sora","Figtree",sans-serif;font-weight:800;color:var(--flame-ink);font-variant-numeric:tabular-nums;font-size:15px}
-  .budget__actions{display:flex;flex-wrap:wrap;gap:8px}
-  .budget__actions button{flex:1 1 130px;font:inherit;font-weight:800;font-size:13px;padding:12px;border-radius:11px;border:none;background:var(--flame);color:#1A2530;cursor:pointer}
-  .budget__actions button.ghost{background:var(--surface);border:1px solid var(--border);color:var(--text-soft);flex-basis:90px}
+  .budget__actions{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .budget__actions button{width:100%;font:inherit;font-weight:800;font-size:13px;padding:12px 10px;border-radius:11px;border:none;background:var(--flame);color:#1A2530;cursor:pointer}
+  .budget__actions button.ghost{background:var(--surface);border:1px solid var(--border);color:var(--text-soft)}
   .budget__actions button:focus-visible{outline:none;box-shadow:var(--ring)}
 
   footer{margin-top:2px;font-size:11px;color:var(--text-soft);line-height:1.5}
@@ -464,9 +464,9 @@
       <div class="budget__foot">
         <div class="budget__total">Estimativa online: <b id="budgetTotal">—</b></div>
         <div class="budget__actions">
-          <button id="budgetWa" type="button">Enviar no WhatsApp</button>
-          <button id="budgetCopy" type="button">Copiar lista</button>
-          <button id="budgetMaps" type="button">Lojas perto de mim</button>
+          <button id="budgetWa" type="button">WhatsApp</button>
+          <button id="budgetCopy" type="button">Copiar</button>
+          <button id="budgetMaps" type="button">Lojas perto</button>
           <button id="budgetClear" type="button" class="ghost">Limpar</button>
         </div>
       </div>
