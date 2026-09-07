@@ -1,15 +1,15 @@
 <title>Reformei</title>
-<meta name="description" content="Calculadora de reforma por ambiente, com estilo de acabamento, orçamento e comparação de lojas." />
+<meta name="description" content="Calculadora de reforma por ambiente, com estilo de acabamento, orÃ§amento e comparaÃ§Ã£o de lojas." />
 <link rel="icon" type="image/png" href="favicon.png" />
 <link rel="apple-touch-icon" href="apple-touch-icon.png" />
 <meta name="theme-color" content="#1A2530" />
 <style>
-  /* ─────────────────────────────────────────────────────────────
-     REFORMEI · design tokens
-     Marca: azul #1A2530 · laranja #F27420 · bege #FAF6F0
+  /* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+     REFORMEI Â· design tokens
+     Marca: azul #1A2530 Â· laranja #F27420 Â· bege #FAF6F0
      Display: Sora (parente do wordmark arredondado da logo)
-     Texto/UI: Figtree · Números: tabular-nums
-     ───────────────────────────────────────────────────────────── */
+     Texto/UI: Figtree Â· NÃºmeros: tabular-nums
+     â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
   :root{
     --bg:#FAF6F0;
     --surface:#FFFFFF;
@@ -63,7 +63,7 @@
     box-shadow:0 0 80px -30px rgba(0,0,0,.25);
   }
 
-  /* ── Topo fixo: marca + navegação de ambientes ──────────────── */
+  /* â”€â”€ Topo fixo: marca + navegaÃ§Ã£o de ambientes â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
   .topwrap{position:sticky;top:0;z-index:20}
   .top{
     display:flex;align-items:center;justify-content:space-between;gap:12px;
@@ -110,7 +110,7 @@
   .rpill[aria-selected="true"]{background:var(--flame);border-color:var(--flame);color:#1A2530}
   .rpill:focus-visible{outline:none;box-shadow:var(--ring)}
 
-  /* ── Conteúdo ───────────────────────────────────────────────── */
+  /* â”€â”€ ConteÃºdo â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
   main{flex:1;padding:18px 16px 44px;display:flex;flex-direction:column;gap:16px}
   .lede{margin:0;font-size:13.5px;color:var(--text-soft);max-width:42ch}
 
@@ -123,7 +123,7 @@
   .room-head h2{margin:0;font-family:"Sora","Figtree",sans-serif;font-weight:700;font-size:19px;letter-spacing:-.015em;text-wrap:balance}
   .room-head p{margin:2px 0 0;font-size:12.5px;color:var(--text-soft)}
 
-  /* ── Card de formulário ─────────────────────────────────────── */
+  /* â”€â”€ Card de formulÃ¡rio â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
   .card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:16px;box-shadow:var(--shadow)}
   .fields{display:grid;grid-template-columns:1fr 1fr;gap:10px}
   .field label{display:block;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--text-soft);margin-bottom:6px}
@@ -141,7 +141,7 @@
   .calc-btn:active{transform:translateY(1px)}
   .calc-btn:focus-visible{outline:none;box-shadow:var(--ring)}
 
-  /* ── Bloco de resultados (azul da marca) ────────────────────── */
+  /* â”€â”€ Bloco de resultados (azul da marca) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
   .result{background:var(--result-bg);color:var(--result-text);border-radius:16px;padding:18px 16px 14px;box-shadow:var(--shadow)}
   .result.is-updated{animation:ping .6s ease-out}
   @keyframes ping{0%{box-shadow:0 0 0 0 rgba(242,116,32,.5)}100%{box-shadow:0 0 0 16px rgba(242,116,32,0)}}
@@ -157,7 +157,7 @@
   .result__note b{color:var(--result-text);font-weight:700}
   .result__empty{margin:6px 0 2px;font-size:14px;color:var(--result-soft)}
 
-  /* ── Vitrines ──────────────────────────────────────────────── */
+  /* â”€â”€ Vitrines â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
   .shop h3{margin:0 0 3px;font-family:"Sora","Figtree",sans-serif;font-weight:700;font-size:15px;display:flex;align-items:center;gap:8px}
   .shop h3::before{content:"";width:14px;height:3px;border-radius:2px;background:var(--flame)}
   .shop > p{margin:0 0 12px;font-size:12px;color:var(--text-soft)}
@@ -185,7 +185,7 @@
   .addbtn:focus-visible{outline:none;box-shadow:var(--ring)}
   .addbtn.is-added{border-style:solid;background:var(--flame);color:#1A2530}
 
-  /* ── Seletor de estilo + mood ──────────────────────────────── */
+  /* â”€â”€ Seletor de estilo + mood â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
   .stylenav{display:flex;gap:6px;overflow-x:auto;margin:2px 0 0;padding-bottom:5px;cursor:grab;scrollbar-width:thin;scrollbar-color:var(--border) transparent}
   .stylenav:active{cursor:grabbing}
   .stylenav::-webkit-scrollbar{height:5px}
@@ -206,7 +206,7 @@
   .decor-count{margin:0 0 10px;font-size:11px;color:var(--text-soft)}
   .decor-count b{color:var(--flame-ink);font-weight:800}
 
-  /* ── Etapas da obra (abre/fecha) ──────────────────────────── */
+  /* â”€â”€ Etapas da obra (abre/fecha) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
   .stages-toggle{
     display:block;width:100%;text-align:right;margin:6px 0 2px;
     font:inherit;font-weight:700;font-size:11.5px;color:var(--flame-ink);
@@ -230,7 +230,7 @@
   .stage__note{margin:0 0 10px;font-size:11.5px;color:var(--text-soft)}
   @media (prefers-reduced-motion: reduce){ .stage__chev{transition:none} }
 
-  /* ── "Como medir" — link + janela flutuante ───────────────── */
+  /* â”€â”€ "Como medir" â€” link + janela flutuante â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
   .howto-link{
     display:block;margin-top:10px;width:100%;text-align:left;text-decoration:none;
     font:inherit;font-weight:700;font-size:12px;
@@ -296,7 +296,7 @@
   .adder__use:focus-visible{outline:none;box-shadow:var(--ring)}
   .adder__note{margin:9px 0 0;font-size:10.5px;color:var(--text-soft);line-height:1.5}
 
-  /* ── Orçamento para a loja local ───────────────────────────── */
+  /* â”€â”€ OrÃ§amento para a loja local â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
   .budget__row{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:10px}
   .budget__qty{display:flex;align-items:center;gap:10px}
   .budget__qty button{width:30px;height:30px;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--text);font:inherit;font-size:16px;font-weight:700;cursor:pointer}
@@ -333,16 +333,16 @@
   <div class="topwrap">
     <header class="top">
       <div class="brand">
-        <img class="brand__logo" alt="" width="30" height="30" src="data:image/png;base64,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" />
+        <img class="brand__logo" alt="" width="30" height="30" src="data:image/png;base64,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" />
         <h1>Reform<span>ei</span></h1>
       </div>
-      <button class="theme" id="themeBtn" type="button" aria-label="Alternar tema claro e escuro">☾</button>
+      <button class="theme" id="themeBtn" type="button" aria-label="Alternar tema claro e escuro">â˜¾</button>
     </header>
     <nav class="roomnav" id="roomnav" role="tablist" aria-label="Ambientes"></nav>
   </div>
 
   <main>
-    <p class="lede">Descubra quanto material sua reforma vai precisar, cômodo por cômodo, e monte um orçamento pra comparar o preço nas lojas ou na casa de material perto de você.</p>
+    <p class="lede">Descubra quanto material sua reforma vai precisar, cÃ´modo por cÃ´modo, e monte um orÃ§amento pra comparar o preÃ§o nas lojas ou na casa de material perto de vocÃª.</p>
 
     <section class="room-head">
       <span class="ico" id="roomIco" aria-hidden="true"></span>
@@ -364,7 +364,7 @@
         </div>
       </div>
       <p class="hint" id="roomHint"></p>
-      <button class="howto-link" id="howtoBtn" type="button">📐 Não sei calcular os metros quadrados — me ajuda</button>
+      <button class="howto-link" id="howtoBtn" type="button">ðŸ“ NÃ£o sei calcular os metros quadrados â€” me ajuda</button>
       <button class="calc-btn" type="submit">
         <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="2.5" width="16" height="19" rx="2.5"/><path d="M8 7h8M8 12h3M8 16h3M15 12v5"/></svg>
         Calcular materiais
@@ -376,7 +376,7 @@
     <section class="shop">
       <h3 id="shopTitle"></h3>
       <p id="shopIntro"></p>
-      <a class="howto-link" id="localBtn" target="_blank" rel="noopener noreferrer">📍 Ver casas de material de construção perto de mim</a>
+      <a class="howto-link" id="localBtn" target="_blank" rel="noopener noreferrer">ðŸ“ Ver casas de material de construÃ§Ã£o perto de mim</a>
       <button class="stages-toggle" id="stagesToggle" type="button">Abrir todas as etapas</button>
       <div id="stagesWrap"></div>
     </section>
@@ -384,7 +384,7 @@
     <section class="shop">
       <h3 id="decorTitle"></h3>
       <p id="decorIntro"></p>
-      <div class="stylenav" id="stylenav" role="tablist" aria-label="Estilo de decoração"></div>
+      <div class="stylenav" id="stylenav" role="tablist" aria-label="Estilo de decoraÃ§Ã£o"></div>
       <div class="mood">
         <span class="swatches" id="moodSwatches" aria-hidden="true"></span>
         <p id="moodText"></p>
@@ -394,11 +394,11 @@
     </section>
 
     <section class="shop" id="budgetSec" hidden>
-      <h3>Meu orçamento para a loja</h3>
-      <p>Junte os itens que quiser, ajuste as quantidades e leve — ou mande pelo WhatsApp — para a casa de material de construção perto de você pedir o preço fechado.</p>
+      <h3>Meu orÃ§amento para a loja</h3>
+      <p>Junte os itens que quiser, ajuste as quantidades e leve â€” ou mande pelo WhatsApp â€” para a casa de material de construÃ§Ã£o perto de vocÃª pedir o preÃ§o fechado.</p>
       <div class="prod-list" id="budgetList"></div>
       <div class="budget__foot">
-        <div class="budget__total">Estimativa online: <b id="budgetTotal">—</b></div>
+        <div class="budget__total">Estimativa online: <b id="budgetTotal">â€”</b></div>
         <div class="budget__actions">
           <button id="budgetCopy" type="button">Copiar lista</button>
           <button id="budgetMaps" type="button">Lojas perto de mim</button>
@@ -408,7 +408,7 @@
     </section>
 
     <footer>
-      Este app usa links de afiliado: se você comprar pelas lojas, o Reformei pode receber uma pequena comissão, sem custo a mais pra você. Como Associado da Amazon, o Reformei recebe por compras qualificadas. As lojas online abrem em nova aba com a busca do produto; "perto de mim" abre o mapa com casas de material de construção. Preços de referência de <span id="precoData">setembro de 2026</span> — variam por região; some cerca de 10% de folga.
+      Este app usa links de afiliado: se vocÃª comprar pelas lojas, o Reformei pode receber uma pequena comissÃ£o, sem custo a mais pra vocÃª. Como Associado da Amazon, o Reformei recebe por compras qualificadas. As lojas online abrem em nova aba com a busca do produto; "perto de mim" abre o mapa com casas de material de construÃ§Ã£o. PreÃ§os de referÃªncia de <span id="precoData">setembro de 2026</span> â€” variam por regiÃ£o; some cerca de 10% de folga.
     </footer>
   </main>
 
@@ -417,11 +417,11 @@
     <div class="modal__card" role="dialog" aria-modal="true" aria-labelledby="howtoTitle">
       <div class="modal__head">
         <h3 id="howtoTitle">Como descobrir os metros quadrados</h3>
-        <button class="modal__x" id="howtoClose" type="button" aria-label="Fechar">×</button>
+        <button class="modal__x" id="howtoClose" type="button" aria-label="Fechar">Ã—</button>
       </div>
       <div class="modal__body">
 
-        <p class="mstep-intro">Metro quadrado (m²) é o tamanho do chão do cômodo. É com ele que o app calcula quanto piso, tinta, argamassa e rodapé você vai precisar comprar.<br /><br />Pegue uma trena (ou fita métrica) e anote tudo <b>em metros</b>. Se a trena marcar 350 cm, escreva <b>3,5</b>. Meça cada distância <b>duas vezes</b> pra ter certeza. Não precisa ficar perfeito: na dúvida, arredonde pra cima.</p>
+        <p class="mstep-intro">Metro quadrado (mÂ²) Ã© o tamanho do chÃ£o do cÃ´modo. Ã‰ com ele que o app calcula quanto piso, tinta, argamassa e rodapÃ© vocÃª vai precisar comprar.<br /><br />Pegue uma trena (ou fita mÃ©trica) e anote tudo <b>em metros</b>. Se a trena marcar 350 cm, escreva <b>3,5</b>. MeÃ§a cada distÃ¢ncia <b>duas vezes</b> pra ter certeza. NÃ£o precisa ficar perfeito: na dÃºvida, arredonde pra cima.</p>
 
         <div class="mstep">
           <svg viewBox="0 0 72 56" aria-hidden="true">
@@ -430,8 +430,8 @@
             <text class="lbl" x="8" y="30" transform="rotate(-90 8 30)">o outro</text>
           </svg>
           <div>
-            <h4>Cômodo de paredes retas</h4>
-            <p>Meça <b>um lado</b> do chão e depois <b>o outro lado</b>. Digite os dois números no app — ele multiplica pra você. Exemplo: 3 metros de um lado e 4 do outro dão <b>12 m²</b>.</p>
+            <h4>CÃ´modo de paredes retas</h4>
+            <p>MeÃ§a <b>um lado</b> do chÃ£o e depois <b>o outro lado</b>. Digite os dois nÃºmeros no app â€” ele multiplica pra vocÃª. Exemplo: 3 metros de um lado e 4 do outro dÃ£o <b>12 mÂ²</b>.</p>
           </div>
         </div>
 
@@ -443,8 +443,8 @@
             <text class="lbl" x="49" y="42">B</text>
           </svg>
           <div>
-            <h4>Cômodo em "L" ou com uma dobra na parede</h4>
-            <p>Quando o cômodo não é um retângulo só, faça um desenho dele no papel e <b>corte em pedaços retos</b>. Meça cada pedaço, veja quantos m² dá e <b>some tudo</b>.<br />Exemplo: pedaço A = 3 × 4 = 12 m². Pedaço B = 2 × 2,5 = 5 m². Total = <b>17 m²</b>. O somador aqui embaixo faz essa conta.</p>
+            <h4>CÃ´modo em "L" ou com uma dobra na parede</h4>
+            <p>Quando o cÃ´modo nÃ£o Ã© um retÃ¢ngulo sÃ³, faÃ§a um desenho dele no papel e <b>corte em pedaÃ§os retos</b>. MeÃ§a cada pedaÃ§o, veja quantos mÂ² dÃ¡ e <b>some tudo</b>.<br />Exemplo: pedaÃ§o A = 3 Ã— 4 = 12 mÂ². PedaÃ§o B = 2 Ã— 2,5 = 5 mÂ². Total = <b>17 mÂ²</b>. O somador aqui embaixo faz essa conta.</p>
           </div>
         </div>
 
@@ -454,8 +454,8 @@
             <rect x="44" y="26" width="14" height="19" fill="var(--flame)" stroke="none"/>
           </svg>
           <div>
-            <h4>Coluna, pilar ou armário fixo ocupando o chão</h4>
-            <p>Se for <b>grande</b> (mais de meio metro de cada lado), meça como um retângulo e <b>tire esses m²</b> da conta. Se for <b>pequeno</b>, pode deixar pra lá: vai sobrar um pouco de material — e sobrar é melhor que faltar.</p>
+            <h4>Coluna, pilar ou armÃ¡rio fixo ocupando o chÃ£o</h4>
+            <p>Se for <b>grande</b> (mais de meio metro de cada lado), meÃ§a como um retÃ¢ngulo e <b>tire esses mÂ²</b> da conta. Se for <b>pequeno</b>, pode deixar pra lÃ¡: vai sobrar um pouco de material â€” e sobrar Ã© melhor que faltar.</p>
           </div>
         </div>
 
@@ -465,7 +465,7 @@
           </svg>
           <div>
             <h4>Parede que entra ou que sai (degrau, recuo)</h4>
-            <p>Se um pedaço da parede faz um degrau, meça esse pedacinho separado, como se fosse outro retângulo. Se ele <b>aumenta</b> o chão, some. Se ele <b>diminui</b>, tire da conta.</p>
+            <p>Se um pedaÃ§o da parede faz um degrau, meÃ§a esse pedacinho separado, como se fosse outro retÃ¢ngulo. Se ele <b>aumenta</b> o chÃ£o, some. Se ele <b>diminui</b>, tire da conta.</p>
           </div>
         </div>
 
@@ -476,7 +476,7 @@
           </svg>
           <div>
             <h4>Parede torta (na diagonal)</h4>
-            <p>Meça o <b>maior retângulo reto que couber</b> e anote. O cantinho que sobra é um triângulo: meça como retângulo e conte <b>só a metade</b>. Some as duas partes.<br />Se ficar confuso, meça o retângulo inteiro sem tirar nada. Você compra um pouco a mais e não corre risco de faltar.</p>
+            <p>MeÃ§a o <b>maior retÃ¢ngulo reto que couber</b> e anote. O cantinho que sobra Ã© um triÃ¢ngulo: meÃ§a como retÃ¢ngulo e conte <b>sÃ³ a metade</b>. Some as duas partes.<br />Se ficar confuso, meÃ§a o retÃ¢ngulo inteiro sem tirar nada. VocÃª compra um pouco a mais e nÃ£o corre risco de faltar.</p>
           </div>
         </div>
 
@@ -488,18 +488,18 @@
           </svg>
           <div>
             <h4>E as paredes, pra calcular a tinta?</h4>
-            <p>Pra tinta o que conta é a parede, não o chão — e o app já faz sozinho. Ele soma o tamanho de todas as paredes, multiplica pela altura (2,40 m, do chão ao teto) e conta <b>duas mãos de tinta</b>. Você não precisa medir a parede nem descontar portas e janelas pequenas.</p>
+            <p>Pra tinta o que conta Ã© a parede, nÃ£o o chÃ£o â€” e o app jÃ¡ faz sozinho. Ele soma o tamanho de todas as paredes, multiplica pela altura (2,40 m, do chÃ£o ao teto) e conta <b>duas mÃ£os de tinta</b>. VocÃª nÃ£o precisa medir a parede nem descontar portas e janelas pequenas.</p>
           </div>
         </div>
 
         <div class="adder">
           <h4>Somador de partes</h4>
-          <p>Cômodo em L, com dobra ou recuo? Meça cada pedaço reto, coloque a largura e o comprimento aqui, e o app soma tudo.</p>
+          <p>CÃ´modo em L, com dobra ou recuo? MeÃ§a cada pedaÃ§o reto, coloque a largura e o comprimento aqui, e o app soma tudo.</p>
           <div id="adderRows"></div>
-          <button class="adder__addbtn" id="adderAdd" type="button">+ Adicionar pedaço</button>
-          <div class="adder__total">Soma de tudo: <b id="adderTotal">0,00 m²</b></div>
-          <button class="adder__use" id="adderUse" type="button" disabled>Usar esse tamanho no cálculo</button>
-          <p class="adder__note">Isso preenche o tamanho do chão. Pra <b>tinta de parede</b>, é melhor medir com a trena a volta toda do cômodo e comprar 10% a mais, por segurança.</p>
+          <button class="adder__addbtn" id="adderAdd" type="button">+ Adicionar pedaÃ§o</button>
+          <div class="adder__total">Soma de tudo: <b id="adderTotal">0,00 mÂ²</b></div>
+          <button class="adder__use" id="adderUse" type="button" disabled>Usar esse tamanho no cÃ¡lculo</button>
+          <p class="adder__note">Isso preenche o tamanho do chÃ£o. Pra <b>tinta de parede</b>, Ã© melhor medir com a trena a volta toda do cÃ´modo e comprar 10% a mais, por seguranÃ§a.</p>
         </div>
 
       </div>
@@ -508,29 +508,29 @@
 </div>
 
 <script>
-/* ════════════════════════════════════════════════════════════════
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
    REFORMEI
-   ────────────────────────────────────────────────────────────────
-   1) TAGS DE AFILIADO · edite só o campo params de cada loja para monetizar.
+   â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+   1) TAGS DE AFILIADO Â· edite sÃ³ o campo params de cada loja para monetizar.
       O link final = search + termo + params.
       - Amazon: tag fixa funciona. params: "&tag=SEUID-20" (Amazon Associados).
-      - Mercado Livre: NÃO tem tag única. Gere um link de busca no painel de
+      - Mercado Livre: NÃƒO tem tag Ãºnica. Gere um link de busca no painel de
         Afiliados e copie o sufixo, ex.: params: "?matt_word=SEUID&matt_tool=SEUID".
-      - Shopee: NÃO tem tag única. Gere um link no painel de Afiliados (Custom
+      - Shopee: NÃƒO tem tag Ãºnica. Gere um link no painel de Afiliados (Custom
         Link) e copie o sufixo, ex.: params: "&af_id=SEUID".
-      Os 3 programas exigem cadastro e aprovação antes. Aviso de afiliado já
-      está no rodapé (exigido pela Amazon).
-   ════════════════════════════════════════════════════════════════ */
+      Os 3 programas exigem cadastro e aprovaÃ§Ã£o antes. Aviso de afiliado jÃ¡
+      estÃ¡ no rodapÃ© (exigido pela Amazon).
+   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 const AFFILIATE = {
   shopee:       { label: "Shopee",        search: "https://shopee.com.br/search?keyword=", params: "" },
   mercadolivre: { label: "Merc. Livre",   search: "https://lista.mercadolivre.com.br/",    params: "?matt_word=iz20260906191615749&matt_tool=30552940&forceInApp=true" },
   amazon:       { label: "Amazon",        search: "https://www.amazon.com.br/s?k=",        params: "&tag=reformei04-20" },
 };
-// Casa de material de construção física — abre o mapa na localização do aparelho.
+// Casa de material de construÃ§Ã£o fÃ­sica â€” abre o mapa na localizaÃ§Ã£o do aparelho.
 const LOCAL_STORE = {
-  label: "📍 Perto de mim",
+  label: "ðŸ“ Perto de mim",
   maps: "https://www.google.com/maps/search/?api=1&query=",
-  termo: "materiais de construção",
+  termo: "materiais de construÃ§Ã£o",
 };
 function linkAfiliado(loja, termo){
   const cfg = AFFILIATE[loja];
@@ -541,25 +541,25 @@ function linkLojaLocal(termo){
   return LOCAL_STORE.maps + encodeURIComponent(LOCAL_STORE.termo + (termo ? " " + termo : ""));
 }
 
-/* ────────────────────────────────────────────────────────────────
-   2) PARÂMETROS DE CÁLCULO
-   ──────────────────────────────────────────────────────────────── */
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+   2) PARÃ‚METROS DE CÃLCULO
+   â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 const CONFIG = {
   peDireito: 2.4, argamassaPorM2: 4, rejuntePorM2: 0.5,
   tintaRendPorLitro: 10, demaos: 2, galaoLitros: 3.6, lataGrandeLitros: 18,
   caixaPisoM2: 2.0, vaoPorta: 0.8,
 };
 const nf   = (n, d = 2) => Number(n).toLocaleString("pt-BR", { minimumFractionDigits: 0, maximumFractionDigits: d });
-const m2   = (n) => nf(n, 2) + " m²";
+const m2   = (n) => nf(n, 2) + " mÂ²";
 const ml   = (n) => nf(n, 2) + " m";
 const ceil = Math.ceil;
 
-/* ────────────────────────────────────────────────────────────────
-   PREÇOS · são de referência, não valor de tabela.
-   Para reajustar TODOS de uma vez (inflação): mude "reajuste".
-     1.0  = como está    ·    1.08 = sobe 8%    ·    0.95 = baixa 5%
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+   PREÃ‡OS Â· sÃ£o de referÃªncia, nÃ£o valor de tabela.
+   Para reajustar TODOS de uma vez (inflaÃ§Ã£o): mude "reajuste".
+     1.0  = como estÃ¡    Â·    1.08 = sobe 8%    Â·    0.95 = baixa 5%
    Para ajuste fino, edite o item na lista (ITENS ou dentro de stages).
-   ──────────────────────────────────────────────────────────────── */
+   â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 const PRECO = { atualizadoEm: "setembro de 2026", reajuste: 1.0 };
 function ajustaPreco(str){
   if (PRECO.reajuste === 1) return str;
@@ -570,10 +570,10 @@ function ajustaPreco(str){
     return v.toLocaleString("pt-BR");
   });
 }
-/* Preços vindos do banco de dados do artefato (editáveis pelo chat, sem
+/* PreÃ§os vindos do banco de dados do artefato (editÃ¡veis pelo chat, sem
    republicar). Documento: precos/tabela = { atualizadoEm, reajuste, overrides }.
-   overrides é opcional e mapeia a busca do item -> preço, ex.:
-     { "cimento cp2 50kg": "R$ 34–46" }. Item sem override usa o preço do código. */
+   overrides Ã© opcional e mapeia a busca do item -> preÃ§o, ex.:
+     { "cimento cp2 50kg": "R$ 34â€“46" }. Item sem override usa o preÃ§o do cÃ³digo. */
 let PRICE_OVERRIDES = {};
 function priceFor(item){
   if (item){
@@ -584,35 +584,35 @@ function priceFor(item){
   return "";
 }
 
-/* ────────────────────────────────────────────────────────────────
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
    3) ESTILOS DE ACABAMENTO
-   swatches → paleta de referência (não é a cor do app)
-   traço    → como o estilo "veste" cada enfeite genérico:
+   swatches â†’ paleta de referÃªncia (nÃ£o Ã© a cor do app)
+   traÃ§o    â†’ como o estilo "veste" cada enfeite genÃ©rico:
               q2   sufixo que entra no nome do produto
               kw   palavras extras na busca da loja
-              mult fator no preço médio
-   ──────────────────────────────────────────────────────────────── */
+              mult fator no preÃ§o mÃ©dio
+   â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 const STYLES = [
-  { id: "contemporaneo", label: "Contemporâneo",
+  { id: "contemporaneo", label: "ContemporÃ¢neo",
     swatches: ["#2E3A46", "#8A94A0", "#D9D2C7", "#C98B5A"],
     blurb: "Neutros quentes, linhas limpas, LED escondido e um ponto de cor.",
     q2: "moderno", kw: "moderno cinza madeira clean", mult: 1.15 },
   { id: "minimalista", label: "Minimalista",
     swatches: ["#F3F1EC", "#D8D3C9", "#A7A197", "#1A1A1A"],
-    blurb: "Branco, off-white e preto. Poucas peças, tudo com função.",
+    blurb: "Branco, off-white e preto. Poucas peÃ§as, tudo com funÃ§Ã£o.",
     q2: "branco minimalista", kw: "branco minimalista sem moldura liso", mult: 1.0 },
   { id: "industrial", label: "Industrial",
     swatches: ["#2B2B2B", "#6E6E6E", "#A9744F", "#3A4A3F"],
-    blurb: "Cimento, metal preto, cano aparente e lâmpada à mostra.",
+    blurb: "Cimento, metal preto, cano aparente e lÃ¢mpada Ã  mostra.",
     q2: "de metal preto", kw: "industrial ferro preto cano aparente", mult: 1.1 },
   { id: "americano", label: "Estilo americano",
     swatches: ["#EAE3D6", "#34506B", "#B23A2E", "#C8A15A"],
-    blurb: "Móvel clássico com puxador, madeira, azul-marinho e boiserie.",
-    q2: "clássico", kw: "classico provencal puxador retro", mult: 1.4 },
-  { id: "rustico", label: "Rústico",
+    blurb: "MÃ³vel clÃ¡ssico com puxador, madeira, azul-marinho e boiserie.",
+    q2: "clÃ¡ssico", kw: "classico provencal puxador retro", mult: 1.4 },
+  { id: "rustico", label: "RÃºstico",
     swatches: ["#6B4A2F", "#A9783F", "#D9C4A3", "#4B5B3F"],
-    blurb: "Madeira de demolição, ferro forjado, barro e fibra.",
-    q2: "rústico de madeira", kw: "rustico madeira demolicao ferro forjado", mult: 1.0 },
+    blurb: "Madeira de demoliÃ§Ã£o, ferro forjado, barro e fibra.",
+    q2: "rÃºstico de madeira", kw: "rustico madeira demolicao ferro forjado", mult: 1.0 },
   { id: "escandinavo", label: "Escandinavo",
     swatches: ["#FFFFFF", "#E9E4DC", "#C9B79C", "#9AB0A5"],
     blurb: "Madeira clara, branco, fibra natural e muita luz.",
@@ -623,14 +623,14 @@ const STYLES = [
     q2: "colorido / divertido", kw: "colorido divertido estampado geek", mult: 0.9 },
 ];
 
-/* ────────────────────────────────────────────────────────────────
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
    4) AMBIENTES
-   compute(w,l)  → { hero:{value,unit}, lines:[{label,value}] }
-   stages[]      → etapas da obra em ordem: { etapa, nota?, itens:[...] }
-   decorBase[]   → categorias de enfeite (o "o quê"); cada estilo
-                   as transforma em produto (nome + preço + busca)
-   decorExtra[]  → peças assinatura, presas a estilos específicos
-   ──────────────────────────────────────────────────────────────── */
+   compute(w,l)  â†’ { hero:{value,unit}, lines:[{label,value}] }
+   stages[]      â†’ etapas da obra em ordem: { etapa, nota?, itens:[...] }
+   decorBase[]   â†’ categorias de enfeite (o "o quÃª"); cada estilo
+                   as transforma em produto (nome + preÃ§o + busca)
+   decorExtra[]  â†’ peÃ§as assinatura, presas a estilos especÃ­ficos
+   â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 const ICONS = {
   banheiro:   '<svg viewBox="0 0 24 24"><path d="M12 3s6 6.4 6 10.8A6 6 0 0 1 6 13.8C6 9.4 12 3 12 3z"/></svg>',
   quarto:     '<svg viewBox="0 0 24 24"><path d="M3 18v-6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v6"/><path d="M3 15h18"/><path d="M7 10V8h4v2"/><path d="M3 18v2M21 18v2"/></svg>',
@@ -643,113 +643,113 @@ const ICONS = {
   livre:      '<svg viewBox="0 0 24 24"><rect x="2" y="8" width="20" height="8" rx="1.5"/><path d="M6 8v3M10 8v4M14 8v3M18 8v4"/></svg>',
 };
 
-/* Blocos de material reaproveitados nas etapas de obra (edite à vontade) */
+/* Blocos de material reaproveitados nas etapas de obra (edite Ã  vontade) */
 const ITENS = {
   preparo: [
-    { name: "Kit EPI (luva, óculos, máscara, protetor auricular)", price: "R$ 30–70", q: "kit epi obra luva oculos mascara", eco: true },
-    { name: "Lona plástica de proteção (rolo 4×5 m)",  price: "R$ 20–45", q: "lona plastica protecao obra 4x5", eco: true },
-    { name: "Marreta + talhadeira / ponteiro",         price: "R$ 40–90", q: "marreta talhadeira ponteiro", eco: true },
-    { name: "Sacos para entulho (fardo)",              price: "R$ 25–55", q: "saco para entulho rafia fardo", eco: true },
-    { name: "Espátula + desempenadeira",               price: "R$ 20–50", q: "espatula desempenadeira aco", eco: true },
+    { name: "Kit EPI (luva, Ã³culos, mÃ¡scara, protetor auricular)", price: "R$ 30â€“70", q: "kit epi obra luva oculos mascara", eco: true },
+    { name: "Lona plÃ¡stica de proteÃ§Ã£o (rolo 4Ã—5 m)",  price: "R$ 20â€“45", q: "lona plastica protecao obra 4x5", eco: true },
+    { name: "Marreta + talhadeira / ponteiro",         price: "R$ 40â€“90", q: "marreta talhadeira ponteiro", eco: true },
+    { name: "Sacos para entulho (fardo)",              price: "R$ 25â€“55", q: "saco para entulho rafia fardo", eco: true },
+    { name: "EspÃ¡tula + desempenadeira",               price: "R$ 20â€“50", q: "espatula desempenadeira aco", eco: true },
   ],
   eletrica: [
-    { name: "Cabo flexível 2,5 mm² (rolo 100 m)",       price: "R$ 180–330", q: "cabo flexivel 2,5mm 100 metros" },
-    { name: "Cabo flexível 1,5 mm² (rolo 100 m)",       price: "R$ 120–240", q: "cabo flexivel 1,5mm 100 metros" },
-    { name: "Eletroduto corrugado / conduíte (rolo)",   price: "R$ 25–60",   q: "conduite corrugado eletroduto rolo", eco: true },
-    { name: "Caixas de luz 4×2 e 4×4 (kit)",            price: "R$ 15–40",   q: "caixa de luz 4x2 4x4 kit", eco: true },
-    { name: "Tomadas + interruptores com placas (kit)", price: "R$ 45–120",  q: "kit tomada interruptor com placa" },
-    { name: "Disjuntores + interruptor DR",             price: "R$ 60–170",  q: "disjuntor dr protecao" },
-    { name: "Quadro de distribuição de embutir",        price: "R$ 45–120",  q: "quadro distribuicao embutir" },
-    { name: "Fita isolante + conectores de emenda",     price: "R$ 15–35",   q: "fita isolante conector emenda", eco: true },
+    { name: "Cabo flexÃ­vel 2,5 mmÂ² (rolo 100 m)",       price: "R$ 180â€“330", q: "cabo flexivel 2,5mm 100 metros" },
+    { name: "Cabo flexÃ­vel 1,5 mmÂ² (rolo 100 m)",       price: "R$ 120â€“240", q: "cabo flexivel 1,5mm 100 metros" },
+    { name: "Eletroduto corrugado / conduÃ­te (rolo)",   price: "R$ 25â€“60",   q: "conduite corrugado eletroduto rolo", eco: true },
+    { name: "Caixas de luz 4Ã—2 e 4Ã—4 (kit)",            price: "R$ 15â€“40",   q: "caixa de luz 4x2 4x4 kit", eco: true },
+    { name: "Tomadas + interruptores com placas (kit)", price: "R$ 45â€“120",  q: "kit tomada interruptor com placa" },
+    { name: "Disjuntores + interruptor DR",             price: "R$ 60â€“170",  q: "disjuntor dr protecao" },
+    { name: "Quadro de distribuiÃ§Ã£o de embutir",        price: "R$ 45â€“120",  q: "quadro distribuicao embutir" },
+    { name: "Fita isolante + conectores de emenda",     price: "R$ 15â€“35",   q: "fita isolante conector emenda", eco: true },
   ],
   eletricaPonto: [
-    { name: "Cabo flexível 2,5 mm² (rolo 50 m)",        price: "R$ 95–170", q: "cabo flexivel 2,5mm 50 metros" },
-    { name: "Eletroduto corrugado / conduíte (rolo)",   price: "R$ 25–60",  q: "conduite corrugado eletroduto rolo", eco: true },
-    { name: "Caixas de luz 4×2 (kit)",                  price: "R$ 10–25",  q: "caixa de luz 4x2 kit", eco: true },
-    { name: "Tomadas + interruptores com placas (kit)", price: "R$ 40–100", q: "kit tomada interruptor com placa" },
-    { name: "Fita isolante + conectores",               price: "R$ 12–28",  q: "fita isolante conector emenda", eco: true },
+    { name: "Cabo flexÃ­vel 2,5 mmÂ² (rolo 50 m)",        price: "R$ 95â€“170", q: "cabo flexivel 2,5mm 50 metros" },
+    { name: "Eletroduto corrugado / conduÃ­te (rolo)",   price: "R$ 25â€“60",  q: "conduite corrugado eletroduto rolo", eco: true },
+    { name: "Caixas de luz 4Ã—2 (kit)",                  price: "R$ 10â€“25",  q: "caixa de luz 4x2 kit", eco: true },
+    { name: "Tomadas + interruptores com placas (kit)", price: "R$ 40â€“100", q: "kit tomada interruptor com placa" },
+    { name: "Fita isolante + conectores",               price: "R$ 12â€“28",  q: "fita isolante conector emenda", eco: true },
   ],
   hidraulica: [
-    { name: "Tubos e conexões de água fria PVC 25 mm (kit)", price: "R$ 60–150", q: "tubo conexao pvc soldavel 25mm kit" },
-    { name: "Tubos e conexões de esgoto 40 / 50 / 100 mm",   price: "R$ 70–180", q: "tubo conexao esgoto 40 50 100mm" },
-    { name: "Registros de gaveta e de pressão + canopla",    price: "R$ 55–140", q: "registro gaveta pressao canopla acabamento" },
-    { name: "Adesivo plástico PVC + fita veda-rosca",        price: "R$ 15–35",  q: "adesivo plastico pvc fita veda rosca", eco: true },
-    { name: "Engates flexíveis (kit)",                       price: "R$ 20–50",  q: "engate flexivel kit", eco: true },
-    { name: "Ralo / caixa sifonada",                         price: "R$ 25–60",  q: "ralo caixa sifonada", eco: true },
+    { name: "Tubos e conexÃµes de Ã¡gua fria PVC 25 mm (kit)", price: "R$ 60â€“150", q: "tubo conexao pvc soldavel 25mm kit" },
+    { name: "Tubos e conexÃµes de esgoto 40 / 50 / 100 mm",   price: "R$ 70â€“180", q: "tubo conexao esgoto 40 50 100mm" },
+    { name: "Registros de gaveta e de pressÃ£o + canopla",    price: "R$ 55â€“140", q: "registro gaveta pressao canopla acabamento" },
+    { name: "Adesivo plÃ¡stico PVC + fita veda-rosca",        price: "R$ 15â€“35",  q: "adesivo plastico pvc fita veda rosca", eco: true },
+    { name: "Engates flexÃ­veis (kit)",                       price: "R$ 20â€“50",  q: "engate flexivel kit", eco: true },
+    { name: "Ralo / caixa sifonada",                         price: "R$ 25â€“60",  q: "ralo caixa sifonada", eco: true },
   ],
   hidraulicaLeve: [
-    { name: "Tubos e conexões de água fria PVC 25 mm (kit)", price: "R$ 50–130", q: "tubo conexao pvc soldavel 25mm kit" },
-    { name: "Tubos e conexões de esgoto 40 / 50 mm",        price: "R$ 45–110", q: "tubo conexao esgoto 40 50mm" },
-    { name: "Registro + adesivo PVC + veda-rosca",          price: "R$ 40–90",  q: "registro adesivo pvc veda rosca", eco: true },
-    { name: "Engate flexível + sifão + válvula",            price: "R$ 30–70",  q: "engate flexivel sifao valvula pia" },
-    { name: "Ralo sifonado",                                price: "R$ 20–50",  q: "ralo sifonado", eco: true },
+    { name: "Tubos e conexÃµes de Ã¡gua fria PVC 25 mm (kit)", price: "R$ 50â€“130", q: "tubo conexao pvc soldavel 25mm kit" },
+    { name: "Tubos e conexÃµes de esgoto 40 / 50 mm",        price: "R$ 45â€“110", q: "tubo conexao esgoto 40 50mm" },
+    { name: "Registro + adesivo PVC + veda-rosca",          price: "R$ 40â€“90",  q: "registro adesivo pvc veda rosca", eco: true },
+    { name: "Engate flexÃ­vel + sifÃ£o + vÃ¡lvula",            price: "R$ 30â€“70",  q: "engate flexivel sifao valvula pia" },
+    { name: "Ralo sifonado",                                price: "R$ 20â€“50",  q: "ralo sifonado", eco: true },
   ],
   regularizacao: [
-    { name: "Cimento CP-II 50 kg",                     price: "R$ 30–42",  q: "cimento cp2 50kg", eco: true },
-    { name: "Cal hidratada 20 kg",                     price: "R$ 14–26",  q: "cal hidratada 20kg", eco: true },
-    { name: "Areia média (m³ ou sacos)",              price: "R$ 120–220", q: "areia media lavada m3" },
-    { name: "Argamassa de assentamento / reboco pronto", price: "R$ 18–30", q: "argamassa multiuso assentamento reboco", eco: true },
-    { name: "Chapisco rolado pronto (saco)",          price: "R$ 22–36",  q: "chapisco rolado pronto saco", eco: true },
+    { name: "Cimento CP-II 50 kg",                     price: "R$ 30â€“42",  q: "cimento cp2 50kg", eco: true },
+    { name: "Cal hidratada 20 kg",                     price: "R$ 14â€“26",  q: "cal hidratada 20kg", eco: true },
+    { name: "Areia mÃ©dia (mÂ³ ou sacos)",              price: "R$ 120â€“220", q: "areia media lavada m3" },
+    { name: "Argamassa de assentamento / reboco pronto", price: "R$ 18â€“30", q: "argamassa multiuso assentamento reboco", eco: true },
+    { name: "Chapisco rolado pronto (saco)",          price: "R$ 22â€“36",  q: "chapisco rolado pronto saco", eco: true },
   ],
   impermeabilizacao: [
-    { name: "Impermeabilizante flexível (balde 4 kg)", price: "R$ 60–120", q: "impermeabilizante flexivel balde 4kg" },
-    { name: "Tela de poliéster para reforço (rolo)",   price: "R$ 20–45",  q: "tela poliester impermeabilizacao rolo", eco: true },
-    { name: "Fita / banda para cantos e ralos",        price: "R$ 25–55",  q: "fita veda canto ralo impermeabilizacao", eco: true },
+    { name: "Impermeabilizante flexÃ­vel (balde 4 kg)", price: "R$ 60â€“120", q: "impermeabilizante flexivel balde 4kg" },
+    { name: "Tela de poliÃ©ster para reforÃ§o (rolo)",   price: "R$ 20â€“45",  q: "tela poliester impermeabilizacao rolo", eco: true },
+    { name: "Fita / banda para cantos e ralos",        price: "R$ 25â€“55",  q: "fita veda canto ralo impermeabilizacao", eco: true },
   ],
   revParede: [
-    { name: "Azulejo / revestimento de parede (m²)",   price: "R$ 30–55/m²", q: "azulejo revestimento parede" },
-    { name: "Argamassa colante AC-II (saco 20 kg)",    price: "R$ 18–30",    q: "argamassa colante ac2 20kg", eco: true },
-    { name: "Rejunte impermeável (kg)",               price: "R$ 12–28",    q: "rejunte impermeavel", eco: true },
-    { name: "Espaçadores + cunhas niveladoras (kit)",  price: "R$ 15–40",    q: "espacador cunha nivelador piso kit", eco: true },
-    { name: "Cantoneira / perfil de arremate",        price: "R$ 12–30",    q: "cantoneira perfil arremate acabamento", eco: true },
+    { name: "Azulejo / revestimento de parede (mÂ²)",   price: "R$ 30â€“55/mÂ²", q: "azulejo revestimento parede" },
+    { name: "Argamassa colante AC-II (saco 20 kg)",    price: "R$ 18â€“30",    q: "argamassa colante ac2 20kg", eco: true },
+    { name: "Rejunte impermeÃ¡vel (kg)",               price: "R$ 12â€“28",    q: "rejunte impermeavel", eco: true },
+    { name: "EspaÃ§adores + cunhas niveladoras (kit)",  price: "R$ 15â€“40",    q: "espacador cunha nivelador piso kit", eco: true },
+    { name: "Cantoneira / perfil de arremate",        price: "R$ 12â€“30",    q: "cantoneira perfil arremate acabamento", eco: true },
   ],
   revPiso: [
-    { name: "Piso cerâmico / porcelanato (m²)",        price: "R$ 30–55/m²", q: "piso ceramico porcelanato" },
-    { name: "Argamassa colante AC-III (saco 20 kg)",   price: "R$ 24–38",    q: "argamassa colante ac3 20kg", eco: true },
-    { name: "Rejunte (kg)",                           price: "R$ 10–26",    q: "rejunte", eco: true },
-    { name: "Espaçadores + cunhas niveladoras (kit)",  price: "R$ 15–40",    q: "espacador cunha nivelador piso kit", eco: true },
+    { name: "Piso cerÃ¢mico / porcelanato (mÂ²)",        price: "R$ 30â€“55/mÂ²", q: "piso ceramico porcelanato" },
+    { name: "Argamassa colante AC-III (saco 20 kg)",   price: "R$ 24â€“38",    q: "argamassa colante ac3 20kg", eco: true },
+    { name: "Rejunte (kg)",                           price: "R$ 10â€“26",    q: "rejunte", eco: true },
+    { name: "EspaÃ§adores + cunhas niveladoras (kit)",  price: "R$ 15â€“40",    q: "espacador cunha nivelador piso kit", eco: true },
   ],
   pisoLaminado: [
-    { name: "Piso laminado / vinílico clicado (caixa ~2 m²)", price: "R$ 70–120", q: "piso laminado vinilico clicado caixa" },
-    { name: "Manta acústica / EVA de nivelamento (rolo)",     price: "R$ 25–55",  q: "manta acustica eva piso laminado rolo", eco: true },
-    { name: "Rodapé + cola / prego de acabamento",            price: "R$ 20–40",  q: "rodape poliestireno barra cola", eco: true },
-    { name: "Perfil de transição / redutor de piso",          price: "R$ 15–35",  q: "perfil transicao redutor piso", eco: true },
+    { name: "Piso laminado / vinÃ­lico clicado (caixa ~2 mÂ²)", price: "R$ 70â€“120", q: "piso laminado vinilico clicado caixa" },
+    { name: "Manta acÃºstica / EVA de nivelamento (rolo)",     price: "R$ 25â€“55",  q: "manta acustica eva piso laminado rolo", eco: true },
+    { name: "RodapÃ© + cola / prego de acabamento",            price: "R$ 20â€“40",  q: "rodape poliestireno barra cola", eco: true },
+    { name: "Perfil de transiÃ§Ã£o / redutor de piso",          price: "R$ 15â€“35",  q: "perfil transicao redutor piso", eco: true },
   ],
   esquadrias: [
-    { name: "Janela de alumínio com vidro (medir o vão)",  price: "R$ 150–420", q: "janela aluminio com vidro correr" },
-    { name: "Vidro para reposição / troca (m²)",           price: "R$ 90–170/m²", q: "vidro comum canelado reposicao m2" },
-    { name: "Porta + batente + dobradiças (kit)",          price: "R$ 220–420",  q: "kit porta batente dobradica" },
-    { name: "Fechadura + maçaneta",                        price: "R$ 45–120",   q: "fechadura macaneta porta" },
-    { name: "Silicone + espuma expansiva (spray)",         price: "R$ 25–55",    q: "silicone espuma expansiva spray", eco: true },
+    { name: "Janela de alumÃ­nio com vidro (medir o vÃ£o)",  price: "R$ 150â€“420", q: "janela aluminio com vidro correr" },
+    { name: "Vidro para reposiÃ§Ã£o / troca (mÂ²)",           price: "R$ 90â€“170/mÂ²", q: "vidro comum canelado reposicao m2" },
+    { name: "Porta + batente + dobradiÃ§as (kit)",          price: "R$ 220â€“420",  q: "kit porta batente dobradica" },
+    { name: "Fechadura + maÃ§aneta",                        price: "R$ 45â€“120",   q: "fechadura macaneta porta" },
+    { name: "Silicone + espuma expansiva (spray)",         price: "R$ 25â€“55",    q: "silicone espuma expansiva spray", eco: true },
   ],
   janelaPequena: [
-    { name: "Janela basculante de alumínio 40×40 cm (com vidro)", price: "R$ 90–180", q: "janela basculante aluminio 40x40 com vidro" },
-    { name: "Vidro canelado / fantasia para reposição",          price: "R$ 40–110", q: "vidro canelado fantasia reposicao" },
-    { name: "Grade de proteção para janela pequena",             price: "R$ 60–150", q: "grade protecao janela pequena", eco: true },
-    { name: "Silicone + espuma expansiva",                       price: "R$ 25–55",  q: "silicone espuma expansiva janela", eco: true },
+    { name: "Janela basculante de alumÃ­nio 40Ã—40 cm (com vidro)", price: "R$ 90â€“180", q: "janela basculante aluminio 40x40 com vidro" },
+    { name: "Vidro canelado / fantasia para reposiÃ§Ã£o",          price: "R$ 40â€“110", q: "vidro canelado fantasia reposicao" },
+    { name: "Grade de proteÃ§Ã£o para janela pequena",             price: "R$ 60â€“150", q: "grade protecao janela pequena", eco: true },
+    { name: "Silicone + espuma expansiva",                       price: "R$ 25â€“55",  q: "silicone espuma expansiva janela", eco: true },
   ],
   forro: [
-    { name: "Forro de PVC (m²)",                       price: "R$ 25–45/m²", q: "forro pvc m2" },
-    { name: "Perfis, cantoneira e roda-forro (m)",     price: "R$ 8–18",     q: "perfil roda forro pvc metro" },
-    { name: "Parafusos + buchas de fixação (kit)",     price: "R$ 12–30",    q: "parafuso bucha fixacao forro kit", eco: true },
+    { name: "Forro de PVC (mÂ²)",                       price: "R$ 25â€“45/mÂ²", q: "forro pvc m2" },
+    { name: "Perfis, cantoneira e roda-forro (m)",     price: "R$ 8â€“18",     q: "perfil roda forro pvc metro" },
+    { name: "Parafusos + buchas de fixaÃ§Ã£o (kit)",     price: "R$ 12â€“30",    q: "parafuso bucha fixacao forro kit", eco: true },
   ],
   pintura: [
-    { name: "Fundo preparador / selador (galão 3,6 L)",  price: "R$ 45–90", q: "fundo preparador selador acrilico 3,6 litros", eco: true },
-    { name: "Massa corrida 25 kg (parede interna seca)", price: "R$ 35–55", q: "massa corrida 25kg", eco: true },
-    { name: "Massa acrílica 25 kg (área úmida / externa)", price: "R$ 55–90", q: "massa acrilica 25kg" },
-    { name: "Lixa para parede grão 120 e 220 (pacote)", price: "R$ 12–26", q: "lixa parede 120 220 pacote", eco: true },
-    { name: "Fita crepe + lona de proteção",            price: "R$ 18–40", q: "fita crepe lona protecao pintura", eco: true },
-    { name: "Kit rolo antigota + bandeja + trincha",    price: "R$ 30–60", q: "kit rolo bandeja trincha pintura", eco: true },
+    { name: "Fundo preparador / selador (galÃ£o 3,6 L)",  price: "R$ 45â€“90", q: "fundo preparador selador acrilico 3,6 litros", eco: true },
+    { name: "Massa corrida 25 kg (parede interna seca)", price: "R$ 35â€“55", q: "massa corrida 25kg", eco: true },
+    { name: "Massa acrÃ­lica 25 kg (Ã¡rea Ãºmida / externa)", price: "R$ 55â€“90", q: "massa acrilica 25kg" },
+    { name: "Lixa para parede grÃ£o 120 e 220 (pacote)", price: "R$ 12â€“26", q: "lixa parede 120 220 pacote", eco: true },
+    { name: "Fita crepe + lona de proteÃ§Ã£o",            price: "R$ 18â€“40", q: "fita crepe lona protecao pintura", eco: true },
+    { name: "Kit rolo antigota + bandeja + trincha",    price: "R$ 30â€“60", q: "kit rolo bandeja trincha pintura", eco: true },
   ],
   iluminacao: [
-    { name: "Luminária de teto / plafon LED",          price: "R$ 40–110", q: "plafon luminaria teto led" },
-    { name: "Lâmpadas LED (kit)",                      price: "R$ 25–60",  q: "kit lampada led", eco: true },
-    { name: "Placas / espelhos de tomada e interruptor", price: "R$ 12–30", q: "placa espelho tomada interruptor", eco: true },
+    { name: "LuminÃ¡ria de teto / plafon LED",          price: "R$ 40â€“110", q: "plafon luminaria teto led" },
+    { name: "LÃ¢mpadas LED (kit)",                      price: "R$ 25â€“60",  q: "kit lampada led", eco: true },
+    { name: "Placas / espelhos de tomada e interruptor", price: "R$ 12â€“30", q: "placa espelho tomada interruptor", eco: true },
   ],
   limpeza: [
-    { name: "Limpa pós-obra / removedor de respingos", price: "R$ 20–45", q: "limpa pos obra removedor respingo cimento", eco: true },
-    { name: "Rodo + vassoura + panos (kit)",           price: "R$ 30–60", q: "kit rodo vassoura pano limpeza", eco: true },
-    { name: "Sacos de lixo reforçados 100 L (rolo)",   price: "R$ 15–30", q: "saco lixo reforcado 100 litros", eco: true },
+    { name: "Limpa pÃ³s-obra / removedor de respingos", price: "R$ 20â€“45", q: "limpa pos obra removedor respingo cimento", eco: true },
+    { name: "Rodo + vassoura + panos (kit)",           price: "R$ 30â€“60", q: "kit rodo vassoura pano limpeza", eco: true },
+    { name: "Sacos de lixo reforÃ§ados 100 L (rolo)",   price: "R$ 15â€“30", q: "saco lixo reforcado 100 litros", eco: true },
   ],
 };
 
@@ -757,64 +757,64 @@ const ROOMS = [
   {
     id: "banheiro", label: "Banheiro", title: "Banheiro",
     tagline: "Piso + azulejo em todas as paredes",
-    hint: "Meça os dois lados do chão. O app calcula o piso e os azulejos de todas as paredes. Ex.: 1,60 × 2,20.",
+    hint: "MeÃ§a os dois lados do chÃ£o. O app calcula o piso e os azulejos de todas as paredes. Ex.: 1,60 Ã— 2,20.",
     example: { w: "1,60", l: "2,20" },
     compute(w, l){
       const piso = w*l, perim = 2*(w+l), parede = perim*CONFIG.peDireito, revest = piso+parede;
-      return { hero: { value: nf(piso,2), unit: "Área de piso" }, lines: [
-        { label: "Azulejo de parede (pé-direito 2,4 m)", value: m2(parede) },
-        { label: "Argamassa AC-II (saco 20 kg · ~4 m²)", value: nf(ceil(revest/CONFIG.argamassaPorM2),0)+" sacos" },
-        { label: "Piso cerâmico (caixa ~2 m²)",          value: nf(ceil(piso/CONFIG.caixaPisoM2),0)+" caixas" },
+      return { hero: { value: nf(piso,2), unit: "Ãrea de piso" }, lines: [
+        { label: "Azulejo de parede (pÃ©-direito 2,4 m)", value: m2(parede) },
+        { label: "Argamassa AC-II (saco 20 kg Â· ~4 mÂ²)", value: nf(ceil(revest/CONFIG.argamassaPorM2),0)+" sacos" },
+        { label: "Piso cerÃ¢mico (caixa ~2 mÂ²)",          value: nf(ceil(piso/CONFIG.caixaPisoM2),0)+" caixas" },
         { label: "Rejunte",                              value: nf(ceil(revest*CONFIG.rejuntePorM2),0)+" kg" },
       ]};
     },
     stages: [
-      { etapa: "Preparo e demolição", itens: ITENS.preparo },
-      { etapa: "Hidráulica", nota: "Refazer pontos de água fria/quente e esgoto do vaso, pia e chuveiro.", itens: [
+      { etapa: "Preparo e demoliÃ§Ã£o", itens: ITENS.preparo },
+      { etapa: "HidrÃ¡ulica", nota: "Refazer pontos de Ã¡gua fria/quente e esgoto do vaso, pia e chuveiro.", itens: [
         ...ITENS.hidraulica,
-        { name: "Kit de fixação do vaso (anel de vedação, parafusos, tubo de ligação)", price: "R$ 20–45", q: "kit fixacao vaso anel vedacao", eco: true },
+        { name: "Kit de fixaÃ§Ã£o do vaso (anel de vedaÃ§Ã£o, parafusos, tubo de ligaÃ§Ã£o)", price: "R$ 20â€“45", q: "kit fixacao vaso anel vedacao", eco: true },
       ]},
-      { etapa: "Elétrica", nota: "Ponto reforçado para o chuveiro e tomada de área molhada.", itens: [
+      { etapa: "ElÃ©trica", nota: "Ponto reforÃ§ado para o chuveiro e tomada de Ã¡rea molhada.", itens: [
         ...ITENS.eletricaPonto,
-        { name: "Ponto de chuveiro: cabo 4 mm² + disjuntor 40 A", price: "R$ 60–130", q: "cabo 4mm disjuntor 40a chuveiro" },
+        { name: "Ponto de chuveiro: cabo 4 mmÂ² + disjuntor 40 A", price: "R$ 60â€“130", q: "cabo 4mm disjuntor 40a chuveiro" },
       ]},
-      { etapa: "Impermeabilização", nota: "Piso, box e primeira fiada da parede antes do revestimento.", itens: ITENS.impermeabilizacao },
+      { etapa: "ImpermeabilizaÃ§Ã£o", nota: "Piso, box e primeira fiada da parede antes do revestimento.", itens: ITENS.impermeabilizacao },
       { etapa: "Revestimento de parede (azulejo)", itens: ITENS.revParede },
       { etapa: "Revestimento de piso", itens: ITENS.revPiso },
       { etapa: "Esquadrias (janela de vidro pequena + porta)", itens: [
         ...ITENS.janelaPequena,
-        { name: "Porta de banheiro + batente + fechadura (kit)", price: "R$ 200–360", q: "kit porta banheiro batente fechadura" },
+        { name: "Porta de banheiro + batente + fechadura (kit)", price: "R$ 200â€“360", q: "kit porta banheiro batente fechadura" },
       ]},
-      { etapa: "Louças e metais", itens: [
-        { name: "Vaso sanitário com caixa acoplada", price: "R$ 300–380", q: "vaso sanitario caixa acoplada" },
-        { name: "Cuba / lavatório + coluna ou gabinete", price: "R$ 90–320", q: "cuba lavatorio coluna gabinete banheiro" },
-        { name: "Torneira para lavatório", price: "R$ 35–80", q: "torneira lavatorio banheiro", eco: true },
-        { name: "Chuveiro elétrico 5500 W", price: "R$ 80–130", q: "chuveiro eletrico 5500w" },
-        { name: "Ducha higiênica com registro", price: "R$ 45–90", q: "ducha higienica com registro", eco: true },
-        { name: "Kit de acessórios (papeleira, saboneteira, toalheiro)", price: "R$ 45–90", q: "kit acessorios banheiro 5 pecas", eco: true },
-        { name: "Assento sanitário", price: "R$ 30–55", q: "assento sanitario oval", eco: true },
+      { etapa: "LouÃ§as e metais", itens: [
+        { name: "Vaso sanitÃ¡rio com caixa acoplada", price: "R$ 300â€“380", q: "vaso sanitario caixa acoplada" },
+        { name: "Cuba / lavatÃ³rio + coluna ou gabinete", price: "R$ 90â€“320", q: "cuba lavatorio coluna gabinete banheiro" },
+        { name: "Torneira para lavatÃ³rio", price: "R$ 35â€“80", q: "torneira lavatorio banheiro", eco: true },
+        { name: "Chuveiro elÃ©trico 5500 W", price: "R$ 80â€“130", q: "chuveiro eletrico 5500w" },
+        { name: "Ducha higiÃªnica com registro", price: "R$ 45â€“90", q: "ducha higienica com registro", eco: true },
+        { name: "Kit de acessÃ³rios (papeleira, saboneteira, toalheiro)", price: "R$ 45â€“90", q: "kit acessorios banheiro 5 pecas", eco: true },
+        { name: "Assento sanitÃ¡rio", price: "R$ 30â€“55", q: "assento sanitario oval", eco: true },
       ]},
-      { etapa: "Forro (opcional)", nota: "Comum em banheiro para esconder a fiação e o encanamento.", itens: ITENS.forro },
+      { etapa: "Forro (opcional)", nota: "Comum em banheiro para esconder a fiaÃ§Ã£o e o encanamento.", itens: ITENS.forro },
       { etapa: "Pintura", itens: [
         ...ITENS.pintura,
-        { name: "Tinta acrílica acetinada lavável 3,6 L (antimofo)", price: "R$ 60–110", q: "tinta acrilica acetinada lavavel antimofo 3,6 litros" },
+        { name: "Tinta acrÃ­lica acetinada lavÃ¡vel 3,6 L (antimofo)", price: "R$ 60â€“110", q: "tinta acrilica acetinada lavavel antimofo 3,6 litros" },
       ]},
-      { etapa: "Iluminação", itens: [
+      { etapa: "IluminaÃ§Ã£o", itens: [
         ...ITENS.iluminacao,
-        { name: "Spot de embutir LED à prova d'água (kit)", price: "R$ 55–110", q: "spot embutir led prova dagua kit" },
+        { name: "Spot de embutir LED Ã  prova d'Ã¡gua (kit)", price: "R$ 55â€“110", q: "spot embutir led prova dagua kit" },
       ]},
-      { etapa: "Limpeza pós-obra", itens: ITENS.limpeza },
+      { etapa: "Limpeza pÃ³s-obra", itens: ITENS.limpeza },
     ],
     decorBase: [
       { base: "Espelho",                        q: "espelho banheiro",                 price: [80, 240] },
       { base: "Toalheiro de parede",            q: "toalheiro parede banheiro",        price: [25, 100] },
       { base: "Kit saboneteira + porta-escova", q: "kit saboneteira porta escova banheiro", price: [25, 90] },
-      { base: "Porta-papel higiênico",          q: "porta papel higienico banheiro",   price: [15, 55] },
+      { base: "Porta-papel higiÃªnico",          q: "porta papel higienico banheiro",   price: [15, 55] },
       { base: "Tapete de banheiro",             q: "tapete banheiro antiderrapante",   price: [20, 80] },
       { base: "Cortina de box",                 q: "cortina box banheiro",             price: [25, 90] },
       { base: "Nicho / prateleira de box",      q: "nicho prateleira box banheiro",    price: [25, 95] },
       { base: "Quadro / placa decorativa",      q: "quadro placa decorativa banheiro", price: [15, 80] },
-      { base: "Luminária de teto",              q: "luminaria teto banheiro",          price: [40, 150] },
+      { base: "LuminÃ¡ria de teto",              q: "luminaria teto banheiro",          price: [40, 150] },
       { base: "Cesto para roupa suja",          q: "cesto roupa suja banheiro",        price: [40, 130] },
       { base: "Organizador de pia / bancada",   q: "organizador pia bancada banheiro", price: [20, 70] },
       { base: "Kit de ganchos de parede",       q: "kit gancho parede banheiro",       price: [12, 45] },
@@ -823,449 +823,449 @@ const ROOMS = [
       { base: "Espelho de aumento de bancada",  q: "espelho aumento bancada banheiro", price: [30, 90] },
     ],
     decorExtra: [
-      { name: "Jogo de toalhas em formato de fruta / coco", price: "R$ 40–90", q: "jogo toalha divertida formato fruta coco", styles: ["divertido"], eco: true },
-      { name: "Quadro releitura da Monalisa (divertida)",   price: "R$ 30–80", q: "quadro releitura monalisa divertido banheiro", styles: ["divertido"] },
-      { name: "Tapete que muda de cor com a água",          price: "R$ 25–60", q: "tapete banheiro muda de cor com agua", styles: ["divertido"], eco: true },
-      { name: "Bancada de madeira maciça para cuba (m linear)", price: "R$ 200–380/m", q: "bancada madeira macica cuba banheiro", styles: ["rustico"] },
-      { name: "Espelheira com LED touch antiembaçante",     price: "R$ 180–350", q: "espelheira led touch antiembacante banheiro", styles: ["contemporaneo", "minimalista"] },
-      { name: "Gabinete com pés torneados e puxador de metal", price: "R$ 320–580", q: "gabinete banheiro pes torneados classico", styles: ["americano"] },
+      { name: "Jogo de toalhas em formato de fruta / coco", price: "R$ 40â€“90", q: "jogo toalha divertida formato fruta coco", styles: ["divertido"], eco: true },
+      { name: "Quadro releitura da Monalisa (divertida)",   price: "R$ 30â€“80", q: "quadro releitura monalisa divertido banheiro", styles: ["divertido"] },
+      { name: "Tapete que muda de cor com a Ã¡gua",          price: "R$ 25â€“60", q: "tapete banheiro muda de cor com agua", styles: ["divertido"], eco: true },
+      { name: "Bancada de madeira maciÃ§a para cuba (m linear)", price: "R$ 200â€“380/m", q: "bancada madeira macica cuba banheiro", styles: ["rustico"] },
+      { name: "Espelheira com LED touch antiembaÃ§ante",     price: "R$ 180â€“350", q: "espelheira led touch antiembacante banheiro", styles: ["contemporaneo", "minimalista"] },
+      { name: "Gabinete com pÃ©s torneados e puxador de metal", price: "R$ 320â€“580", q: "gabinete banheiro pes torneados classico", styles: ["americano"] },
     ],
   },
   {
     id: "quarto", label: "Quarto", title: "Quarto",
-    tagline: "Piso + tinta de parede + rodapé",
-    hint: "Meça os dois lados do chão. O app calcula o piso, a tinta das paredes e o rodapé. Ex.: 3,00 × 3,50.",
+    tagline: "Piso + tinta de parede + rodapÃ©",
+    hint: "MeÃ§a os dois lados do chÃ£o. O app calcula o piso, a tinta das paredes e o rodapÃ©. Ex.: 3,00 Ã— 3,50.",
     example: { w: "3,00", l: "3,50" },
     compute(w, l){
       const piso = w*l, perim = 2*(w+l), parede = perim*CONFIG.peDireito;
       const litros = parede*CONFIG.demaos/CONFIG.tintaRendPorLitro;
       const rodape = Math.max(0, perim - CONFIG.vaoPorta);
-      return { hero: { value: nf(piso,2), unit: "Área de piso" }, lines: [
-        { label: "Parede para pintura (2 demãos)",         value: m2(parede) },
-        { label: "Tinta (galão 3,6 L)",                    value: nf(ceil(litros/CONFIG.galaoLitros),0)+" galões" },
-        { label: "Piso laminado / vinílico (caixa ~2 m²)", value: nf(ceil(piso/CONFIG.caixaPisoM2),0)+" caixas" },
-        { label: "Rodapé",                                 value: ml(rodape)+" lineares" },
+      return { hero: { value: nf(piso,2), unit: "Ãrea de piso" }, lines: [
+        { label: "Parede para pintura (2 demÃ£os)",         value: m2(parede) },
+        { label: "Tinta (galÃ£o 3,6 L)",                    value: nf(ceil(litros/CONFIG.galaoLitros),0)+" galÃµes" },
+        { label: "Piso laminado / vinÃ­lico (caixa ~2 mÂ²)", value: nf(ceil(piso/CONFIG.caixaPisoM2),0)+" caixas" },
+        { label: "RodapÃ©",                                 value: ml(rodape)+" lineares" },
       ]};
     },
     stages: [
       { etapa: "Preparo", itens: ITENS.preparo },
-      { etapa: "Elétrica", nota: "Pontos de tomada, ponto de TV e ponto para ar-condicionado.", itens: [
+      { etapa: "ElÃ©trica", nota: "Pontos de tomada, ponto de TV e ponto para ar-condicionado.", itens: [
         ...ITENS.eletricaPonto,
-        { name: "Ponto de ar-condicionado: cabo + disjuntor + tomada 20 A", price: "R$ 60–140", q: "ponto ar condicionado cabo disjuntor tomada 20a" },
+        { name: "Ponto de ar-condicionado: cabo + disjuntor + tomada 20 A", price: "R$ 60â€“140", q: "ponto ar condicionado cabo disjuntor tomada 20a" },
       ]},
       { etapa: "Esquadrias (janela + porta)", itens: ITENS.esquadrias },
-      { etapa: "Piso", nota: "Piso flutuante não usa argamassa — vai sobre a manta.", itens: ITENS.pisoLaminado },
+      { etapa: "Piso", nota: "Piso flutuante nÃ£o usa argamassa â€” vai sobre a manta.", itens: ITENS.pisoLaminado },
       { etapa: "Forro (opcional)", itens: ITENS.forro },
       { etapa: "Pintura", itens: [
         ...ITENS.pintura,
-        { name: "Tinta látex / acrílica 18 L (quarto)", price: "R$ 150–260", q: "tinta latex acrilica 18 litros quarto" },
+        { name: "Tinta lÃ¡tex / acrÃ­lica 18 L (quarto)", price: "R$ 150â€“260", q: "tinta latex acrilica 18 litros quarto" },
       ]},
-      { etapa: "Iluminação", itens: ITENS.iluminacao },
-      { etapa: "Limpeza pós-obra", itens: ITENS.limpeza },
+      { etapa: "IluminaÃ§Ã£o", itens: ITENS.iluminacao },
+      { etapa: "Limpeza pÃ³s-obra", itens: ITENS.limpeza },
     ],
     decorBase: [
       { base: "Quadro / painel decorativo",       q: "quadro painel decorativo quarto",     price: [25, 140] },
-      { base: "Par de luminárias de cabeceira",   q: "abajur luminaria cabeceira par quarto", price: [60, 220] },
+      { base: "Par de luminÃ¡rias de cabeceira",   q: "abajur luminaria cabeceira par quarto", price: [60, 220] },
       { base: "Tapete de quarto",                 q: "tapete quarto",                       price: [70, 260] },
-      { base: "Cortina blackout (m²)",            q: "cortina blackout quarto",             price: [50, 140] },
+      { base: "Cortina blackout (mÂ²)",            q: "cortina blackout quarto",             price: [50, 140] },
       { base: "Painel de cabeceira",              q: "cabeceira painel cama casal",         price: [150, 400] },
       { base: "Cesto organizador de roupa",       q: "cesto organizador roupa quarto",      price: [30, 110] },
       { base: "Prateleira de parede",             q: "prateleira parede quarto",            price: [30, 110] },
       { base: "Cabideiro / arara de roupa",       q: "cabideiro arara roupa quarto",        price: [40, 150] },
       { base: "Espelho de corpo inteiro",         q: "espelho corpo inteiro quarto",        price: [90, 260] },
       { base: "Porta-joias / organizador",        q: "porta joias organizador quarto",      price: [25, 90] },
-      { base: "Manta para o pé da cama",          q: "manta xale pe da cama",               price: [40, 150] },
-      { base: "Luminária decorativa de parede",   q: "luminaria arandela decorativa parede quarto", price: [20, 70] },
+      { base: "Manta para o pÃ© da cama",          q: "manta xale pe da cama",               price: [40, 150] },
+      { base: "LuminÃ¡ria decorativa de parede",   q: "luminaria arandela decorativa parede quarto", price: [20, 70] },
       { base: "Puff / banqueta",                  q: "puff banqueta quarto",                price: [90, 260] },
       { base: "Suporte de TV suspenso",           q: "suporte rack tv suspenso quarto",     price: [90, 260] },
       { base: "Kit de almofadas decorativas",     q: "kit almofadas decorativas quarto",    price: [50, 150] },
     ],
     decorExtra: [
-      { name: "Letreiro de neon LED (nome ou frase)",  price: "R$ 80–220", q: "neon led personalizado quarto", styles: ["divertido"] },
-      { name: "Luminária projetor de galáxia",         price: "R$ 60–130", q: "luminaria projetor galaxia estrelas quarto", styles: ["divertido"], eco: true },
-      { name: "Dossel / mosquiteiro decorativo",       price: "R$ 70–180", q: "dossel mosquiteiro decorativo cama", styles: ["divertido", "escandinavo", "rustico"] },
-      { name: "Cabeceira capitonê com peseira",        price: "R$ 400–800", q: "cabeceira capitone peseira cama casal", styles: ["americano"] },
-      { name: "Cabeceira de madeira de demolição",     price: "R$ 180–360", q: "cabeceira madeira demolicao quarto", styles: ["rustico", "industrial"] },
+      { name: "Letreiro de neon LED (nome ou frase)",  price: "R$ 80â€“220", q: "neon led personalizado quarto", styles: ["divertido"] },
+      { name: "LuminÃ¡ria projetor de galÃ¡xia",         price: "R$ 60â€“130", q: "luminaria projetor galaxia estrelas quarto", styles: ["divertido"], eco: true },
+      { name: "Dossel / mosquiteiro decorativo",       price: "R$ 70â€“180", q: "dossel mosquiteiro decorativo cama", styles: ["divertido", "escandinavo", "rustico"] },
+      { name: "Cabeceira capitonÃª com peseira",        price: "R$ 400â€“800", q: "cabeceira capitone peseira cama casal", styles: ["americano"] },
+      { name: "Cabeceira de madeira de demoliÃ§Ã£o",     price: "R$ 180â€“360", q: "cabeceira madeira demolicao quarto", styles: ["rustico", "industrial"] },
     ],
   },
   {
     id: "cozinha", label: "Cozinha", title: "Cozinha",
     tagline: "Piso resistente + revestimento da pia",
-    hint: "Meça os dois lados do chão. O app calcula o piso e uma faixa de azulejo acima da pia. Ex.: 2,40 × 3,20.",
+    hint: "MeÃ§a os dois lados do chÃ£o. O app calcula o piso e uma faixa de azulejo acima da pia. Ex.: 2,40 Ã— 3,20.",
     example: { w: "2,40", l: "3,20" },
     compute(w, l){
       const piso = w*l, perim = 2*(w+l), faixa = perim*0.6, revest = piso+faixa;
-      return { hero: { value: nf(piso,2), unit: "Área de piso" }, lines: [
+      return { hero: { value: nf(piso,2), unit: "Ãrea de piso" }, lines: [
         { label: "Revestimento de parede (faixa 60 cm)",  value: m2(faixa) },
-        { label: "Porcelanato de piso (caixa ~2 m²)",     value: nf(ceil(piso/CONFIG.caixaPisoM2),0)+" caixas" },
-        { label: "Argamassa AC-III (saco 20 kg · ~4 m²)", value: nf(ceil(revest/CONFIG.argamassaPorM2),0)+" sacos" },
+        { label: "Porcelanato de piso (caixa ~2 mÂ²)",     value: nf(ceil(piso/CONFIG.caixaPisoM2),0)+" caixas" },
+        { label: "Argamassa AC-III (saco 20 kg Â· ~4 mÂ²)", value: nf(ceil(revest/CONFIG.argamassaPorM2),0)+" sacos" },
         { label: "Rejunte",                               value: nf(ceil(revest*CONFIG.rejuntePorM2),0)+" kg" },
       ]};
     },
     stages: [
-      { etapa: "Preparo e demolição", itens: ITENS.preparo },
-      { etapa: "Hidráulica", nota: "Pontos da pia e, se houver, da máquina de lavar louça e do filtro.", itens: [
+      { etapa: "Preparo e demoliÃ§Ã£o", itens: ITENS.preparo },
+      { etapa: "HidrÃ¡ulica", nota: "Pontos da pia e, se houver, da mÃ¡quina de lavar louÃ§a e do filtro.", itens: [
         ...ITENS.hidraulicaLeve,
-        { name: "Ponto de água e esgoto para máquina de lavar louça (opcional)", price: "R$ 30–70", q: "ponto agua esgoto maquina lavar louca" },
+        { name: "Ponto de Ã¡gua e esgoto para mÃ¡quina de lavar louÃ§a (opcional)", price: "R$ 30â€“70", q: "ponto agua esgoto maquina lavar louca" },
       ]},
-      { etapa: "Elétrica", nota: "Circuito de 20 A separado para as tomadas de bancada (micro-ondas, air fryer).", itens: [
+      { etapa: "ElÃ©trica", nota: "Circuito de 20 A separado para as tomadas de bancada (micro-ondas, air fryer).", itens: [
         ...ITENS.eletrica,
-        { name: "Circuito 20 A para tomadas de bancada (cabo 4 mm²)", price: "R$ 40–90", q: "cabo 4mm circuito 20a cozinha" },
+        { name: "Circuito 20 A para tomadas de bancada (cabo 4 mmÂ²)", price: "R$ 40â€“90", q: "cabo 4mm circuito 20a cozinha" },
       ]},
       { etapa: "Revestimento de parede (faixa da pia)", itens: ITENS.revParede },
       { etapa: "Revestimento de piso", itens: ITENS.revPiso },
       { etapa: "Esquadrias (janela + porta)", itens: ITENS.esquadrias },
-      { etapa: "Louças, metais e marcenaria", itens: [
-        { name: "Cuba de inox (simples ou dupla)", price: "R$ 90–180", q: "cuba inox cozinha simples dupla" },
-        { name: "Torneira de cozinha", price: "R$ 55–95", q: "torneira cozinha parede", eco: true },
-        { name: "Gabinete / balcão para a pia", price: "R$ 250–500", q: "gabinete balcao pia cozinha" },
-        { name: "Sifão duplo + válvula para pia", price: "R$ 25–45", q: "sifao duplo valvula pia cozinha", eco: true },
-        { name: "Bancada / tampo (granito, inox ou pré-moldado) — m linear", price: "R$ 200–400/m", q: "bancada tampo cozinha granito pre moldado" },
+      { etapa: "LouÃ§as, metais e marcenaria", itens: [
+        { name: "Cuba de inox (simples ou dupla)", price: "R$ 90â€“180", q: "cuba inox cozinha simples dupla" },
+        { name: "Torneira de cozinha", price: "R$ 55â€“95", q: "torneira cozinha parede", eco: true },
+        { name: "Gabinete / balcÃ£o para a pia", price: "R$ 250â€“500", q: "gabinete balcao pia cozinha" },
+        { name: "SifÃ£o duplo + vÃ¡lvula para pia", price: "R$ 25â€“45", q: "sifao duplo valvula pia cozinha", eco: true },
+        { name: "Bancada / tampo (granito, inox ou prÃ©-moldado) â€” m linear", price: "R$ 200â€“400/m", q: "bancada tampo cozinha granito pre moldado" },
       ]},
       { etapa: "Forro (opcional)", itens: ITENS.forro },
       { etapa: "Pintura", itens: [
         ...ITENS.pintura,
-        { name: "Tinta acrílica lavável 3,6 L (cozinha)", price: "R$ 55–100", q: "tinta acrilica lavavel 3,6 litros cozinha" },
+        { name: "Tinta acrÃ­lica lavÃ¡vel 3,6 L (cozinha)", price: "R$ 55â€“100", q: "tinta acrilica lavavel 3,6 litros cozinha" },
       ]},
-      { etapa: "Iluminação", itens: [
+      { etapa: "IluminaÃ§Ã£o", itens: [
         ...ITENS.iluminacao,
-        { name: "Luminária / pendente para a bancada", price: "R$ 55–150", q: "pendente luminaria bancada cozinha" },
+        { name: "LuminÃ¡ria / pendente para a bancada", price: "R$ 55â€“150", q: "pendente luminaria bancada cozinha" },
       ]},
-      { etapa: "Limpeza pós-obra", itens: ITENS.limpeza },
+      { etapa: "Limpeza pÃ³s-obra", itens: ITENS.limpeza },
     ],
     decorBase: [
       { base: "Quadro / placa decorativa",        q: "quadro placa decorativa cozinha",     price: [15, 70] },
       { base: "Fruteira de bancada",              q: "fruteira bancada cozinha",            price: [30, 110] },
       { base: "Pendente sobre a bancada",         q: "pendente bancada cozinha",            price: [55, 180] },
-      { base: "Barra / trilho de utensílios",     q: "barra trilho utensilios cozinha",     price: [25, 90] },
+      { base: "Barra / trilho de utensÃ­lios",     q: "barra trilho utensilios cozinha",     price: [25, 90] },
       { base: "Porta-temperos",                   q: "porta temperos organizador cozinha",  price: [25, 90] },
       { base: "Jogo de potes para mantimentos",   q: "jogo potes mantimentos cozinha",      price: [50, 160] },
       { base: "Tapete de cozinha (passadeira)",   q: "tapete passadeira cozinha",           price: [30, 120] },
       { base: "Adesivo de azulejo / parede (rolo)", q: "adesivo azulejo parede cozinha",    price: [20, 60] },
-      { base: "Relógio de parede",                q: "relogio parede cozinha",              price: [40, 130] },
+      { base: "RelÃ³gio de parede",                q: "relogio parede cozinha",              price: [40, 130] },
       { base: "Prateleira / nicho de parede",     q: "prateleira nicho parede cozinha",     price: [35, 120] },
       { base: "Suporte de papel toalha",          q: "suporte papel toalha cozinha",        price: [20, 70] },
-      { base: "Escorredor de louça de bancada",   q: "escorredor louca bancada cozinha",    price: [40, 140] },
+      { base: "Escorredor de louÃ§a de bancada",   q: "escorredor louca bancada cozinha",    price: [40, 140] },
       { base: "Lixeira de bancada / embutir",     q: "lixeira bancada embutir cozinha",     price: [50, 150] },
       { base: "Cortina de meia-janela",           q: "cortina meia janela cozinha",         price: [30, 90] },
       { base: "Horta de bancada / vaso de ervas", q: "horta vaso ervas bancada cozinha",    price: [25, 90] },
     ],
     decorExtra: [
-      { name: "Kit de adesivos de azulejo colorido",   price: "R$ 20–55", q: "adesivo azulejo colorido cozinha kit", styles: ["divertido"] },
-      { name: "Kit de ímãs de geladeira divertidos",   price: "R$ 15–40", q: "kit imas geladeira divertidos", styles: ["divertido"], eco: true },
-      { name: "Kit de panos de prato com estampa de meme", price: "R$ 20–50", q: "kit pano de prato estampa divertida meme", styles: ["divertido"], eco: true },
-      { name: "Trio de pendentes retrô sobre a bancada", price: "R$ 150–280", q: "kit 3 pendentes retro bancada cozinha", styles: ["americano", "industrial"] },
-      { name: "Kit de potes de vidro com tampa de bambu", price: "R$ 60–140", q: "kit potes vidro tampa bambu mantimentos", styles: ["escandinavo", "rustico"] },
+      { name: "Kit de adesivos de azulejo colorido",   price: "R$ 20â€“55", q: "adesivo azulejo colorido cozinha kit", styles: ["divertido"] },
+      { name: "Kit de Ã­mÃ£s de geladeira divertidos",   price: "R$ 15â€“40", q: "kit imas geladeira divertidos", styles: ["divertido"], eco: true },
+      { name: "Kit de panos de prato com estampa de meme", price: "R$ 20â€“50", q: "kit pano de prato estampa divertida meme", styles: ["divertido"], eco: true },
+      { name: "Trio de pendentes retrÃ´ sobre a bancada", price: "R$ 150â€“280", q: "kit 3 pendentes retro bancada cozinha", styles: ["americano", "industrial"] },
+      { name: "Kit de potes de vidro com tampa de bambu", price: "R$ 60â€“140", q: "kit potes vidro tampa bambu mantimentos", styles: ["escandinavo", "rustico"] },
     ],
   },
   {
     id: "sala", label: "Sala", title: "Sala",
-    tagline: "Pintura ampla + metros de rodapé",
-    hint: "Meça os dois lados do chão. O app calcula a tinta das paredes e os metros de rodapé. Ex.: 4,00 × 4,50.",
+    tagline: "Pintura ampla + metros de rodapÃ©",
+    hint: "MeÃ§a os dois lados do chÃ£o. O app calcula a tinta das paredes e os metros de rodapÃ©. Ex.: 4,00 Ã— 4,50.",
     example: { w: "4,00", l: "4,50" },
     compute(w, l){
       const piso = w*l, perim = 2*(w+l), parede = perim*CONFIG.peDireito;
       const litros = parede*CONFIG.demaos/CONFIG.tintaRendPorLitro;
       const rodape = Math.max(0, perim - CONFIG.vaoPorta*2);
-      return { hero: { value: nf(piso,2), unit: "Área de piso" }, lines: [
-        { label: "Parede para pintura (2 demãos)", value: m2(parede) },
-        { label: "Tinta acrílica (lata 18 L)",     value: nf(ceil(litros/CONFIG.lataGrandeLitros),0)+" latas" },
-        { label: "ou galões de 3,6 L",             value: nf(ceil(litros/CONFIG.galaoLitros),0)+" galões" },
+      return { hero: { value: nf(piso,2), unit: "Ãrea de piso" }, lines: [
+        { label: "Parede para pintura (2 demÃ£os)", value: m2(parede) },
+        { label: "Tinta acrÃ­lica (lata 18 L)",     value: nf(ceil(litros/CONFIG.lataGrandeLitros),0)+" latas" },
+        { label: "ou galÃµes de 3,6 L",             value: nf(ceil(litros/CONFIG.galaoLitros),0)+" galÃµes" },
         { label: "Massa corrida",                  value: nf(ceil(parede*CONFIG.rejuntePorM2),0)+" kg" },
-        { label: "Rodapé",                         value: ml(rodape)+" lineares" },
+        { label: "RodapÃ©",                         value: ml(rodape)+" lineares" },
       ]};
     },
     stages: [
       { etapa: "Preparo", itens: ITENS.preparo },
-      { etapa: "Elétrica", nota: "Pontos de tomada, ponto do painel de TV e passagem de cabos.", itens: [
+      { etapa: "ElÃ©trica", nota: "Pontos de tomada, ponto do painel de TV e passagem de cabos.", itens: [
         ...ITENS.eletricaPonto,
-        { name: "Ponto de TV / painel: tomada + conduíte para os cabos", price: "R$ 40–100", q: "ponto tv painel tomada conduite sala" },
+        { name: "Ponto de TV / painel: tomada + conduÃ­te para os cabos", price: "R$ 40â€“100", q: "ponto tv painel tomada conduite sala" },
       ]},
       { etapa: "Esquadrias (janela + porta)", itens: ITENS.esquadrias },
-      { etapa: "Piso", nota: "Escolha um caminho: cerâmico/porcelanato (com argamassa) ou laminado/vinílico (com manta).", itens: [
+      { etapa: "Piso", nota: "Escolha um caminho: cerÃ¢mico/porcelanato (com argamassa) ou laminado/vinÃ­lico (com manta).", itens: [
         ...ITENS.revPiso,
         ...ITENS.pisoLaminado,
       ]},
       { etapa: "Forro (opcional)", itens: ITENS.forro },
       { etapa: "Pintura", itens: [
         ...ITENS.pintura,
-        { name: "Tinta acrílica lavável 18 L (sala)", price: "R$ 190–290", q: "tinta acrilica lavavel 18 litros sala" },
+        { name: "Tinta acrÃ­lica lavÃ¡vel 18 L (sala)", price: "R$ 190â€“290", q: "tinta acrilica lavavel 18 litros sala" },
       ]},
-      { etapa: "Iluminação", itens: [
+      { etapa: "IluminaÃ§Ã£o", itens: [
         ...ITENS.iluminacao,
-        { name: "Trilho de spots / lustre para a sala", price: "R$ 90–240", q: "trilho spot lustre sala" },
+        { name: "Trilho de spots / lustre para a sala", price: "R$ 90â€“240", q: "trilho spot lustre sala" },
       ]},
-      { etapa: "Limpeza pós-obra", itens: ITENS.limpeza },
+      { etapa: "Limpeza pÃ³s-obra", itens: ITENS.limpeza },
     ],
     decorBase: [
       { base: "Painel / rack para TV",            q: "painel rack tv sala",                 price: [150, 500] },
       { base: "Galeria de quadros de parede (kit)", q: "kit quadros galeria parede sala",   price: [50, 200] },
       { base: "Tapete de sala grande",            q: "tapete sala grande",                  price: [120, 350] },
       { base: "Cortina de sala com trilho",       q: "cortina sala trilho",                 price: [60, 180] },
-      { base: "Luminária de piso",                q: "luminaria piso sala",                 price: [100, 320] },
+      { base: "LuminÃ¡ria de piso",                q: "luminaria piso sala",                 price: [100, 320] },
       { base: "Aparador / buffet",                q: "aparador buffet sala",                price: [200, 600] },
       { base: "Mesa de centro",                   q: "mesa de centro sala",                 price: [150, 500] },
-      { base: "Kit de 4 almofadas para o sofá",   q: "kit 4 almofadas sofa sala",           price: [60, 180] },
-      { base: "Manta para o sofá",                q: "manta sofa decorativa",               price: [50, 160] },
+      { base: "Kit de 4 almofadas para o sofÃ¡",   q: "kit 4 almofadas sofa sala",           price: [60, 180] },
+      { base: "Manta para o sofÃ¡",                q: "manta sofa decorativa",               price: [50, 160] },
       { base: "Cesto organizador grande",         q: "cesto organizador grande sala",       price: [40, 140] },
       { base: "Prateleiras / nichos de parede",   q: "prateleira nicho parede sala",        price: [40, 160] },
       { base: "Espelho decorativo grande",        q: "espelho decorativo grande sala",      price: [90, 280] },
-      { base: "Vaso de planta grande / cachepô",  q: "vaso planta grande cachepo sala",     price: [50, 180] },
+      { base: "Vaso de planta grande / cachepÃ´",  q: "vaso planta grande cachepo sala",     price: [50, 180] },
       { base: "Mesa lateral / de canto",          q: "mesa lateral canto sala",             price: [90, 280] },
       { base: "Trilho de spots para o teto",      q: "trilho spot iluminacao teto sala",    price: [90, 240] },
     ],
     decorExtra: [
-      { name: "Letreiro de neon LED personalizado",   price: "R$ 80–220", q: "neon led personalizado parede sala", styles: ["divertido"] },
-      { name: "Par de puffs coloridos",               price: "R$ 120–280", q: "par puff colorido sala", styles: ["divertido"] },
-      { name: "Papel de parede statement (rolo)",      price: "R$ 35–90", q: "papel de parede statement estampado sala", styles: ["divertido", "americano"] },
-      { name: "Kit boiserie / quadriculado de parede", price: "R$ 120–300", q: "kit boiserie moldura parede sala", styles: ["americano"] },
-      { name: "Estante industrial de nichos (ferro + madeira)", price: "R$ 200–450", q: "estante industrial nicho ferro madeira sala", styles: ["industrial"] },
+      { name: "Letreiro de neon LED personalizado",   price: "R$ 80â€“220", q: "neon led personalizado parede sala", styles: ["divertido"] },
+      { name: "Par de puffs coloridos",               price: "R$ 120â€“280", q: "par puff colorido sala", styles: ["divertido"] },
+      { name: "Papel de parede statement (rolo)",      price: "R$ 35â€“90", q: "papel de parede statement estampado sala", styles: ["divertido", "americano"] },
+      { name: "Kit boiserie / quadriculado de parede", price: "R$ 120â€“300", q: "kit boiserie moldura parede sala", styles: ["americano"] },
+      { name: "Estante industrial de nichos (ferro + madeira)", price: "R$ 200â€“450", q: "estante industrial nicho ferro madeira sala", styles: ["industrial"] },
     ],
   },
   {
-    id: "lavanderia", label: "Lavanderia", title: "Lavanderia / Área de serviço",
-    tagline: "Piso + faixa impermeável da área molhada",
-    hint: "Meça os dois lados do chão. O app calcula o piso e o azulejo da parte que molha. Ex.: 2,00 × 3,00.",
+    id: "lavanderia", label: "Lavanderia", title: "Lavanderia / Ãrea de serviÃ§o",
+    tagline: "Piso + faixa impermeÃ¡vel da Ã¡rea molhada",
+    hint: "MeÃ§a os dois lados do chÃ£o. O app calcula o piso e o azulejo da parte que molha. Ex.: 2,00 Ã— 3,00.",
     example: { w: "2,00", l: "3,00" },
     compute(w, l){
       const piso = w*l, perim = 2*(w+l), faixa = perim*1.5, revest = piso+faixa;
-      return { hero: { value: nf(piso,2), unit: "Área de piso" }, lines: [
-        { label: "Revestimento da área molhada (1,5 m)", value: m2(faixa) },
-        { label: "Piso antiderrapante (caixa ~2 m²)",    value: nf(ceil(piso/CONFIG.caixaPisoM2),0)+" caixas" },
-        { label: "Argamassa AC-II (saco 20 kg · ~4 m²)", value: nf(ceil(revest/CONFIG.argamassaPorM2),0)+" sacos" },
+      return { hero: { value: nf(piso,2), unit: "Ãrea de piso" }, lines: [
+        { label: "Revestimento da Ã¡rea molhada (1,5 m)", value: m2(faixa) },
+        { label: "Piso antiderrapante (caixa ~2 mÂ²)",    value: nf(ceil(piso/CONFIG.caixaPisoM2),0)+" caixas" },
+        { label: "Argamassa AC-II (saco 20 kg Â· ~4 mÂ²)", value: nf(ceil(revest/CONFIG.argamassaPorM2),0)+" sacos" },
         { label: "Rejunte",                              value: nf(ceil(revest*CONFIG.rejuntePorM2),0)+" kg" },
       ]};
     },
     stages: [
       { etapa: "Preparo", itens: ITENS.preparo },
-      { etapa: "Hidráulica", nota: "Pontos do tanque e da máquina de lavar, com registro individual.", itens: [
+      { etapa: "HidrÃ¡ulica", nota: "Pontos do tanque e da mÃ¡quina de lavar, com registro individual.", itens: [
         ...ITENS.hidraulicaLeve,
-        { name: "Ponto + torneira para máquina de lavar com registro", price: "R$ 30–70", q: "ponto torneira maquina lavar registro" },
-        { name: "Tanque de lavar roupa 22 L + kit válvula e sifão", price: "R$ 120–190", q: "tanque lavar roupa 22 litros kit valvula sifao" },
+        { name: "Ponto + torneira para mÃ¡quina de lavar com registro", price: "R$ 30â€“70", q: "ponto torneira maquina lavar registro" },
+        { name: "Tanque de lavar roupa 22 L + kit vÃ¡lvula e sifÃ£o", price: "R$ 120â€“190", q: "tanque lavar roupa 22 litros kit valvula sifao" },
       ]},
-      { etapa: "Elétrica", itens: [
+      { etapa: "ElÃ©trica", itens: [
         ...ITENS.eletricaPonto,
-        { name: "Tomada 20 A para máquina de lavar / secadora", price: "R$ 20–45", q: "tomada 20a maquina lavar" },
+        { name: "Tomada 20 A para mÃ¡quina de lavar / secadora", price: "R$ 20â€“45", q: "tomada 20a maquina lavar" },
       ]},
-      { etapa: "Impermeabilização", itens: ITENS.impermeabilizacao },
-      { etapa: "Revestimento de parede (área molhada)", itens: ITENS.revParede },
+      { etapa: "ImpermeabilizaÃ§Ã£o", itens: ITENS.impermeabilizacao },
+      { etapa: "Revestimento de parede (Ã¡rea molhada)", itens: ITENS.revParede },
       { etapa: "Revestimento de piso", itens: ITENS.revPiso },
       { etapa: "Esquadrias (janela pequena + porta)", itens: [
         ...ITENS.janelaPequena,
-        { name: "Porta de PVC / com veneziana para área de serviço", price: "R$ 180–380", q: "porta pvc veneziana area servico" },
+        { name: "Porta de PVC / com veneziana para Ã¡rea de serviÃ§o", price: "R$ 180â€“380", q: "porta pvc veneziana area servico" },
       ]},
       { etapa: "Marcenaria e apoio", itens: [
-        { name: "Armário aéreo para lavanderia", price: "R$ 120–260", q: "armario aereo lavanderia" },
-        { name: "Prateleira com barra de cabides", price: "R$ 40–110", q: "prateleira barra cabide lavanderia" },
-        { name: "Bancada de apoio sobre a máquina", price: "R$ 90–220", q: "bancada apoio sobre maquina lavar" },
+        { name: "ArmÃ¡rio aÃ©reo para lavanderia", price: "R$ 120â€“260", q: "armario aereo lavanderia" },
+        { name: "Prateleira com barra de cabides", price: "R$ 40â€“110", q: "prateleira barra cabide lavanderia" },
+        { name: "Bancada de apoio sobre a mÃ¡quina", price: "R$ 90â€“220", q: "bancada apoio sobre maquina lavar" },
       ]},
       { etapa: "Pintura", itens: [
         ...ITENS.pintura,
-        { name: "Tinta acrílica lavável 3,6 L (área de serviço)", price: "R$ 55–100", q: "tinta acrilica lavavel 3,6 litros area servico" },
+        { name: "Tinta acrÃ­lica lavÃ¡vel 3,6 L (Ã¡rea de serviÃ§o)", price: "R$ 55â€“100", q: "tinta acrilica lavavel 3,6 litros area servico" },
       ]},
-      { etapa: "Iluminação", itens: ITENS.iluminacao },
-      { etapa: "Limpeza pós-obra", itens: ITENS.limpeza },
+      { etapa: "IluminaÃ§Ã£o", itens: ITENS.iluminacao },
+      { etapa: "Limpeza pÃ³s-obra", itens: ITENS.limpeza },
     ],
     decorBase: [
-      { base: "Armário aéreo",                    q: "armario aereo lavanderia",            price: [120, 280] },
+      { base: "ArmÃ¡rio aÃ©reo",                    q: "armario aereo lavanderia",            price: [120, 280] },
       { base: "Prateleira com barra de cabides",  q: "prateleira barra cabide lavanderia",  price: [40, 120] },
       { base: "Cesto organizador de roupa",       q: "cesto organizador roupa lavanderia",  price: [30, 120] },
       { base: "Varal (parede / sanfonado / teto)", q: "varal parede sanfonado teto lavanderia", price: [40, 120] },
       { base: "Organizador de produtos de limpeza", q: "organizador produtos limpeza lavanderia", price: [30, 90] },
       { base: "Placa / quadro decorativo",        q: "placa quadro decorativo lavanderia",  price: [15, 50] },
-      { base: "Tapete para área de serviço",      q: "tapete area de servico lavanderia",   price: [20, 70] },
-      { base: "Bancada de apoio sobre a máquina", q: "bancada apoio sobre maquina lavar",   price: [90, 220] },
-      { base: "Base com rodinhas para máquina",   q: "base suporte rodinha maquina lavar",  price: [30, 90] },
-      { base: "Carrinho / cesto com rodízio",     q: "carrinho cesto rodizio lavanderia",   price: [80, 200] },
-      { base: "Dispenser de sabão de parede",     q: "dispenser sabao parede lavanderia",   price: [25, 80] },
-      { base: "Tábua de passar de parede",        q: "tabua de passar de parede",           price: [80, 200] },
-      { base: "Luminária de teto",                q: "luminaria teto lavanderia",           price: [35, 120] },
+      { base: "Tapete para Ã¡rea de serviÃ§o",      q: "tapete area de servico lavanderia",   price: [20, 70] },
+      { base: "Bancada de apoio sobre a mÃ¡quina", q: "bancada apoio sobre maquina lavar",   price: [90, 220] },
+      { base: "Base com rodinhas para mÃ¡quina",   q: "base suporte rodinha maquina lavar",  price: [30, 90] },
+      { base: "Carrinho / cesto com rodÃ­zio",     q: "carrinho cesto rodizio lavanderia",   price: [80, 200] },
+      { base: "Dispenser de sabÃ£o de parede",     q: "dispenser sabao parede lavanderia",   price: [25, 80] },
+      { base: "TÃ¡bua de passar de parede",        q: "tabua de passar de parede",           price: [80, 200] },
+      { base: "LuminÃ¡ria de teto",                q: "luminaria teto lavanderia",           price: [35, 120] },
       { base: "Cabideiro de parede",              q: "cabideiro parede lavanderia",         price: [25, 80] },
     ],
     decorExtra: [
-      { name: "Adesivo decorativo para a máquina de lavar", price: "R$ 15–45", q: "adesivo maquina de lavar decorativo", styles: ["divertido"] },
-      { name: "Kit de placas com frases divertidas de lavanderia", price: "R$ 20–50", q: "kit placa frase divertida lavanderia", styles: ["divertido"], eco: true },
-      { name: "Prendedores coloridos + cesto pop",  price: "R$ 20–50", q: "prendedor colorido cesto pop lavanderia", styles: ["divertido"], eco: true },
-      { name: "Placa esmaltada retrô estilo lavanderia", price: "R$ 25–60", q: "placa esmaltada laundry retro", styles: ["americano", "industrial"], eco: true },
-      { name: "Cabideiro de cano de ferro no teto", price: "R$ 60–150", q: "cabideiro cano ferro teto lavanderia", styles: ["industrial"] },
+      { name: "Adesivo decorativo para a mÃ¡quina de lavar", price: "R$ 15â€“45", q: "adesivo maquina de lavar decorativo", styles: ["divertido"] },
+      { name: "Kit de placas com frases divertidas de lavanderia", price: "R$ 20â€“50", q: "kit placa frase divertida lavanderia", styles: ["divertido"], eco: true },
+      { name: "Prendedores coloridos + cesto pop",  price: "R$ 20â€“50", q: "prendedor colorido cesto pop lavanderia", styles: ["divertido"], eco: true },
+      { name: "Placa esmaltada retrÃ´ estilo lavanderia", price: "R$ 25â€“60", q: "placa esmaltada laundry retro", styles: ["americano", "industrial"], eco: true },
+      { name: "Cabideiro de cano de ferro no teto", price: "R$ 60â€“150", q: "cabideiro cano ferro teto lavanderia", styles: ["industrial"] },
     ],
   },
   {
-    id: "varanda", label: "Varanda", title: "Varanda / Área externa",
-    tagline: "Piso externo + impermeabilização",
-    hint: "Meça os dois lados do chão. O app calcula o piso antiderrapante e a impermeabilização. Ex.: 2,50 × 4,00.",
+    id: "varanda", label: "Varanda", title: "Varanda / Ãrea externa",
+    tagline: "Piso externo + impermeabilizaÃ§Ã£o",
+    hint: "MeÃ§a os dois lados do chÃ£o. O app calcula o piso antiderrapante e a impermeabilizaÃ§Ã£o. Ex.: 2,50 Ã— 4,00.",
     example: { w: "2,50", l: "4,00" },
     compute(w, l){
       const area = w*l, perim = 2*(w+l);
-      return { hero: { value: nf(area,2), unit: "Área total" }, lines: [
-        { label: "Perímetro (guarda-corpo / acabamento)", value: ml(perim) },
-        { label: "Piso externo antiderrapante (caixa ~2 m²)", value: nf(ceil(area/CONFIG.caixaPisoM2),0)+" caixas" },
-        { label: "Argamassa AC-III (saco 20 kg · ~4 m²)", value: nf(ceil(area/CONFIG.argamassaPorM2),0)+" sacos" },
-        { label: "Impermeabilizante (2 demãos)",          value: nf(ceil(area*1.2),0)+" kg" },
+      return { hero: { value: nf(area,2), unit: "Ãrea total" }, lines: [
+        { label: "PerÃ­metro (guarda-corpo / acabamento)", value: ml(perim) },
+        { label: "Piso externo antiderrapante (caixa ~2 mÂ²)", value: nf(ceil(area/CONFIG.caixaPisoM2),0)+" caixas" },
+        { label: "Argamassa AC-III (saco 20 kg Â· ~4 mÂ²)", value: nf(ceil(area/CONFIG.argamassaPorM2),0)+" sacos" },
+        { label: "Impermeabilizante (2 demÃ£os)",          value: nf(ceil(area*1.2),0)+" kg" },
       ]};
     },
     stages: [
       { etapa: "Preparo", itens: ITENS.preparo },
-      { etapa: "Elétrica externa", itens: [
+      { etapa: "ElÃ©trica externa", itens: [
         ...ITENS.eletricaPonto,
-        { name: "Ponto de luz externo + arandela IP65", price: "R$ 40–100", q: "ponto luz externo arandela ip65" },
+        { name: "Ponto de luz externo + arandela IP65", price: "R$ 40â€“100", q: "ponto luz externo arandela ip65" },
       ]},
-      { etapa: "Impermeabilização da laje", itens: [
-        { name: "Impermeabilizante para laje 18 kg", price: "R$ 130–190", q: "impermeabilizante laje 18kg" },
-        { name: "Tela de poliéster para reforço (rolo)", price: "R$ 20–45", q: "tela poliester impermeabilizacao rolo", eco: true },
-        { name: "Primer / fundo para laje", price: "R$ 45–90", q: "primer fundo laje impermeabilizacao", eco: true },
+      { etapa: "ImpermeabilizaÃ§Ã£o da laje", itens: [
+        { name: "Impermeabilizante para laje 18 kg", price: "R$ 130â€“190", q: "impermeabilizante laje 18kg" },
+        { name: "Tela de poliÃ©ster para reforÃ§o (rolo)", price: "R$ 20â€“45", q: "tela poliester impermeabilizacao rolo", eco: true },
+        { name: "Primer / fundo para laje", price: "R$ 45â€“90", q: "primer fundo laje impermeabilizacao", eco: true },
       ]},
-      { etapa: "Regularização e caimento", nota: "Argamassa em desnível para a água escorrer para o ralo.", itens: [
-        { name: "Cimento CP-II 50 kg", price: "R$ 30–42", q: "cimento cp2 50kg", eco: true },
-        { name: "Areia média (m³ ou sacos)", price: "R$ 120–220", q: "areia media lavada m3" },
-        { name: "Aditivo impermeabilizante para argamassa", price: "R$ 20–45", q: "aditivo impermeabilizante argamassa", eco: true },
-        { name: "Ralo linear / grelha para área externa", price: "R$ 35–90", q: "ralo linear grelha area externa" },
+      { etapa: "RegularizaÃ§Ã£o e caimento", nota: "Argamassa em desnÃ­vel para a Ã¡gua escorrer para o ralo.", itens: [
+        { name: "Cimento CP-II 50 kg", price: "R$ 30â€“42", q: "cimento cp2 50kg", eco: true },
+        { name: "Areia mÃ©dia (mÂ³ ou sacos)", price: "R$ 120â€“220", q: "areia media lavada m3" },
+        { name: "Aditivo impermeabilizante para argamassa", price: "R$ 20â€“45", q: "aditivo impermeabilizante argamassa", eco: true },
+        { name: "Ralo linear / grelha para Ã¡rea externa", price: "R$ 35â€“90", q: "ralo linear grelha area externa" },
       ]},
       { etapa: "Piso externo", itens: [
-        { name: "Porcelanato externo antiderrapante (m²)", price: "R$ 25–45/m²", q: "porcelanato externo antiderrapante" },
-        { name: "Argamassa colante AC-III (saco 20 kg)", price: "R$ 24–38", q: "argamassa colante ac3 20kg", eco: true },
-        { name: "Rejunte para área externa (kg)", price: "R$ 12–30", q: "rejunte area externa", eco: true },
-        { name: "Espaçadores + cunhas niveladoras (kit)", price: "R$ 15–40", q: "espacador cunha nivelador piso kit", eco: true },
+        { name: "Porcelanato externo antiderrapante (mÂ²)", price: "R$ 25â€“45/mÂ²", q: "porcelanato externo antiderrapante" },
+        { name: "Argamassa colante AC-III (saco 20 kg)", price: "R$ 24â€“38", q: "argamassa colante ac3 20kg", eco: true },
+        { name: "Rejunte para Ã¡rea externa (kg)", price: "R$ 12â€“30", q: "rejunte area externa", eco: true },
+        { name: "EspaÃ§adores + cunhas niveladoras (kit)", price: "R$ 15â€“40", q: "espacador cunha nivelador piso kit", eco: true },
       ]},
       { etapa: "Guarda-corpo e acabamento", itens: [
-        { name: "Guarda-corpo de alumínio ou ferro (m)", price: "R$ 120–280", q: "guarda corpo aluminio ferro varanda metro" },
-        { name: "Fechamento em vidro ou tela (opcional)", price: "R$ 150–400", q: "fechamento vidro tela varanda" },
-        { name: "Rufo / pingadeira / soleira", price: "R$ 30–80", q: "rufo pingadeira soleira aluminio", eco: true },
-        { name: "Silicone + espuma expansiva", price: "R$ 25–55", q: "silicone espuma expansiva", eco: true },
+        { name: "Guarda-corpo de alumÃ­nio ou ferro (m)", price: "R$ 120â€“280", q: "guarda corpo aluminio ferro varanda metro" },
+        { name: "Fechamento em vidro ou tela (opcional)", price: "R$ 150â€“400", q: "fechamento vidro tela varanda" },
+        { name: "Rufo / pingadeira / soleira", price: "R$ 30â€“80", q: "rufo pingadeira soleira aluminio", eco: true },
+        { name: "Silicone + espuma expansiva", price: "R$ 25â€“55", q: "silicone espuma expansiva", eco: true },
       ]},
       { etapa: "Pintura externa", itens: [
-        { name: "Fundo preparador para área externa (3,6 L)", price: "R$ 45–90", q: "fundo preparador externo 3,6 litros", eco: true },
-        { name: "Massa acrílica 25 kg", price: "R$ 55–90", q: "massa acrilica 25kg" },
-        { name: "Tinta acrílica emborrachada / fachada 18 L", price: "R$ 120–230", q: "tinta acrilica emborrachada fachada 18 litros" },
-        { name: "Lixa + kit rolo e trincha", price: "R$ 30–60", q: "lixa kit rolo trincha pintura", eco: true },
+        { name: "Fundo preparador para Ã¡rea externa (3,6 L)", price: "R$ 45â€“90", q: "fundo preparador externo 3,6 litros", eco: true },
+        { name: "Massa acrÃ­lica 25 kg", price: "R$ 55â€“90", q: "massa acrilica 25kg" },
+        { name: "Tinta acrÃ­lica emborrachada / fachada 18 L", price: "R$ 120â€“230", q: "tinta acrilica emborrachada fachada 18 litros" },
+        { name: "Lixa + kit rolo e trincha", price: "R$ 30â€“60", q: "lixa kit rolo trincha pintura", eco: true },
       ]},
-      { etapa: "Iluminação externa", itens: [
-        { name: "Arandela / balizador externo IP65", price: "R$ 40–100", q: "arandela balizador externo ip65" },
-        { name: "Refletor LED", price: "R$ 35–90", q: "refletor led externo", eco: true },
-        { name: "Lâmpadas LED (kit)", price: "R$ 25–60", q: "kit lampada led", eco: true },
-        { name: "Sensor de presença (opcional)", price: "R$ 25–60", q: "sensor de presenca iluminacao", eco: true },
+      { etapa: "IluminaÃ§Ã£o externa", itens: [
+        { name: "Arandela / balizador externo IP65", price: "R$ 40â€“100", q: "arandela balizador externo ip65" },
+        { name: "Refletor LED", price: "R$ 35â€“90", q: "refletor led externo", eco: true },
+        { name: "LÃ¢mpadas LED (kit)", price: "R$ 25â€“60", q: "kit lampada led", eco: true },
+        { name: "Sensor de presenÃ§a (opcional)", price: "R$ 25â€“60", q: "sensor de presenca iluminacao", eco: true },
       ]},
-      { etapa: "Limpeza pós-obra", itens: ITENS.limpeza },
+      { etapa: "Limpeza pÃ³s-obra", itens: ITENS.limpeza },
     ],
     decorBase: [
-      { base: "Vaso / cachepô grande",           q: "vaso cachepo grande varanda",         price: [30, 120] },
-      { base: "Jardim vertical / treliça",       q: "jardim vertical trelica varanda",     price: [50, 160] },
-      { base: "Cordão de luz para área externa", q: "cordao luz led externo varanda",      price: [30, 80] },
-      { base: "Cadeira / poltrona de área externa", q: "cadeira poltrona area externa varanda", price: [150, 450] },
-      { base: "Mesa de apoio / bistrô",          q: "mesa apoio bistro varanda",           price: [120, 400] },
-      { base: "Luminária de parede externa",     q: "luminaria arandela parede externa varanda", price: [40, 120] },
-      { base: "Tapete de área externa",          q: "tapete area externa varanda",         price: [50, 160] },
-      { base: "Banco / baú de varanda",          q: "banco bau varanda",                   price: [150, 400] },
-      { base: "Placa / quadro para área externa", q: "placa quadro area externa varanda",  price: [15, 50] },
+      { base: "Vaso / cachepÃ´ grande",           q: "vaso cachepo grande varanda",         price: [30, 120] },
+      { base: "Jardim vertical / treliÃ§a",       q: "jardim vertical trelica varanda",     price: [50, 160] },
+      { base: "CordÃ£o de luz para Ã¡rea externa", q: "cordao luz led externo varanda",      price: [30, 80] },
+      { base: "Cadeira / poltrona de Ã¡rea externa", q: "cadeira poltrona area externa varanda", price: [150, 450] },
+      { base: "Mesa de apoio / bistrÃ´",          q: "mesa apoio bistro varanda",           price: [120, 400] },
+      { base: "LuminÃ¡ria de parede externa",     q: "luminaria arandela parede externa varanda", price: [40, 120] },
+      { base: "Tapete de Ã¡rea externa",          q: "tapete area externa varanda",         price: [50, 160] },
+      { base: "Banco / baÃº de varanda",          q: "banco bau varanda",                   price: [150, 400] },
+      { base: "Placa / quadro para Ã¡rea externa", q: "placa quadro area externa varanda",  price: [15, 50] },
       { base: "Jardineira / floreira",           q: "jardineira floreira varanda",         price: [50, 180] },
       { base: "Rede / cadeira suspensa",         q: "rede cadeira suspensa varanda",       price: [90, 320] },
-      { base: "Kit de almofadas impermeáveis",   q: "kit almofadas impermeaveis area externa", price: [60, 180] },
-      { base: "Painel de ripas / divisória",     q: "painel ripa divisoria varanda",       price: [120, 320] },
+      { base: "Kit de almofadas impermeÃ¡veis",   q: "kit almofadas impermeaveis area externa", price: [60, 180] },
+      { base: "Painel de ripas / divisÃ³ria",     q: "painel ripa divisoria varanda",       price: [120, 320] },
       { base: "Persiana / cortina de varanda",   q: "persiana cortina varanda externa",    price: [80, 240] },
     ],
     decorExtra: [
-      { name: "Kit de luminárias solares em formato de bichinho", price: "R$ 25–70", q: "kit luminaria solar jardim formato bichinho", styles: ["divertido"], eco: true },
-      { name: "Kit de almofadas de área externa estampadas", price: "R$ 60–140", q: "kit almofada area externa estampada colorida", styles: ["divertido"] },
-      { name: "Rede de dormir colorida",              price: "R$ 90–220", q: "rede dormir colorida varanda", styles: ["divertido", "rustico"] },
-      { name: "Jogo bistrô clássico (mesa + 2 cadeiras)", price: "R$ 300–650", q: "jogo bistro classico mesa 2 cadeiras varanda", styles: ["americano"] },
-      { name: "Kit de lanternas marroquinas",         price: "R$ 60–160", q: "kit lanterna marroquina externa", styles: ["rustico"] },
+      { name: "Kit de luminÃ¡rias solares em formato de bichinho", price: "R$ 25â€“70", q: "kit luminaria solar jardim formato bichinho", styles: ["divertido"], eco: true },
+      { name: "Kit de almofadas de Ã¡rea externa estampadas", price: "R$ 60â€“140", q: "kit almofada area externa estampada colorida", styles: ["divertido"] },
+      { name: "Rede de dormir colorida",              price: "R$ 90â€“220", q: "rede dormir colorida varanda", styles: ["divertido", "rustico"] },
+      { name: "Jogo bistrÃ´ clÃ¡ssico (mesa + 2 cadeiras)", price: "R$ 300â€“650", q: "jogo bistro classico mesa 2 cadeiras varanda", styles: ["americano"] },
+      { name: "Kit de lanternas marroquinas",         price: "R$ 60â€“160", q: "kit lanterna marroquina externa", styles: ["rustico"] },
     ],
   },
   {
-    id: "escritorio", label: "Escritório", title: "Escritório / Home office",
+    id: "escritorio", label: "EscritÃ³rio", title: "EscritÃ³rio / Home office",
     tagline: "Piso + pintura + pontos de tomada",
-    hint: "Meça os dois lados do chão. O app calcula piso, tinta e uma ideia de quantas tomadas. Ex.: 2,80 × 3,00.",
+    hint: "MeÃ§a os dois lados do chÃ£o. O app calcula piso, tinta e uma ideia de quantas tomadas. Ex.: 2,80 Ã— 3,00.",
     example: { w: "2,80", l: "3,00" },
     compute(w, l){
       const piso = w*l, perim = 2*(w+l), parede = perim*CONFIG.peDireito;
       const litros = parede*CONFIG.demaos/CONFIG.tintaRendPorLitro;
       const rodape = Math.max(0, perim - CONFIG.vaoPorta);
-      return { hero: { value: nf(piso,2), unit: "Área de piso" }, lines: [
-        { label: "Parede para pintura (2 demãos)", value: m2(parede) },
-        { label: "Tinta (galão 3,6 L)",            value: nf(ceil(litros/CONFIG.galaoLitros),0)+" galões" },
-        { label: "Piso (caixa ~2 m²)",             value: nf(ceil(piso/CONFIG.caixaPisoM2),0)+" caixas" },
-        { label: "Rodapé",                         value: ml(rodape)+" lineares" },
+      return { hero: { value: nf(piso,2), unit: "Ãrea de piso" }, lines: [
+        { label: "Parede para pintura (2 demÃ£os)", value: m2(parede) },
+        { label: "Tinta (galÃ£o 3,6 L)",            value: nf(ceil(litros/CONFIG.galaoLitros),0)+" galÃµes" },
+        { label: "Piso (caixa ~2 mÂ²)",             value: nf(ceil(piso/CONFIG.caixaPisoM2),0)+" caixas" },
+        { label: "RodapÃ©",                         value: ml(rodape)+" lineares" },
         { label: "Pontos de tomada sugeridos",     value: nf(ceil(perim/3),0)+" pontos" },
       ]};
     },
     stages: [
       { etapa: "Preparo", itens: ITENS.preparo },
-      { etapa: "Elétrica e rede", nota: "Mais tomadas para os equipamentos e ponto de internet cabeada.", itens: [
+      { etapa: "ElÃ©trica e rede", nota: "Mais tomadas para os equipamentos e ponto de internet cabeada.", itens: [
         ...ITENS.eletrica,
-        { name: "Cabo de rede + conectores RJ45 (ponto de internet)", price: "R$ 40–110", q: "cabo rede rj45 conector ponto internet" },
-        { name: "Réguas / pontos extras de tomada + conduíte", price: "R$ 40–100", q: "regua ponto tomada conduite escritorio" },
+        { name: "Cabo de rede + conectores RJ45 (ponto de internet)", price: "R$ 40â€“110", q: "cabo rede rj45 conector ponto internet" },
+        { name: "RÃ©guas / pontos extras de tomada + conduÃ­te", price: "R$ 40â€“100", q: "regua ponto tomada conduite escritorio" },
       ]},
       { etapa: "Esquadrias (janela + porta)", itens: ITENS.esquadrias },
       { etapa: "Piso", itens: ITENS.pisoLaminado },
       { etapa: "Forro (opcional)", itens: ITENS.forro },
       { etapa: "Pintura", itens: [
         ...ITENS.pintura,
-        { name: "Tinta látex acrílica 3,6 L (escritório)", price: "R$ 55–100", q: "tinta latex acrilica 3,6 litros escritorio" },
+        { name: "Tinta lÃ¡tex acrÃ­lica 3,6 L (escritÃ³rio)", price: "R$ 55â€“100", q: "tinta latex acrilica 3,6 litros escritorio" },
       ]},
-      { etapa: "Iluminação", itens: [
+      { etapa: "IluminaÃ§Ã£o", itens: [
         ...ITENS.iluminacao,
-        { name: "Luminária de trabalho / spot direcionável", price: "R$ 45–120", q: "luminaria trabalho spot direcionavel escritorio" },
+        { name: "LuminÃ¡ria de trabalho / spot direcionÃ¡vel", price: "R$ 45â€“120", q: "luminaria trabalho spot direcionavel escritorio" },
       ]},
-      { etapa: "Limpeza pós-obra", itens: ITENS.limpeza },
+      { etapa: "Limpeza pÃ³s-obra", itens: ITENS.limpeza },
     ],
     decorBase: [
-      { base: "Quadro / pôster para escritório",  q: "quadro poster escritorio",            price: [20, 120] },
-      { base: "Luminária de mesa",                q: "luminaria de mesa escritorio",        price: [45, 150] },
+      { base: "Quadro / pÃ´ster para escritÃ³rio",  q: "quadro poster escritorio",            price: [20, 120] },
+      { base: "LuminÃ¡ria de mesa",                q: "luminaria de mesa escritorio",        price: [45, 150] },
       { base: "Prateleira suspensa",              q: "prateleira suspensa escritorio",      price: [50, 160] },
       { base: "Kit organizador de mesa",          q: "kit organizador de mesa escritorio",  price: [30, 90] },
       { base: "Suporte para monitor",             q: "suporte para monitor escritorio",     price: [40, 140] },
       { base: "Painel organizador (memo board)",  q: "painel organizador memo board escritorio", price: [50, 160] },
-      { base: "Cadeira de escritório",            q: "cadeira de escritorio",               price: [300, 700] },
+      { base: "Cadeira de escritÃ³rio",            q: "cadeira de escritorio",               price: [300, 700] },
       { base: "Tapete para o piso / cadeira",     q: "tapete escritorio home office",       price: [60, 200] },
       { base: "Nichos / estante de parede",       q: "nicho estante parede escritorio",     price: [40, 160] },
       { base: "Canaleta organizadora de cabos",   q: "canaleta passa cabo organizador escritorio", price: [20, 70] },
       { base: "Cortina / persiana",               q: "cortina persiana escritorio",         price: [50, 160] },
       { base: "Vaso com planta de mesa",          q: "vaso planta de mesa escritorio",      price: [20, 70] },
-      { base: "Relógio de parede",                q: "relogio de parede escritorio",        price: [35, 110] },
+      { base: "RelÃ³gio de parede",                q: "relogio de parede escritorio",        price: [35, 110] },
       { base: "Suporte / apoio para notebook",    q: "suporte apoio notebook mesa",         price: [30, 110] },
     ],
     decorExtra: [
-      { name: "Pôster de humor motivacional", price: "R$ 20–60", q: "poster nao hoje escritorio divertido frase", styles: ["divertido"], eco: true },
-      { name: "Mousepad gigante estampado",           price: "R$ 30–80", q: "mousepad gigante estampado divertido", styles: ["divertido"], eco: true },
-      { name: "Suporte de fone em formato divertido", price: "R$ 20–60", q: "suporte headset boneco divertido mesa", styles: ["divertido"], eco: true },
-      { name: "Globo terrestre decorativo",           price: "R$ 60–150", q: "globo terrestre decorativo escritorio", styles: ["americano", "rustico"] },
-      { name: "Pegboard de metal preto (kit acessórios)", price: "R$ 70–170", q: "pegboard metal preto kit escritorio", styles: ["industrial"] },
+      { name: "PÃ´ster de humor motivacional", price: "R$ 20â€“60", q: "poster nao hoje escritorio divertido frase", styles: ["divertido"], eco: true },
+      { name: "Mousepad gigante estampado",           price: "R$ 30â€“80", q: "mousepad gigante estampado divertido", styles: ["divertido"], eco: true },
+      { name: "Suporte de fone em formato divertido", price: "R$ 20â€“60", q: "suporte headset boneco divertido mesa", styles: ["divertido"], eco: true },
+      { name: "Globo terrestre decorativo",           price: "R$ 60â€“150", q: "globo terrestre decorativo escritorio", styles: ["americano", "rustico"] },
+      { name: "Pegboard de metal preto (kit acessÃ³rios)", price: "R$ 70â€“170", q: "pegboard metal preto kit escritorio", styles: ["industrial"] },
     ],
   },
   {
     id: "corredor", label: "Corredor", title: "Corredor / Hall",
-    tagline: "Pintura + piso + rodapé de passagem",
-    hint: "Meça a largura e o comprimento do corredor. O app calcula tinta, piso e rodapé dos dois lados. Ex.: 1,20 × 4,00.",
+    tagline: "Pintura + piso + rodapÃ© de passagem",
+    hint: "MeÃ§a a largura e o comprimento do corredor. O app calcula tinta, piso e rodapÃ© dos dois lados. Ex.: 1,20 Ã— 4,00.",
     example: { w: "1,20", l: "4,00" },
     compute(w, l){
       const piso = w*l, perim = 2*(w+l), parede = perim*CONFIG.peDireito;
       const litros = parede*CONFIG.demaos/CONFIG.tintaRendPorLitro;
       const rodape = Math.max(0, perim - CONFIG.vaoPorta*2);
-      return { hero: { value: nf(piso,2), unit: "Área de piso" }, lines: [
-        { label: "Parede para pintura (2 demãos)", value: m2(parede) },
-        { label: "Tinta (galão 3,6 L)",            value: nf(ceil(litros/CONFIG.galaoLitros),0)+" galões" },
-        { label: "Piso (caixa ~2 m²)",             value: nf(ceil(piso/CONFIG.caixaPisoM2),0)+" caixas" },
-        { label: "Rodapé",                         value: ml(rodape)+" lineares" },
+      return { hero: { value: nf(piso,2), unit: "Ãrea de piso" }, lines: [
+        { label: "Parede para pintura (2 demÃ£os)", value: m2(parede) },
+        { label: "Tinta (galÃ£o 3,6 L)",            value: nf(ceil(litros/CONFIG.galaoLitros),0)+" galÃµes" },
+        { label: "Piso (caixa ~2 mÂ²)",             value: nf(ceil(piso/CONFIG.caixaPisoM2),0)+" caixas" },
+        { label: "RodapÃ©",                         value: ml(rodape)+" lineares" },
       ]};
     },
     stages: [
       { etapa: "Preparo", itens: ITENS.preparo },
-      { etapa: "Elétrica", nota: "Interruptor paralelo (three-way) para acender/apagar nas duas pontas.", itens: [
+      { etapa: "ElÃ©trica", nota: "Interruptor paralelo (three-way) para acender/apagar nas duas pontas.", itens: [
         ...ITENS.eletricaPonto,
-        { name: "Interruptores paralelos (three-way) + cabo", price: "R$ 30–70", q: "interruptor paralelo three way corredor" },
+        { name: "Interruptores paralelos (three-way) + cabo", price: "R$ 30â€“70", q: "interruptor paralelo three way corredor" },
       ]},
       { etapa: "Esquadrias", nota: "Portas do corredor e, se houver, uma janela basculante pequena.", itens: [
         ...ITENS.janelaPequena,
-        { name: "Porta + batente + dobradiças (kit)", price: "R$ 220–420", q: "kit porta batente dobradica" },
-        { name: "Fechadura + maçaneta", price: "R$ 45–120", q: "fechadura macaneta porta" },
+        { name: "Porta + batente + dobradiÃ§as (kit)", price: "R$ 220â€“420", q: "kit porta batente dobradica" },
+        { name: "Fechadura + maÃ§aneta", price: "R$ 45â€“120", q: "fechadura macaneta porta" },
       ]},
       { etapa: "Piso", itens: ITENS.revPiso },
       { etapa: "Pintura", itens: [
         ...ITENS.pintura,
-        { name: "Tinta látex PVA 3,6 L (corredor)", price: "R$ 45–75", q: "tinta latex pva 3,6 litros corredor" },
+        { name: "Tinta lÃ¡tex PVA 3,6 L (corredor)", price: "R$ 45â€“75", q: "tinta latex pva 3,6 litros corredor" },
       ]},
-      { etapa: "Iluminação", itens: ITENS.iluminacao },
-      { etapa: "Limpeza pós-obra", itens: ITENS.limpeza },
+      { etapa: "IluminaÃ§Ã£o", itens: ITENS.iluminacao },
+      { etapa: "Limpeza pÃ³s-obra", itens: ITENS.limpeza },
     ],
     decorBase: [
       { base: "Galeria de quadros (kit molduras)", q: "kit molduras galeria corredor",       price: [40, 150] },
@@ -1280,80 +1280,80 @@ const ROOMS = [
       { base: "Vaso alto com planta",              q: "vaso alto planta corredor",           price: [40, 150] },
       { base: "Capacho / tapete de entrada",       q: "capacho tapete de entrada",           price: [20, 70] },
       { base: "Porta-chaves de parede",            q: "porta chaves de parede entrada",      price: [15, 60] },
-      { base: "Luminária de teto / plafon",        q: "plafon luminaria teto corredor",      price: [35, 120] },
+      { base: "LuminÃ¡ria de teto / plafon",        q: "plafon luminaria teto corredor",      price: [35, 120] },
     ],
     decorExtra: [
-      { name: "Papel de parede statement estampado (rolo)", price: "R$ 35–90", q: "papel de parede statement estampado corredor", styles: ["divertido", "americano"] },
-      { name: "Capacho com frase de humor",         price: "R$ 20–50", q: "capacho frase humor entrada", styles: ["divertido"], eco: true },
-      { name: "Kit de plaquinhas de setas divertidas", price: "R$ 20–55", q: "kit placa seta decorativa divertida", styles: ["divertido"], eco: true },
-      { name: "Banco baú de madeira para a entrada", price: "R$ 200–450", q: "banco bau madeira entrada corredor", styles: ["rustico", "americano"] },
-      { name: "Trilho de spots preto (3–4 lâmpadas)", price: "R$ 95–180", q: "trilho spot preto corredor", styles: ["industrial", "contemporaneo"] },
+      { name: "Papel de parede statement estampado (rolo)", price: "R$ 35â€“90", q: "papel de parede statement estampado corredor", styles: ["divertido", "americano"] },
+      { name: "Capacho com frase de humor",         price: "R$ 20â€“50", q: "capacho frase humor entrada", styles: ["divertido"], eco: true },
+      { name: "Kit de plaquinhas de setas divertidas", price: "R$ 20â€“55", q: "kit placa seta decorativa divertida", styles: ["divertido"], eco: true },
+      { name: "Banco baÃº de madeira para a entrada", price: "R$ 200â€“450", q: "banco bau madeira entrada corredor", styles: ["rustico", "americano"] },
+      { name: "Trilho de spots preto (3â€“4 lÃ¢mpadas)", price: "R$ 95â€“180", q: "trilho spot preto corredor", styles: ["industrial", "contemporaneo"] },
     ],
   },
   {
-    id: "livre", label: "Área livre", title: "Área livre (medida solta)",
-    tagline: "Cálculo genérico por metro quadrado",
-    hint: "Serve pra qualquer espaço. Meça os dois lados do chão. Ex.: 2,00 × 4,00.",
+    id: "livre", label: "Ãrea livre", title: "Ãrea livre (medida solta)",
+    tagline: "CÃ¡lculo genÃ©rico por metro quadrado",
+    hint: "Serve pra qualquer espaÃ§o. MeÃ§a os dois lados do chÃ£o. Ex.: 2,00 Ã— 4,00.",
     example: { w: "2,00", l: "4,00" },
     compute(w, l){
       const area = w*l, perim = 2*(w+l);
-      return { hero: { value: nf(area,2), unit: "Área total" }, lines: [
-        { label: "Perímetro",                          value: ml(perim) },
-        { label: "Argamassa (saco 20 kg · ~4 m²)",     value: nf(ceil(area/CONFIG.argamassaPorM2),0)+" sacos" },
-        { label: "Piso / revestimento (caixa ~2 m²)",  value: nf(ceil(area/CONFIG.caixaPisoM2),0)+" caixas" },
-        { label: "Impermeabilizante (2 demãos)",       value: nf(ceil(area*1.2),0)+" kg" },
+      return { hero: { value: nf(area,2), unit: "Ãrea total" }, lines: [
+        { label: "PerÃ­metro",                          value: ml(perim) },
+        { label: "Argamassa (saco 20 kg Â· ~4 mÂ²)",     value: nf(ceil(area/CONFIG.argamassaPorM2),0)+" sacos" },
+        { label: "Piso / revestimento (caixa ~2 mÂ²)",  value: nf(ceil(area/CONFIG.caixaPisoM2),0)+" caixas" },
+        { label: "Impermeabilizante (2 demÃ£os)",       value: nf(ceil(area*1.2),0)+" kg" },
       ]};
     },
     stages: [
       { etapa: "Preparo", itens: ITENS.preparo },
-      { etapa: "Elétrica (se houver)", itens: ITENS.eletricaPonto },
-      { etapa: "Hidráulica (se houver ponto de água)", itens: ITENS.hidraulicaLeve },
-      { etapa: "Regularização / contrapiso", itens: [
+      { etapa: "ElÃ©trica (se houver)", itens: ITENS.eletricaPonto },
+      { etapa: "HidrÃ¡ulica (se houver ponto de Ã¡gua)", itens: ITENS.hidraulicaLeve },
+      { etapa: "RegularizaÃ§Ã£o / contrapiso", itens: [
         ...ITENS.regularizacao,
-        { name: "Aditivo impermeabilizante para argamassa", price: "R$ 20–45", q: "aditivo impermeabilizante argamassa", eco: true },
-        { name: "Sarrafo / guia de nível", price: "R$ 10–25", q: "sarrafo guia nivel contrapiso", eco: true },
+        { name: "Aditivo impermeabilizante para argamassa", price: "R$ 20â€“45", q: "aditivo impermeabilizante argamassa", eco: true },
+        { name: "Sarrafo / guia de nÃ­vel", price: "R$ 10â€“25", q: "sarrafo guia nivel contrapiso", eco: true },
       ]},
-      { etapa: "Impermeabilização (área molhada / laje)", itens: ITENS.impermeabilizacao },
+      { etapa: "ImpermeabilizaÃ§Ã£o (Ã¡rea molhada / laje)", itens: ITENS.impermeabilizacao },
       { etapa: "Revestimento de piso", itens: ITENS.revPiso },
-      { etapa: "Esquadrias (se houver vão)", itens: [
+      { etapa: "Esquadrias (se houver vÃ£o)", itens: [
         ...ITENS.janelaPequena,
-        { name: "Porta / portão (se aplicável)", price: "R$ 200–600", q: "porta portao area externa" },
+        { name: "Porta / portÃ£o (se aplicÃ¡vel)", price: "R$ 200â€“600", q: "porta portao area externa" },
       ]},
       { etapa: "Pintura", itens: [
         ...ITENS.pintura,
-        { name: "Tinta acrílica / emborrachada 18 L", price: "R$ 120–230", q: "tinta acrilica emborrachada 18 litros" },
+        { name: "Tinta acrÃ­lica / emborrachada 18 L", price: "R$ 120â€“230", q: "tinta acrilica emborrachada 18 litros" },
       ]},
-      { etapa: "Iluminação", itens: ITENS.iluminacao },
-      { etapa: "Limpeza pós-obra", itens: ITENS.limpeza },
+      { etapa: "IluminaÃ§Ã£o", itens: ITENS.iluminacao },
+      { etapa: "Limpeza pÃ³s-obra", itens: ITENS.limpeza },
     ],
     decorBase: [
-      { base: "Quadro / pôster decorativo",       q: "quadro poster decorativo parede",     price: [20, 110] },
+      { base: "Quadro / pÃ´ster decorativo",       q: "quadro poster decorativo parede",     price: [20, 110] },
       { base: "Prateleira / nicho de parede",     q: "prateleira nicho parede",             price: [25, 100] },
       { base: "Vaso com planta",                  q: "vaso planta decorativa",              price: [20, 90] },
       { base: "Espelho decorativo",               q: "espelho decorativo parede",           price: [80, 260] },
-      { base: "Luminária (teto / parede)",        q: "luminaria teto parede decorativa",    price: [40, 140] },
-      { base: "Cordão de luz LED",                q: "cordao luz led decorativo",           price: [20, 70] },
+      { base: "LuminÃ¡ria (teto / parede)",        q: "luminaria teto parede decorativa",    price: [40, 140] },
+      { base: "CordÃ£o de luz LED",                q: "cordao luz led decorativo",           price: [20, 70] },
       { base: "Cesto organizador",                q: "cesto organizador decorativo",        price: [30, 110] },
       { base: "Tapete",                           q: "tapete decorativo ambiente",          price: [50, 180] },
       { base: "Cabideiro / gancheira de parede",  q: "cabideiro gancheira parede",          price: [20, 80] },
       { base: "Placa / letreiro decorativo",      q: "placa letreiro decorativo parede",    price: [15, 70] },
       { base: "Cortina / persiana",               q: "cortina persiana ambiente",           price: [50, 160] },
-      { base: "Relógio de parede",                q: "relogio de parede decorativo",        price: [35, 120] },
+      { base: "RelÃ³gio de parede",                q: "relogio de parede decorativo",        price: [35, 120] },
       { base: "Adesivo / painel de parede",       q: "adesivo painel parede decorativo",    price: [20, 80] },
     ],
     decorExtra: [
-      { name: "Letreiro de neon LED pequeno",       price: "R$ 70–160", q: "neon led pequeno decorativo", styles: ["divertido"] },
-      { name: "Kit de adesivos de parede coloridos", price: "R$ 20–55", q: "kit adesivo parede colorido decorativo", styles: ["divertido"], eco: true },
-      { name: "Placa personalizada com frase",      price: "R$ 15–45", q: "placa decorativa personalizada frase", styles: ["divertido"], eco: true },
-      { name: "Prateleira de madeira de demolição", price: "R$ 70–150", q: "prateleira madeira demolicao", styles: ["rustico", "industrial"] },
-      { name: "Trio de vasos de fibra clara",       price: "R$ 60–150", q: "kit 3 vasos fibra clara", styles: ["escandinavo"], eco: true },
+      { name: "Letreiro de neon LED pequeno",       price: "R$ 70â€“160", q: "neon led pequeno decorativo", styles: ["divertido"] },
+      { name: "Kit de adesivos de parede coloridos", price: "R$ 20â€“55", q: "kit adesivo parede colorido decorativo", styles: ["divertido"], eco: true },
+      { name: "Placa personalizada com frase",      price: "R$ 15â€“45", q: "placa decorativa personalizada frase", styles: ["divertido"], eco: true },
+      { name: "Prateleira de madeira de demoliÃ§Ã£o", price: "R$ 70â€“150", q: "prateleira madeira demolicao", styles: ["rustico", "industrial"] },
+      { name: "Trio de vasos de fibra clara",       price: "R$ 60â€“150", q: "kit 3 vasos fibra clara", styles: ["escandinavo"], eco: true },
     ],
   },
 ];
 
-/* ────────────────────────────────────────────────────────────────
-   5) ESTADO + PERSISTÊNCIA
-   ──────────────────────────────────────────────────────────────── */
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+   5) ESTADO + PERSISTÃŠNCIA
+   â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 const STORE_KEY = "reformei.v4";
 let store = { tab: "banheiro", style: "contemporaneo", inputs: {}, budget: [], summed: {} };
 try {
@@ -1368,9 +1368,9 @@ if (!ROOMS.some(r => r.id === store.tab)) store.tab = "banheiro";
 if (!STYLES.some(s => s.id === store.style)) store.style = "contemporaneo";
 function persist(){ try { localStorage.setItem(STORE_KEY, JSON.stringify(store)); } catch (e) {} }
 
-/* ────────────────────────────────────────────────────────────────
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
    6) DOM
-   ──────────────────────────────────────────────────────────────── */
+   â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 const $ = (id) => document.getElementById(id);
 const els = {
   roomnav: $("roomnav"), ico: $("roomIco"), title: $("roomTitle"), tagline: $("roomTagline"),
@@ -1389,7 +1389,7 @@ const currentStyle = () => STYLES.find(s => s.id === store.style) || STYLES[0];
 const parseNum = (v) => { const n = parseFloat(String(v).replace(",", ".").trim()); return isFinite(n) ? n : NaN; };
 const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 
-/* Itens visíveis agora, para o botão "adicionar ao orçamento" */
+/* Itens visÃ­veis agora, para o botÃ£o "adicionar ao orÃ§amento" */
 let CUR = { prod: [], decor: [] };
 let allStagesOpen = false;
 
@@ -1404,13 +1404,13 @@ function productRow(p, src, idx){
   return '<div class="prod">' +
       '<div class="prod__top"><span class="prod__name">' + esc(p.name) + '</span>' +
       '<span class="prod__price">' + esc(ajustaPreco(priceFor(p))) + '</span></div>' +
-      (p.eco ? '<div class="prod__meta"><span class="chip-eco">Econômico</span></div>' : '') +
+      (p.eco ? '<div class="prod__meta"><span class="chip-eco">EconÃ´mico</span></div>' : '') +
       '<div class="stores">' + storeLinks(p.q) + '</div>' +
-      '<button class="addbtn" type="button" data-src="' + src + '" data-idx="' + idx + '">+ Adicionar ao orçamento</button>' +
+      '<button class="addbtn" type="button" data-src="' + src + '" data-idx="' + idx + '">+ Adicionar ao orÃ§amento</button>' +
     '</div>';
 }
 
-/* ── Orçamento ─────────────────────────────────────────────────── */
+/* â”€â”€ OrÃ§amento â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 function parsePrice(str){
   const nums = (String(str).match(/\d[\d.]*/g) || []).map(s => parseInt(s.replace(/\./g, ""), 10));
   const lo = nums[0] || 0;
@@ -1437,7 +1437,7 @@ function renderBudget(){
         '<span class="prod__price">' + esc(b.price) + '</span></div>' +
         '<div class="budget__row">' +
           '<div class="budget__qty">' +
-            '<button type="button" data-bq="-" data-q="' + esc(b.q) + '" aria-label="Menos um">−</button>' +
+            '<button type="button" data-bq="-" data-q="' + esc(b.q) + '" aria-label="Menos um">âˆ’</button>' +
             '<span>' + b.qty + '</span>' +
             '<button type="button" data-bq="+" data-q="' + esc(b.q) + '" aria-label="Mais um">+</button>' +
           '</div>' +
@@ -1445,22 +1445,22 @@ function renderBudget(){
         '</div>' +
       '</div>';
   }).join("");
-  els.budgetTotal.textContent = "R$ " + nf(lo, 0) + "–" + nf(hi, 0);
+  els.budgetTotal.textContent = "R$ " + nf(lo, 0) + "â€“" + nf(hi, 0);
 }
 function budgetText(){
-  const lines = ["*Orçamento Reformei*", ""];
+  const lines = ["*OrÃ§amento Reformei*", ""];
   let lo = 0, hi = 0;
   store.budget.forEach(b => {
     const p = parsePrice(b.price);
     lo += p.lo * b.qty; hi += p.hi * b.qty;
     lines.push("- " + b.qty + "x " + b.name + "  (" + b.price + ")");
   });
-  lines.push("", "Estimativa online: R$ " + nf(lo, 0) + "–" + nf(hi, 0));
+  lines.push("", "Estimativa online: R$ " + nf(lo, 0) + "â€“" + nf(hi, 0));
   lines.push("Feito no app Reformei");
   return lines.join("\n");
 }
 
-/* Navegação de ambientes */
+/* NavegaÃ§Ã£o de ambientes */
 function renderRoomNav(){
   els.roomnav.innerHTML = "";
   ROOMS.forEach(room => {
@@ -1489,13 +1489,13 @@ function renderRoom(){
   const vals = store.inputs[room.id];
   els.w.value = vals.w || "";
   els.l.value = vals.l || "";
-  els.shopTitle.textContent = "Lista completa da obra · " + room.label;
-  els.shopIntro.textContent = "Toque numa etapa para abrir. Cada preço é de referência (" + PRECO.atualizadoEm + ") e por unidade — um saco, um rolo, uma peça. O preço de hoje está nos botões das lojas.";
+  els.shopTitle.textContent = "Lista completa da obra Â· " + room.label;
+  els.shopIntro.textContent = "Toque numa etapa para abrir. Cada preÃ§o Ã© de referÃªncia (" + PRECO.atualizadoEm + ") e por unidade â€” um saco, um rolo, uma peÃ§a. O preÃ§o de hoje estÃ¡ nos botÃµes das lojas.";
   const roomStages = (room.stages || []).filter((s) => s.itens !== ITENS.preparo && s.itens !== ITENS.limpeza);
   const stages = [
-    { etapa: "Preparo e proteção", nota: "Igual em toda reforma: proteja móveis e piso e separe as ferramentas.", itens: ITENS.preparo },
+    { etapa: "Preparo e proteÃ§Ã£o", nota: "Igual em toda reforma: proteja mÃ³veis e piso e separe as ferramentas.", itens: ITENS.preparo },
   ].concat(roomStages, [
-    { etapa: "Limpeza pós-obra", nota: "Igual em toda reforma.", itens: ITENS.limpeza },
+    { etapa: "Limpeza pÃ³s-obra", nota: "Igual em toda reforma.", itens: ITENS.limpeza },
   ]);
   CUR.prod = [];
   allStagesOpen = false;
@@ -1509,10 +1509,10 @@ function renderRoom(){
       return html;
     }).join("");
     const num = (si < 9 ? "0" : "") + (si + 1);
-    const open = si === 1; // a primeira etapa do cômodo já vem aberta
+    const open = si === 1; // a primeira etapa do cÃ´modo jÃ¡ vem aberta
     return '<div class="stage">' +
         '<button class="stage__head" type="button" aria-expanded="' + open + '">' +
-          '<span class="stage__chev" aria-hidden="true">▸</span>' +
+          '<span class="stage__chev" aria-hidden="true">â–¸</span>' +
           '<span class="stage__num">' + num + '</span>' +
           '<span class="stage__ttl">' + stg.etapa + '</span>' +
           '<span class="stage__count">' + stg.itens.length + ' itens</span>' +
@@ -1534,19 +1534,19 @@ function renderResult(animate){
   if (!(w > 0) || !(l > 0)){
     els.result.innerHTML =
       '<div class="result__hero"><span class="lbl">Resultado</span></div>' +
-      '<p class="result__empty">Preencha os dois lados do cômodo para ver o tamanho e os materiais. Não sabe medir? Toque em "me ajuda" acima.</p>';
+      '<p class="result__empty">Preencha os dois lados do cÃ´modo para ver o tamanho e os materiais. NÃ£o sabe medir? Toque em "me ajuda" acima.</p>';
     return;
   }
   const out = room.compute(w, l);
   const lines = out.lines.map(x => "<li><span>" + x.label + "</span><b>" + x.value + "</b></li>").join("");
   const summedNote = (store.summed && store.summed[room.id])
-    ? '<p class="result__note">Você somou as partes de um cômodo irregular. O <b>chão</b> (piso, argamassa, rejunte) está certo. Já <b>tinta e rodapé</b> ficam aproximados — meça a volta toda do cômodo com a trena e compre 10% a mais.</p>'
+    ? '<p class="result__note">VocÃª somou as partes de um cÃ´modo irregular. O <b>chÃ£o</b> (piso, argamassa, rejunte) estÃ¡ certo. JÃ¡ <b>tinta e rodapÃ©</b> ficam aproximados â€” meÃ§a a volta toda do cÃ´modo com a trena e compre 10% a mais.</p>'
     : '';
   els.result.innerHTML =
     '<div class="result__hero"><span class="lbl">' + out.hero.unit + '</span>' +
-    '<span class="big">' + out.hero.value + '<small>m²</small></span></div>' +
+    '<span class="big">' + out.hero.value + '<small>mÂ²</small></span></div>' +
     '<ul class="result__list">' + lines + '</ul>' +
-    '<p class="result__note">Esse valor é uma estimativa. Na obra sempre sobra recorte e perda, então compre uns 10% a mais do que a conta mostra.</p>' +
+    '<p class="result__note">Esse valor Ã© uma estimativa. Na obra sempre sobra recorte e perda, entÃ£o compre uns 10% a mais do que a conta mostra.</p>' +
     summedNote;
   if (animate && !reduceMotion){
     els.result.classList.remove("is-updated");
@@ -1555,7 +1555,7 @@ function renderResult(animate){
   }
 }
 
-/* Estilo / decoração */
+/* Estilo / decoraÃ§Ã£o */
 function renderStyleNav(){
   els.stylenav.innerHTML = "";
   STYLES.forEach(st => {
@@ -1578,7 +1578,7 @@ function decorFromBase(item, st){
   const hi = Math.round(item.price[1] * st.mult / 5) * 5;
   return {
     name: item.base + " " + st.q2,
-    price: "R$ " + nf(lo, 0) + "–" + nf(hi, 0),
+    price: "R$ " + nf(lo, 0) + "â€“" + nf(hi, 0),
     q: item.q + " " + st.kw,
     baseQ: item.q,
     eco: hi <= 60,
@@ -1586,7 +1586,7 @@ function decorFromBase(item, st){
 }
 function renderDecor(){
   const room = currentRoom(), st = currentStyle();
-  els.decorTitle.textContent = "Decoração · " + room.label;
+  els.decorTitle.textContent = "DecoraÃ§Ã£o Â· " + room.label;
   els.decorIntro.textContent = "Enfeites para " + room.label.toLowerCase() + " no estilo " + st.label.toLowerCase() + ". Troque o estilo e a lista muda inteira.";
   els.moodSwatches.innerHTML = st.swatches.map(c => '<i style="background:' + c + '"></i>').join("");
   els.moodText.textContent = st.blurb;
@@ -1594,7 +1594,7 @@ function renderDecor(){
   const base  = (room.decorBase || []).map(it => decorFromBase(it, st));
   const list  = extra.concat(base);
   CUR.decor = list;
-  els.decorCount.innerHTML = "<b>" + list.length + "</b> ideias de decoração neste estilo · só lojas online";
+  els.decorCount.innerHTML = "<b>" + list.length + "</b> ideias de decoraÃ§Ã£o neste estilo Â· sÃ³ lojas online";
   els.decorList.innerHTML = list.map((p, i) => productRow(p, "decor", i)).join("");
 }
 
@@ -1619,7 +1619,7 @@ els.stagesToggle.addEventListener("click", () => {
 function onInput(){
   const id = currentRoom().id;
   store.inputs[id] = { w: els.w.value, l: els.l.value };
-  store.summed[id] = false;   // digitou à mão: não é mais medida somada
+  store.summed[id] = false;   // digitou Ã  mÃ£o: nÃ£o Ã© mais medida somada
   persist();
   renderResult(false);
 }
@@ -1632,7 +1632,7 @@ els.form.addEventListener("submit", (e) => {
   if (!reduceMotion) els.result.scrollIntoView({ behavior: "smooth", block: "center" });
 });
 
-/* Delegação: adicionar ao orçamento + steppers */
+/* DelegaÃ§Ã£o: adicionar ao orÃ§amento + steppers */
 document.addEventListener("click", (e) => {
   const add = e.target.closest(".addbtn");
   if (add){
@@ -1640,7 +1640,7 @@ document.addEventListener("click", (e) => {
     if (it){
       addToBudget(it);
       const old = add.textContent;
-      add.textContent = "Adicionado ✓";
+      add.textContent = "Adicionado âœ“";
       add.classList.add("is-added");
       setTimeout(() => { add.textContent = old; add.classList.remove("is-added"); }, 1200);
     }
@@ -1665,7 +1665,7 @@ document.addEventListener("click", (e) => {
 
 els.budgetCopy.addEventListener("click", () => {
   const txt = budgetText();
-  const done = () => { const o = els.budgetCopy.textContent; els.budgetCopy.textContent = "Lista copiada ✓"; setTimeout(() => els.budgetCopy.textContent = o, 1500); };
+  const done = () => { const o = els.budgetCopy.textContent; els.budgetCopy.textContent = "Lista copiada âœ“"; setTimeout(() => els.budgetCopy.textContent = o, 1500); };
   if (navigator.clipboard && navigator.clipboard.writeText){
     navigator.clipboard.writeText(txt).then(done).catch(() => window.prompt("Copie a lista:", txt));
   } else {
@@ -1679,7 +1679,7 @@ els.budgetClear.addEventListener("click", () => {
   store.budget = []; persist(); renderBudget();
 });
 
-/* ── "Como medir" — janela flutuante + somador de partes ──────── */
+/* â”€â”€ "Como medir" â€” janela flutuante + somador de partes â”€â”€â”€â”€â”€â”€â”€â”€ */
 const howto = {
   modal: $("howtoModal"), openBtn: $("howtoBtn"), closeBtn: $("howtoClose"),
   rows: $("adderRows"), addBtn: $("adderAdd"), total: $("adderTotal"), useBtn: $("adderUse"),
@@ -1689,11 +1689,11 @@ function adderAddRow(){
   const row = document.createElement("div");
   row.className = "adder__row";
   row.innerHTML =
-    '<input type="text" inputmode="decimal" placeholder="Largura (m)" aria-label="Largura do pedaço" />' +
-    '<span class="x">×</span>' +
-    '<input type="text" inputmode="decimal" placeholder="Compr. (m)" aria-label="Comprimento do pedaço" />' +
+    '<input type="text" inputmode="decimal" placeholder="Largura (m)" aria-label="Largura do pedaÃ§o" />' +
+    '<span class="x">Ã—</span>' +
+    '<input type="text" inputmode="decimal" placeholder="Compr. (m)" aria-label="Comprimento do pedaÃ§o" />' +
     '<span class="adder__sub">= 0,00</span>' +
-    '<button type="button" class="adder__del" data-adel aria-label="Remover parte">×</button>';
+    '<button type="button" class="adder__del" data-adel aria-label="Remover parte">Ã—</button>';
   howto.rows.appendChild(row);
 }
 function adderRecalc(){
@@ -1705,7 +1705,7 @@ function adderRecalc(){
     total += sub;
     row.querySelector(".adder__sub").textContent = "= " + nf(sub, 2);
   });
-  howto.total.textContent = nf(total, 2) + " m²";
+  howto.total.textContent = nf(total, 2) + " mÂ²";
   howto.useBtn.disabled = !(total > 0);
   return total;
 }
@@ -1753,7 +1753,7 @@ function applyTheme(mode){
   if (mode === "light" || mode === "dark") document.documentElement.setAttribute("data-theme", mode);
   else document.documentElement.removeAttribute("data-theme");
   const isDark = mode === "dark" || (mode !== "light" && window.matchMedia("(prefers-color-scheme: dark)").matches);
-  els.themeBtn.textContent = isDark ? "☀" : "☾";
+  els.themeBtn.textContent = isDark ? "â˜€" : "â˜¾";
 }
 let themeMode = "system";
 try { themeMode = localStorage.getItem("reformei.theme") || "system"; } catch (e) {}
@@ -1767,7 +1767,7 @@ window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () 
   if (themeMode === "system") applyTheme("system");
 });
 
-/* Barras horizontais (cômodos, estilos): roda do mouse e arrastar com o mouse
+/* Barras horizontais (cÃ´modos, estilos): roda do mouse e arrastar com o mouse
    rolam na horizontal; no toque a rolagem nativa continua funcionando. */
 function enableRowScroll(el){
   if (!el) return;
@@ -1793,7 +1793,7 @@ function enableRowScroll(el){
   }, true);
 }
 
-/* Início */
+/* InÃ­cio */
 els.localBtn.href = linkLojaLocal("");
 function refreshPrecoData(){ const pd = $("precoData"); if (pd) pd.textContent = PRECO.atualizadoEm; }
 refreshPrecoData();
@@ -1804,8 +1804,8 @@ renderBudget();
 enableRowScroll(els.roomnav);
 enableRowScroll(els.stylenav);
 
-/* Livro de preços na nuvem (opcional). Se o banco não estiver disponível,
-   o app usa os preços do código normalmente. */
+/* Livro de preÃ§os na nuvem (opcional). Se o banco nÃ£o estiver disponÃ­vel,
+   o app usa os preÃ§os do cÃ³digo normalmente. */
 (async function initPrecoDB(){
   try {
     const claudeObj = (typeof window !== "undefined") ? window.claude : null;
@@ -1816,13 +1816,13 @@ enableRowScroll(els.stylenav);
       const d = (snap && snap.exists) ? snap.data() : null;
       if (!d) return;
       aplicaPrecos(d);
-    }, function () { /* erro de assinatura: segue com preços do código */ });
-  } catch (e) { /* sem banco: preços do código */ }
+    }, function () { /* erro de assinatura: segue com preÃ§os do cÃ³digo */ });
+  } catch (e) { /* sem banco: preÃ§os do cÃ³digo */ }
 })();
 
-/* Livro de preços via arquivo — usado quando o app é hospedado fora do
-   claude.ai (ex.: Railway). Edite precos.json e faça novo deploy para
-   atualizar. No claude.ai o fetch é bloqueado e este bloco não faz nada. */
+/* Livro de preÃ§os via arquivo â€” usado quando o app Ã© hospedado fora do
+   claude.ai (ex.: Railway). Edite precos.json e faÃ§a novo deploy para
+   atualizar. No claude.ai o fetch Ã© bloqueado e este bloco nÃ£o faz nada. */
 function aplicaPrecos(d){
   if (!d || typeof d !== "object") return;
   if (typeof d.reajuste === "number" && d.reajuste > 0) PRECO.reajuste = d.reajuste;
