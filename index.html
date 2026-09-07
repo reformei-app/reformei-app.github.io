@@ -1,1808 +1,247 @@
 <title>Reformei</title>
-<meta name="description" content="Calculadora de reforma por ambiente, com estilo de acabamento, orçamento e comparação de lojas." />
+<meta name="description" content="App gratuito que calcula quanto material sua reforma precisa, cômodo por cômodo, e ajuda a comparar preço." />
 <style>
-  /* ─────────────────────────────────────────────────────────────
-     REFORMEI · design tokens
-     Marca: azul #1A2530 · laranja #F27420 · bege #FAF6F0
-     Display: Sora (parente do wordmark arredondado da logo)
-     Texto/UI: Figtree · Números: tabular-nums
-     ───────────────────────────────────────────────────────────── */
   :root{
-    --bg:#FAF6F0;
-    --surface:#FFFFFF;
-    --surface-2:#F4EEE4;
-    --border:#E7DCCB;
-    --text:#1A2530;
-    --text-soft:#5B6672;
-    --flame:#F27420;
-    --flame-ink:#B0530E;
-    --flame-wash:rgba(242,116,32,.09);
-    --result-bg:#1A2530;
-    --result-text:#FAF6F0;
-    --result-soft:#A7B2BF;
-    --eco:#1F7A46;
-    --eco-wash:rgba(31,122,70,.12);
-    --shadow:0 1px 2px rgba(26,37,48,.05), 0 14px 32px -18px rgba(26,37,48,.22);
+    --bg:#FAF6F0; --surface:#FFFFFF; --surface-2:#F4EEE4; --border:#E7DCCB;
+    --text:#1A2530; --text-soft:#5B6672;
+    --flame:#F27420; --flame-ink:#B0530E; --flame-wash:rgba(242,116,32,.10);
+    --ink:#1A2530; --ink-text:#FAF6F0; --ink-soft:#A7B2BF;
+    --shadow:0 1px 2px rgba(26,37,48,.05), 0 20px 44px -22px rgba(26,37,48,.28);
     --ring:0 0 0 3px rgba(242,116,32,.38);
   }
   @media (prefers-color-scheme: dark){
     :root:not([data-theme="light"]){
       --bg:#12151A; --surface:#1B222C; --surface-2:#212B37; --border:#303B49;
       --text:#ECE6DC; --text-soft:#9BA5B1;
-      --flame:#F6883D; --flame-ink:#F7A468; --flame-wash:rgba(246,136,61,.14);
-      --result-bg:#212D3B; --result-text:#F2EDE5; --result-soft:#AEB9C6;
-      --eco:#4FBB80; --eco-wash:rgba(79,187,128,.16);
-      --shadow:0 1px 2px rgba(0,0,0,.35), 0 16px 36px -18px rgba(0,0,0,.6);
+      --flame:#F6883D; --flame-ink:#F7A468; --flame-wash:rgba(246,136,61,.15);
+      --ink:#212D3B; --ink-text:#F2EDE5; --ink-soft:#AEB9C6;
+      --shadow:0 1px 2px rgba(0,0,0,.35), 0 22px 48px -24px rgba(0,0,0,.6);
     }
   }
   :root[data-theme="dark"]{
     --bg:#12151A; --surface:#1B222C; --surface-2:#212B37; --border:#303B49;
     --text:#ECE6DC; --text-soft:#9BA5B1;
-    --flame:#F6883D; --flame-ink:#F7A468; --flame-wash:rgba(246,136,61,.14);
-    --result-bg:#212D3B; --result-text:#F2EDE5; --result-soft:#AEB9C6;
-    --eco:#4FBB80; --eco-wash:rgba(79,187,128,.16);
-    --shadow:0 1px 2px rgba(0,0,0,.35), 0 16px 36px -18px rgba(0,0,0,.6);
+    --flame:#F6883D; --flame-ink:#F7A468; --flame-wash:rgba(246,136,61,.15);
+    --ink:#212D3B; --ink-text:#F2EDE5; --ink-soft:#AEB9C6;
+    --shadow:0 1px 2px rgba(0,0,0,.35), 0 22px 48px -24px rgba(0,0,0,.6);
   }
 
   *{box-sizing:border-box}
   html,body{margin:0}
   body{
-    background:var(--surface-2);
-    color:var(--text);
+    background:var(--bg);color:var(--text);
     font-family:"Figtree",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
-    line-height:1.5;
-    -webkit-font-smoothing:antialiased;
+    line-height:1.55;-webkit-font-smoothing:antialiased;
   }
-  .app{
-    max-width:480px;margin:0 auto;min-height:100vh;
-    background:var(--bg);
-    display:flex;flex-direction:column;
-    box-shadow:0 0 80px -30px rgba(0,0,0,.25);
-  }
+  .wrap{max-width:960px;margin:0 auto;padding:0 20px}
+  a{color:inherit}
 
-  /* ── Topo fixo: marca + navegação de ambientes ──────────────── */
-  .topwrap{position:sticky;top:0;z-index:20}
-  .top{
-    display:flex;align-items:center;justify-content:space-between;gap:12px;
-    padding:13px 18px;
-    background:color-mix(in srgb, var(--bg) 90%, transparent);
+  header{
+    position:sticky;top:0;z-index:10;
+    background:color-mix(in srgb, var(--bg) 88%, transparent);
     backdrop-filter:saturate(1.4) blur(8px);
     border-bottom:1px solid var(--border);
   }
-  .brand{display:flex;align-items:center;gap:9px;min-width:0}
-  .brand h1{
-    margin:0;font-family:"Sora","Figtree",sans-serif;font-weight:800;
-    font-size:20px;letter-spacing:-.02em;color:var(--text);
+  header .wrap{display:flex;align-items:center;justify-content:space-between;padding-top:12px;padding-bottom:12px}
+  .brand{display:flex;align-items:center;gap:9px}
+  .brand svg{width:26px;height:26px}
+  .brand b{font-family:"Sora","Figtree",sans-serif;font-weight:800;font-size:20px;letter-spacing:-.02em}
+  .brand b i{color:var(--flame);font-style:normal}
+  .btn{
+    display:inline-flex;align-items:center;gap:8px;
+    font-weight:800;font-size:14px;text-decoration:none;
+    padding:11px 18px;border-radius:12px;background:var(--flame);color:#1A2530;
+    border:none;cursor:pointer;
   }
-  .brand h1 span{color:var(--flame)}
-  .theme{
-    flex:none;width:38px;height:38px;display:grid;place-items:center;
-    border-radius:11px;border:1px solid var(--border);
-    background:var(--surface);color:var(--text-soft);font-size:16px;cursor:pointer;
-  }
-  .theme:focus-visible{outline:none;box-shadow:var(--ring)}
+  .btn:focus-visible{outline:none;box-shadow:var(--ring)}
+  .btn--ghost{background:var(--surface);border:1px solid var(--border);color:var(--text)}
 
-  .roomnav{
-    display:flex;gap:6px;overflow-x:auto;
-    padding:10px 14px;
-    background:color-mix(in srgb, var(--bg) 94%, transparent);
-    backdrop-filter:saturate(1.4) blur(8px);
-    border-bottom:1px solid var(--border);
-    scrollbar-width:none;-webkit-overflow-scrolling:touch;
+  .hero{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;padding:56px 0 40px}
+  .hero h1{
+    font-family:"Sora","Figtree",sans-serif;font-weight:800;letter-spacing:-.025em;
+    font-size:clamp(30px,5vw,44px);line-height:1.12;margin:0 0 14px;text-wrap:balance;
   }
-  .roomnav::-webkit-scrollbar{display:none}
-  .rpill{
-    flex:0 0 auto;display:flex;align-items:center;gap:6px;
-    padding:8px 13px;border-radius:999px;
-    border:1px solid var(--border);background:var(--surface);
-    color:var(--text-soft);font:inherit;font-weight:650;font-size:12.5px;
-    white-space:nowrap;cursor:pointer;
-  }
-  .rpill svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
-  .rpill[aria-selected="true"]{background:var(--flame);border-color:var(--flame);color:#1A2530}
-  .rpill:focus-visible{outline:none;box-shadow:var(--ring)}
+  .hero p.lede{font-size:16px;color:var(--text-soft);margin:0 0 24px;max-width:44ch}
+  .hero .cta{display:flex;gap:12px;flex-wrap:wrap}
+  .hero small{display:block;margin-top:14px;font-size:12px;color:var(--text-soft)}
 
-  /* ── Conteúdo ───────────────────────────────────────────────── */
-  main{flex:1;padding:18px 16px 44px;display:flex;flex-direction:column;gap:16px}
-  .lede{margin:0;font-size:13.5px;color:var(--text-soft);max-width:42ch}
+  /* mockup de celular */
+  .phone{
+    justify-self:center;width:246px;background:var(--ink);border-radius:30px;
+    padding:12px;box-shadow:var(--shadow);border:1px solid rgba(255,255,255,.06);
+  }
+  .phone__scr{background:var(--bg);border-radius:20px;overflow:hidden}
+  .phone__bar{display:flex;gap:5px;padding:11px 13px;border-bottom:1px solid var(--border)}
+  .phone__bar i{width:7px;height:7px;border-radius:50%;background:var(--border)}
+  .phone__bar i:first-child{background:var(--flame)}
+  .phone__body{padding:13px}
+  .chip{display:inline-block;font-size:10px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:var(--flame);background:var(--flame-wash);padding:3px 8px;border-radius:999px;margin-bottom:9px}
+  .rescard{background:var(--ink);color:var(--ink-text);border-radius:14px;padding:14px}
+  .rescard .lbl{font-size:9px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-soft)}
+  .rescard .big{font-family:"Sora","Figtree",sans-serif;font-weight:800;font-size:30px;letter-spacing:-.02em}
+  .rescard .big span{font-size:14px;color:var(--ink-soft)}
+  .rescard ul{list-style:none;margin:11px 0 0;padding:11px 0 0;border-top:1px solid rgba(255,255,255,.12);display:flex;flex-direction:column;gap:7px}
+  .rescard li{display:flex;justify-content:space-between;font-size:11px}
+  .rescard li span{color:var(--ink-soft)}
+  .rescard li b{color:var(--flame);font-weight:700}
 
-  .room-head{display:flex;align-items:center;gap:11px}
-  .room-head .ico{
-    flex:none;width:42px;height:42px;border-radius:12px;display:grid;place-items:center;
-    background:var(--flame-wash);color:var(--flame);
-  }
-  .room-head .ico svg{width:23px;height:23px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-  .room-head h2{margin:0;font-family:"Sora","Figtree",sans-serif;font-weight:700;font-size:19px;letter-spacing:-.015em;text-wrap:balance}
-  .room-head p{margin:2px 0 0;font-size:12.5px;color:var(--text-soft)}
+  section{padding:34px 0}
+  h2{font-family:"Sora","Figtree",sans-serif;font-weight:700;font-size:22px;letter-spacing:-.015em;margin:0 0 6px}
+  .sub{color:var(--text-soft);margin:0 0 22px;font-size:14px}
 
-  /* ── Card de formulário ─────────────────────────────────────── */
-  .card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:16px;box-shadow:var(--shadow)}
-  .fields{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-  .field label{display:block;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--text-soft);margin-bottom:6px}
-  .field input{
-    width:100%;font:inherit;font-size:19px;font-weight:600;font-variant-numeric:tabular-nums;
-    padding:12px;border-radius:12px;border:1.5px solid var(--border);background:var(--bg);color:var(--text);
-  }
-  .field input:focus{outline:none;border-color:var(--flame);box-shadow:var(--ring)}
-  .hint{margin:9px 0 0;font-size:11.5px;color:var(--text-soft)}
-  .calc-btn{
-    margin-top:13px;width:100%;font:inherit;font-weight:800;font-size:15px;
-    padding:14px 16px;border:none;border-radius:13px;background:var(--flame);color:#1A2530;
-    cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;
-  }
-  .calc-btn:active{transform:translateY(1px)}
-  .calc-btn:focus-visible{outline:none;box-shadow:var(--ring)}
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .step{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:18px}
+  .step .n{font-family:"Sora","Figtree",sans-serif;font-weight:800;color:var(--flame);font-size:13px;background:var(--flame-wash);width:26px;height:26px;border-radius:8px;display:grid;place-items:center;margin-bottom:10px}
+  .step h3{margin:0 0 4px;font-size:14.5px;font-weight:700}
+  .step p{margin:0;font-size:12.5px;color:var(--text-soft)}
 
-  /* ── Bloco de resultados (azul da marca) ────────────────────── */
-  .result{background:var(--result-bg);color:var(--result-text);border-radius:16px;padding:18px 16px 14px;box-shadow:var(--shadow)}
-  .result.is-updated{animation:ping .6s ease-out}
-  @keyframes ping{0%{box-shadow:0 0 0 0 rgba(242,116,32,.5)}100%{box-shadow:0 0 0 16px rgba(242,116,32,0)}}
-  .result__hero{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap}
-  .result__hero .lbl{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--result-soft)}
-  .result__hero .big{font-family:"Sora","Figtree",sans-serif;font-weight:800;font-size:34px;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
-  .result__hero .big small{font-size:16px;font-weight:600;color:var(--result-soft);margin-left:3px}
-  .result__list{list-style:none;margin:14px 0 0;padding:14px 0 0;border-top:1px solid rgba(255,255,255,.12);display:flex;flex-direction:column;gap:10px}
-  .result__list li{display:flex;align-items:baseline;justify-content:space-between;gap:14px;font-size:13.5px}
-  .result__list li span{color:var(--result-soft)}
-  .result__list li b{font-weight:700;font-variant-numeric:tabular-nums;color:var(--flame);white-space:nowrap}
-  .result__note{margin:14px 0 0;font-size:11px;color:var(--result-soft);line-height:1.45}
-  .result__note b{color:var(--result-text);font-weight:700}
-  .result__empty{margin:6px 0 2px;font-size:14px;color:var(--result-soft)}
+  .feats{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .feat{display:flex;gap:11px;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:15px}
+  .feat svg{flex:none;width:22px;height:22px;stroke:var(--flame);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+  .feat h3{margin:0 0 3px;font-size:13.5px;font-weight:700}
+  .feat p{margin:0;font-size:12px;color:var(--text-soft)}
 
-  /* ── Vitrines ──────────────────────────────────────────────── */
-  .shop h3{margin:0 0 3px;font-family:"Sora","Figtree",sans-serif;font-weight:700;font-size:15px;display:flex;align-items:center;gap:8px}
-  .shop h3::before{content:"";width:14px;height:3px;border-radius:2px;background:var(--flame)}
-  .shop > p{margin:0 0 12px;font-size:12px;color:var(--text-soft)}
-  .prod-list{display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--border);border-radius:16px;box-shadow:var(--shadow);overflow:hidden}
-  .prod{padding:14px}
-  .prod + .prod{border-top:1px solid var(--border)}
-  .prod__top{display:flex;align-items:baseline;justify-content:space-between;gap:12px}
-  .prod__name{font-weight:650;font-size:14px}
-  .prod__price{font-weight:700;font-size:13px;color:var(--text-soft);font-variant-numeric:tabular-nums;white-space:nowrap}
-  .prod__meta{margin:5px 0 0;font-size:11.5px;color:var(--text-soft);display:flex;align-items:center;gap:7px;flex-wrap:wrap}
-  .chip-eco{font-weight:800;font-size:10px;letter-spacing:.05em;text-transform:uppercase;color:var(--eco);background:var(--eco-wash);padding:2px 7px;border-radius:999px}
-  .stores{display:flex;flex-wrap:wrap;gap:6px;margin-top:11px}
-  .store{
-    flex:1 1 84px;text-align:center;text-decoration:none;font-weight:700;font-size:11.5px;
-    padding:9px 8px;border-radius:10px;border:1px solid var(--border);background:var(--bg);color:var(--text);
-  }
-  .store:hover,.store:focus-visible{border-color:var(--flame);color:var(--flame-ink);background:var(--flame-wash);outline:none}
-  .store:focus-visible{box-shadow:var(--ring)}
-  .store--local{flex-basis:100%;border-style:dashed;margin-top:2px}
-  .addbtn{
-    margin-top:9px;width:100%;font:inherit;font-weight:800;font-size:12px;
-    padding:9px;border-radius:10px;border:1px dashed var(--flame);
-    background:var(--flame-wash);color:var(--flame-ink);cursor:pointer;
-  }
-  .addbtn:focus-visible{outline:none;box-shadow:var(--ring)}
-  .addbtn.is-added{border-style:solid;background:var(--flame);color:#1A2530}
+  .who{background:var(--ink);color:var(--ink-text);border-radius:20px;padding:26px 24px;box-shadow:var(--shadow)}
+  .who h2{color:var(--ink-text)}
+  .who p{margin:0;color:var(--ink-soft);font-size:14px;max-width:60ch}
 
-  /* ── Seletor de estilo + mood ──────────────────────────────── */
-  .stylenav{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;margin:2px 0 0}
-  .stylenav::-webkit-scrollbar{display:none}
-  .spill{
-    flex:0 0 auto;padding:7px 13px;border-radius:999px;
-    border:1px solid var(--border);background:var(--bg);
-    color:var(--text-soft);font:inherit;font-weight:650;font-size:12px;white-space:nowrap;cursor:pointer;
-  }
-  .spill[aria-selected="true"]{background:var(--text);border-color:var(--text);color:var(--bg)}
-  .spill:focus-visible{outline:none;box-shadow:var(--ring)}
-  .mood{display:flex;align-items:center;gap:11px;margin:12px 0 4px}
-  .swatches{display:flex;flex:0 0 auto}
-  .swatches i{width:22px;height:22px;border-radius:6px;display:block;box-shadow:inset 0 0 0 1px rgba(0,0,0,.12)}
-  .swatches i + i{margin-left:-3px}
-  .mood p{margin:0;font-size:11.5px;color:var(--text-soft);line-height:1.4}
-  .decor-count{margin:0 0 10px;font-size:11px;color:var(--text-soft)}
-  .decor-count b{color:var(--flame-ink);font-weight:800}
+  .band{background:var(--surface-2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);text-align:center;padding:40px 20px}
+  .band h2{margin:0 0 8px}
+  .band p{margin:0 0 18px;color:var(--text-soft);font-size:14px}
 
-  /* ── Etapas da obra (abre/fecha) ──────────────────────────── */
-  .stages-toggle{
-    display:block;width:100%;text-align:right;margin:6px 0 2px;
-    font:inherit;font-weight:700;font-size:11.5px;color:var(--flame-ink);
-    background:none;border:none;text-decoration:underline;cursor:pointer;
-  }
-  .stages-toggle:focus-visible{outline:none;box-shadow:var(--ring);border-radius:4px}
-  .stage{margin-top:8px;border:1px solid var(--border);border-radius:13px;background:var(--surface);overflow:hidden}
-  .stage__head{
-    width:100%;display:flex;align-items:center;gap:9px;
-    padding:12px 13px;background:none;border:none;cursor:pointer;
-    font:inherit;color:var(--text);text-align:left;
-  }
-  .stage__head:focus-visible{outline:none;box-shadow:inset var(--ring)}
-  .stage__chev{flex:none;font-size:11px;color:var(--flame);transition:transform .15s ease}
-  .stage__head[aria-expanded="true"] .stage__chev{transform:rotate(90deg)}
-  .stage__num{flex:none;font-family:"Sora","Figtree",sans-serif;font-weight:800;font-size:11px;color:var(--flame);background:var(--flame-wash);border-radius:6px;padding:2px 6px;font-variant-numeric:tabular-nums}
-  .stage__ttl{flex:1;min-width:0;font-family:"Sora","Figtree",sans-serif;font-weight:700;font-size:13.5px;letter-spacing:-.01em}
-  .stage__count{flex:none;font-size:10.5px;font-weight:600;color:var(--text-soft)}
-  .stage__panel{padding:0 13px 13px}
-  .stage__panel .prod-list{box-shadow:none;border-radius:11px}
-  .stage__note{margin:0 0 10px;font-size:11.5px;color:var(--text-soft)}
-  @media (prefers-reduced-motion: reduce){ .stage__chev{transition:none} }
+  footer{padding:30px 0 46px}
+  footer p{font-size:11.5px;color:var(--text-soft);line-height:1.6;margin:0}
 
-  /* ── "Como medir" — link + janela flutuante ───────────────── */
-  .howto-link{
-    display:block;margin-top:10px;width:100%;text-align:left;text-decoration:none;
-    font:inherit;font-weight:700;font-size:12px;
-    padding:10px 11px;border-radius:10px;
-    border:1px dashed var(--border);background:var(--bg);color:var(--flame-ink);cursor:pointer;
-  }
-  .howto-link + .howto-link{margin-top:7px}
-  .howto-link:focus-visible{outline:none;box-shadow:var(--ring)}
-  .modal[hidden]{display:none}
-  .modal{position:fixed;inset:0;z-index:60;display:flex;align-items:flex-end;justify-content:center}
-  .modal__scrim{position:absolute;inset:0;background:rgba(16,20,26,.55);backdrop-filter:blur(2px)}
-  .modal__card{
-    position:relative;width:100%;max-width:480px;max-height:92vh;
-    display:flex;flex-direction:column;
-    background:var(--bg);border:1px solid var(--border);
-    border-radius:18px 18px 0 0;box-shadow:0 -12px 44px -14px rgba(0,0,0,.45);
-  }
-  @media (min-width:520px){
-    .modal{align-items:center;padding:20px}
-    .modal__card{border-radius:18px}
-  }
-  .modal__head{
-    position:sticky;top:0;display:flex;align-items:center;justify-content:space-between;gap:12px;
-    padding:15px 16px;background:var(--bg);border-bottom:1px solid var(--border);
-    border-radius:18px 18px 0 0;
-  }
-  .modal__head h3{margin:0;font-family:"Sora","Figtree",sans-serif;font-weight:700;font-size:16px}
-  .modal__x{
-    flex:none;width:34px;height:34px;border-radius:9px;line-height:1;
-    border:1px solid var(--border);background:var(--surface);color:var(--text-soft);font-size:20px;cursor:pointer;
-  }
-  .modal__x:focus-visible{outline:none;box-shadow:var(--ring)}
-  .modal__body{padding:16px;overflow-y:auto;display:flex;flex-direction:column;gap:16px}
-
-  .mstep-intro{margin:0;font-size:12.5px;color:var(--text-soft);line-height:1.55}
-  .mstep-intro b{color:var(--text)}
-  .mstep{display:flex;gap:12px;align-items:flex-start}
-  .mstep svg{flex:none;width:62px;height:52px}
-  .mfig{stroke:var(--text);fill:none;stroke-width:2;stroke-linejoin:round}
-  .mfig--wash{fill:var(--flame-wash)}
-  .mstep .lbl{fill:var(--text-soft);stroke:none;font-size:9px;font-weight:800}
-  .mstep h4{margin:0 0 3px;font-size:13px;font-weight:700}
-  .mstep p{margin:0;font-size:12px;color:var(--text-soft);line-height:1.5}
-  .mstep b{color:var(--flame-ink)}
-
-  .adder{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:14px}
-  .adder h4{margin:0 0 3px;font-family:"Sora","Figtree",sans-serif;font-weight:700;font-size:14px}
-  .adder > p{margin:0 0 11px;font-size:11.5px;color:var(--text-soft)}
-  .adder__row{display:flex;align-items:center;gap:7px;margin-bottom:8px}
-  .adder__row input{
-    width:100%;min-width:0;font:inherit;font-size:15px;font-weight:600;font-variant-numeric:tabular-nums;
-    padding:9px;border-radius:9px;border:1.5px solid var(--border);background:var(--bg);color:var(--text);
-  }
-  .adder__row input:focus{outline:none;border-color:var(--flame);box-shadow:var(--ring)}
-  .adder__row .x{flex:none;color:var(--text-soft);font-weight:700}
-  .adder__sub{flex:none;min-width:58px;text-align:right;font-size:11px;color:var(--text-soft);font-variant-numeric:tabular-nums}
-  .adder__del{flex:none;width:26px;height:26px;border-radius:7px;border:1px solid var(--border);background:var(--bg);color:var(--text-soft);cursor:pointer}
-  .adder__addbtn{font:inherit;font-weight:700;font-size:12px;padding:8px 11px;border-radius:9px;border:1px dashed var(--flame);background:var(--flame-wash);color:var(--flame-ink);cursor:pointer}
-  .adder__total{margin:12px 0 10px;font-size:13px;color:var(--text-soft)}
-  .adder__total b{font-family:"Sora","Figtree",sans-serif;font-weight:800;color:var(--flame-ink);font-size:16px;font-variant-numeric:tabular-nums}
-  .adder__use{width:100%;font:inherit;font-weight:800;font-size:13px;padding:12px;border-radius:11px;border:none;background:var(--flame);color:#1A2530;cursor:pointer}
-  .adder__use:disabled{opacity:.45;cursor:not-allowed}
-  .adder__use:focus-visible{outline:none;box-shadow:var(--ring)}
-  .adder__note{margin:9px 0 0;font-size:10.5px;color:var(--text-soft);line-height:1.5}
-
-  /* ── Orçamento para a loja local ───────────────────────────── */
-  .budget__row{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:10px}
-  .budget__qty{display:flex;align-items:center;gap:10px}
-  .budget__qty button{width:30px;height:30px;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--text);font:inherit;font-size:16px;font-weight:700;cursor:pointer}
-  .budget__qty button:focus-visible{outline:none;box-shadow:var(--ring)}
-  .budget__qty span{min-width:1.5ch;text-align:center;font-weight:700;font-variant-numeric:tabular-nums}
-  .budget__rm{border:none;background:none;color:var(--text-soft);font:inherit;font-size:12px;font-weight:700;text-decoration:underline;cursor:pointer}
-  .budget__foot{margin-top:13px;display:flex;flex-direction:column;gap:11px}
-  .budget__total{font-size:13px;color:var(--text-soft)}
-  .budget__total b{font-family:"Sora","Figtree",sans-serif;font-weight:800;color:var(--flame-ink);font-variant-numeric:tabular-nums;font-size:15px}
-  .budget__actions{display:flex;flex-wrap:wrap;gap:8px}
-  .budget__actions button{flex:1 1 130px;font:inherit;font-weight:800;font-size:13px;padding:12px;border-radius:11px;border:none;background:var(--flame);color:#1A2530;cursor:pointer}
-  .budget__actions button.ghost{background:var(--surface);border:1px solid var(--border);color:var(--text-soft);flex-basis:90px}
-  .budget__actions button:focus-visible{outline:none;box-shadow:var(--ring)}
-
-  footer{margin-top:2px;font-size:11px;color:var(--text-soft);line-height:1.5}
-  footer code{background:var(--surface-2);border:1px solid var(--border);padding:1px 5px;border-radius:5px;font-size:10.5px}
-
-  @media (prefers-reduced-motion: reduce){
-    *{scroll-behavior:auto !important}
-    .result.is-updated{animation:none}
-    .calc-btn:active{transform:none}
-  }
-  @media (max-width:340px){
-    .fields{grid-template-columns:1fr}
-    .store{flex-basis:calc(50% - 3px)}
+  @media (max-width:760px){
+    .hero{grid-template-columns:1fr;gap:30px;padding:36px 0 20px;text-align:center}
+    .hero p.lede{margin-left:auto;margin-right:auto}
+    .hero .cta{justify-content:center}
+    .steps{grid-template-columns:1fr}
+    .feats{grid-template-columns:1fr}
+    header .btn{padding:9px 14px;font-size:13px}
   }
 </style>
-
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Figtree:wght@400;500;600;700;800&display=swap" />
 
-<div class="app">
-  <div class="topwrap">
-    <header class="top">
-      <div class="brand">
-        <svg viewBox="0 0 32 32" width="26" height="26" aria-hidden="true">
-          <path d="M3.5 16.5 14.6 6.2a2 2 0 0 1 2.8 0L28.5 16.5" fill="none" stroke="var(--text)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-          <rect x="12.7" y="12.4" width="6.6" height="6.6" rx="1.4" fill="var(--flame)"/>
-          <rect x="21.4" y="12.4" width="5" height="6.6" rx="1.4" fill="var(--flame)" opacity=".5"/>
-        </svg>
-        <h1>Reform<span>ei</span></h1>
-      </div>
-      <button class="theme" id="themeBtn" type="button" aria-label="Alternar tema claro e escuro">☾</button>
-    </header>
-    <nav class="roomnav" id="roomnav" role="tablist" aria-label="Ambientes"></nav>
+<header>
+  <div class="wrap">
+    <span class="brand">
+      <svg viewBox="0 0 32 32" aria-hidden="true">
+        <path d="M3.5 16.5 14.6 6.2a2 2 0 0 1 2.8 0L28.5 16.5" fill="none" stroke="var(--text)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        <rect x="12.7" y="12.4" width="6.6" height="6.6" rx="1.4" fill="var(--flame)"/>
+        <rect x="21.4" y="12.4" width="5" height="6.6" rx="1.4" fill="var(--flame)" opacity=".5"/>
+      </svg>
+      <b>Reform<i>ei</i></b>
+    </span>
+    <a class="btn" href="app.html">Abrir o app</a>
   </div>
+</header>
 
-  <main>
-    <p class="lede">Descubra quanto material sua reforma vai precisar, cômodo por cômodo, e monte um orçamento pra comparar o preço nas lojas ou na casa de material perto de você.</p>
-
-    <section class="room-head">
-      <span class="ico" id="roomIco" aria-hidden="true"></span>
-      <div>
-        <h2 id="roomTitle"></h2>
-        <p id="roomTagline"></p>
+<main class="wrap">
+  <section class="hero">
+    <div>
+      <h1>Saiba quanto sua reforma vai custar antes de começar.</h1>
+      <p class="lede">O Reformei é um app gratuito que calcula quanto material sua obra precisa — cômodo por cômodo — e ajuda a comparar o preço antes de comprar.</p>
+      <div class="cta">
+        <a class="btn" href="app.html">Abrir o app</a>
+        <a class="btn btn--ghost" href="#como">Como funciona</a>
       </div>
-    </section>
+      <small>Funciona no navegador do celular, sem instalar nada.</small>
+    </div>
 
-    <form class="card" id="form" novalidate>
-      <div class="fields">
-        <div class="field">
-          <label for="w">Largura (m)</label>
-          <input id="w" name="w" type="text" inputmode="decimal" autocomplete="off" placeholder="3,00" />
-        </div>
-        <div class="field">
-          <label for="l">Comprimento (m)</label>
-          <input id="l" name="l" type="text" inputmode="decimal" autocomplete="off" placeholder="4,00" />
-        </div>
-      </div>
-      <p class="hint" id="roomHint"></p>
-      <button class="howto-link" id="howtoBtn" type="button">📐 Não sei calcular os metros quadrados — me ajuda</button>
-      <button class="calc-btn" type="submit">
-        <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="2.5" width="16" height="19" rx="2.5"/><path d="M8 7h8M8 12h3M8 16h3M15 12v5"/></svg>
-        Calcular materiais
-      </button>
-    </form>
-
-    <section class="result" id="result" aria-live="polite"></section>
-
-    <section class="shop">
-      <h3 id="shopTitle"></h3>
-      <p id="shopIntro"></p>
-      <a class="howto-link" id="localBtn" target="_blank" rel="noopener noreferrer">📍 Ver casas de material de construção perto de mim</a>
-      <button class="stages-toggle" id="stagesToggle" type="button">Abrir todas as etapas</button>
-      <div id="stagesWrap"></div>
-    </section>
-
-    <section class="shop">
-      <h3 id="decorTitle"></h3>
-      <p id="decorIntro"></p>
-      <div class="stylenav" id="stylenav" role="tablist" aria-label="Estilo de decoração"></div>
-      <div class="mood">
-        <span class="swatches" id="moodSwatches" aria-hidden="true"></span>
-        <p id="moodText"></p>
-      </div>
-      <p class="decor-count" id="decorCount"></p>
-      <div class="prod-list" id="decorList"></div>
-    </section>
-
-    <section class="shop" id="budgetSec" hidden>
-      <h3>Meu orçamento para a loja</h3>
-      <p>Junte os itens que quiser, ajuste as quantidades e leve — ou mande pelo WhatsApp — para a casa de material de construção perto de você pedir o preço fechado.</p>
-      <div class="prod-list" id="budgetList"></div>
-      <div class="budget__foot">
-        <div class="budget__total">Estimativa online: <b id="budgetTotal">—</b></div>
-        <div class="budget__actions">
-          <button id="budgetCopy" type="button">Copiar lista</button>
-          <button id="budgetMaps" type="button">Lojas perto de mim</button>
-          <button id="budgetClear" type="button" class="ghost">Limpar</button>
-        </div>
-      </div>
-    </section>
-
-    <footer>
-      Este app usa links de afiliado: se você comprar pelas lojas, o Reformei pode receber uma pequena comissão, sem custo a mais pra você. Como Associado da Amazon, o Reformei recebe por compras qualificadas. As lojas online abrem em nova aba com a busca do produto; "perto de mim" abre o mapa com casas de material de construção. Preços de referência de <span id="precoData">setembro de 2026</span> — variam por região; some cerca de 10% de folga.
-    </footer>
-  </main>
-
-  <div class="modal" id="howtoModal" hidden>
-    <div class="modal__scrim" data-close></div>
-    <div class="modal__card" role="dialog" aria-modal="true" aria-labelledby="howtoTitle">
-      <div class="modal__head">
-        <h3 id="howtoTitle">Como descobrir os metros quadrados</h3>
-        <button class="modal__x" id="howtoClose" type="button" aria-label="Fechar">×</button>
-      </div>
-      <div class="modal__body">
-
-        <p class="mstep-intro">Metro quadrado (m²) é o tamanho do chão do cômodo. É com ele que o app calcula quanto piso, tinta, argamassa e rodapé você vai precisar comprar.<br /><br />Pegue uma trena (ou fita métrica) e anote tudo <b>em metros</b>. Se a trena marcar 350 cm, escreva <b>3,5</b>. Meça cada distância <b>duas vezes</b> pra ter certeza. Não precisa ficar perfeito: na dúvida, arredonde pra cima.</p>
-
-        <div class="mstep">
-          <svg viewBox="0 0 72 56" aria-hidden="true">
-            <rect class="mfig mfig--wash" x="10" y="7" width="50" height="38" rx="2"/>
-            <text class="lbl" x="26" y="54">um lado</text>
-            <text class="lbl" x="8" y="30" transform="rotate(-90 8 30)">o outro</text>
-          </svg>
-          <div>
-            <h4>Cômodo de paredes retas</h4>
-            <p>Meça <b>um lado</b> do chão e depois <b>o outro lado</b>. Digite os dois números no app — ele multiplica pra você. Exemplo: 3 metros de um lado e 4 do outro dão <b>12 m²</b>.</p>
+    <div class="phone" aria-hidden="true">
+      <div class="phone__scr">
+        <div class="phone__bar"><i></i><i></i><i></i></div>
+        <div class="phone__body">
+          <span class="chip">Banheiro · 3,00 × 4,00 m</span>
+          <div class="rescard">
+            <div class="lbl">Área de piso</div>
+            <div class="big">12,00<span> m²</span></div>
+            <ul>
+              <li><span>Azulejo de parede</span><b>33,60 m²</b></li>
+              <li><span>Argamassa (sacos)</span><b>12</b></li>
+              <li><span>Piso cerâmico (caixas)</span><b>6</b></li>
+              <li><span>Rejunte</span><b>23 kg</b></li>
+            </ul>
           </div>
         </div>
-
-        <div class="mstep">
-          <svg viewBox="0 0 72 56" aria-hidden="true">
-            <path class="mfig mfig--wash" d="M8 6h32v18h24v26H8z"/>
-            <path d="M40 6v44" stroke="var(--flame)" stroke-width="2" stroke-dasharray="3 3" fill="none"/>
-            <text class="lbl" x="20" y="30">A</text>
-            <text class="lbl" x="49" y="42">B</text>
-          </svg>
-          <div>
-            <h4>Cômodo em "L" ou com uma dobra na parede</h4>
-            <p>Quando o cômodo não é um retângulo só, faça um desenho dele no papel e <b>corte em pedaços retos</b>. Meça cada pedaço, veja quantos m² dá e <b>some tudo</b>.<br />Exemplo: pedaço A = 3 × 4 = 12 m². Pedaço B = 2 × 2,5 = 5 m². Total = <b>17 m²</b>. O somador aqui embaixo faz essa conta.</p>
-          </div>
-        </div>
-
-        <div class="mstep">
-          <svg viewBox="0 0 72 56" aria-hidden="true">
-            <rect class="mfig mfig--wash" x="10" y="7" width="50" height="38" rx="2"/>
-            <rect x="44" y="26" width="14" height="19" fill="var(--flame)" stroke="none"/>
-          </svg>
-          <div>
-            <h4>Coluna, pilar ou armário fixo ocupando o chão</h4>
-            <p>Se for <b>grande</b> (mais de meio metro de cada lado), meça como um retângulo e <b>tire esses m²</b> da conta. Se for <b>pequeno</b>, pode deixar pra lá: vai sobrar um pouco de material — e sobrar é melhor que faltar.</p>
-          </div>
-        </div>
-
-        <div class="mstep">
-          <svg viewBox="0 0 72 56" aria-hidden="true">
-            <path class="mfig mfig--wash" d="M10 16h14v-8h20v8h16v30H10z"/>
-          </svg>
-          <div>
-            <h4>Parede que entra ou que sai (degrau, recuo)</h4>
-            <p>Se um pedaço da parede faz um degrau, meça esse pedacinho separado, como se fosse outro retângulo. Se ele <b>aumenta</b> o chão, some. Se ele <b>diminui</b>, tire da conta.</p>
-          </div>
-        </div>
-
-        <div class="mstep">
-          <svg viewBox="0 0 72 56" aria-hidden="true">
-            <path class="mfig mfig--wash" d="M10 45V9h34l16 36z"/>
-            <path d="M44 9v36" stroke="var(--flame)" stroke-width="2" stroke-dasharray="3 3" fill="none"/>
-          </svg>
-          <div>
-            <h4>Parede torta (na diagonal)</h4>
-            <p>Meça o <b>maior retângulo reto que couber</b> e anote. O cantinho que sobra é um triângulo: meça como retângulo e conte <b>só a metade</b>. Some as duas partes.<br />Se ficar confuso, meça o retângulo inteiro sem tirar nada. Você compra um pouco a mais e não corre risco de faltar.</p>
-          </div>
-        </div>
-
-        <div class="mstep">
-          <svg viewBox="0 0 72 56" aria-hidden="true">
-            <rect class="mfig" x="10" y="8" width="50" height="34" rx="1"/>
-            <rect x="10" y="8" width="50" height="9" class="mfig mfig--wash"/>
-            <rect x="26" y="26" width="10" height="16" class="mfig"/>
-          </svg>
-          <div>
-            <h4>E as paredes, pra calcular a tinta?</h4>
-            <p>Pra tinta o que conta é a parede, não o chão — e o app já faz sozinho. Ele soma o tamanho de todas as paredes, multiplica pela altura (2,40 m, do chão ao teto) e conta <b>duas mãos de tinta</b>. Você não precisa medir a parede nem descontar portas e janelas pequenas.</p>
-          </div>
-        </div>
-
-        <div class="adder">
-          <h4>Somador de partes</h4>
-          <p>Cômodo em L, com dobra ou recuo? Meça cada pedaço reto, coloque a largura e o comprimento aqui, e o app soma tudo.</p>
-          <div id="adderRows"></div>
-          <button class="adder__addbtn" id="adderAdd" type="button">+ Adicionar pedaço</button>
-          <div class="adder__total">Soma de tudo: <b id="adderTotal">0,00 m²</b></div>
-          <button class="adder__use" id="adderUse" type="button" disabled>Usar esse tamanho no cálculo</button>
-          <p class="adder__note">Isso preenche o tamanho do chão. Pra <b>tinta de parede</b>, é melhor medir com a trena a volta toda do cômodo e comprar 10% a mais, por segurança.</p>
-        </div>
-
       </div>
     </div>
-  </div>
+  </section>
+
+  <section id="como">
+    <h2>Como funciona</h2>
+    <p class="sub">Três passos, nenhum deles com conta difícil.</p>
+    <div class="steps">
+      <div class="step">
+        <div class="n">1</div>
+        <h3>Escolha o cômodo</h3>
+        <p>Banheiro, quarto, cozinha, sala, lavanderia, varanda, escritório, corredor ou área livre.</p>
+      </div>
+      <div class="step">
+        <div class="n">2</div>
+        <h3>Meça os dois lados</h3>
+        <p>Digite só a largura e o comprimento do chão. Tem uma ajuda embutida para cômodo torto ou em L.</p>
+      </div>
+      <div class="step">
+        <div class="n">3</div>
+        <h3>Veja o resultado</h3>
+        <p>Metros quadrados na hora, a quantidade de material e a lista completa da obra por etapas.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>O que o app faz</h2>
+    <p class="sub">Da conta do material até a hora de comprar.</p>
+    <div class="feats">
+      <div class="feat">
+        <svg viewBox="0 0 24 24"><rect x="4" y="2.5" width="16" height="19" rx="2.5"/><path d="M8 7h8M8 12h3M8 16h3M15 12v5"/></svg>
+        <div><h3>Cálculo por cômodo</h3><p>Piso, azulejo, tinta, argamassa, rodapé — cada ambiente com a conta certa para ele.</p></div>
+      </div>
+      <div class="feat">
+        <svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+        <div><h3>Lista completa da obra</h3><p>Preparo, hidráulica, elétrica, esquadrias, pintura, limpeza — em etapas, na ordem certa.</p></div>
+      </div>
+      <div class="feat">
+        <svg viewBox="0 0 24 24"><path d="M12 3l2.5 5 5.5.8-4 3.9 1 5.5L12 16.8 7.5 19.2l1-5.5-4-3.9L10 8z"/></svg>
+        <div><h3>Decoração no seu estilo</h3><p>Sete estilos — do minimalista ao divertido — com sugestões que combinam, cômodo por cômodo.</p></div>
+      </div>
+      <div class="feat">
+        <svg viewBox="0 0 24 24"><path d="M3 6h18M6 6v13a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V6M9 10v6M15 10v6"/></svg>
+        <div><h3>Compare o preço</h3><p>Cada item com faixa de preço e busca na Shopee, no Mercado Livre e na Amazon, mais a casa de material perto de você.</p></div>
+      </div>
+      <div class="feat">
+        <svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+        <div><h3>Orçamento pra loja</h3><p>Junta os itens numa lista com total estimado, pronta pra mandar no WhatsApp e pedir o preço fechado.</p></div>
+      </div>
+      <div class="feat">
+        <svg viewBox="0 0 24 24"><path d="M12 21s-7-4.35-7-10a7 7 0 0 1 14 0c0 5.65-7 10-7 10z"/><circle cx="12" cy="11" r="2.5"/></svg>
+        <div><h3>Salva no aparelho</h3><p>As medidas ficam guardadas no navegador — pode fechar e voltar depois de onde parou.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="who">
+      <h2>Para quem é</h2>
+      <p>Para quem vai reformar com o orçamento contado e não quer ser pego de surpresa no meio da obra. O Reformei mostra o tamanho do gasto antes de tirar o dinheiro do bolso e ajuda a economizar comparando onde comprar.</p>
+    </div>
+  </section>
+</main>
+
+<div class="band">
+  <h2>Pronta para calcular sua reforma?</h2>
+  <p>É grátis e abre direto no navegador.</p>
+  <a class="btn" href="app.html">Abrir o Reformei</a>
 </div>
 
-<script>
-/* ════════════════════════════════════════════════════════════════
-   REFORMEI
-   ────────────────────────────────────────────────────────────────
-   1) TAGS DE AFILIADO · edite só o campo params de cada loja para monetizar.
-      O link final = search + termo + params.
-      - Amazon: tag fixa funciona. params: "&tag=SEUID-20" (Amazon Associados).
-      - Mercado Livre: NÃO tem tag única. Gere um link de busca no painel de
-        Afiliados e copie o sufixo, ex.: params: "?matt_word=SEUID&matt_tool=SEUID".
-      - Shopee: NÃO tem tag única. Gere um link no painel de Afiliados (Custom
-        Link) e copie o sufixo, ex.: params: "&af_id=SEUID".
-      Os 3 programas exigem cadastro e aprovação antes. Aviso de afiliado já
-      está no rodapé (exigido pela Amazon).
-   ════════════════════════════════════════════════════════════════ */
-const AFFILIATE = {
-  shopee:       { label: "Shopee",        search: "https://shopee.com.br/search?keyword=", params: "" },
-  mercadolivre: { label: "Merc. Livre",   search: "https://lista.mercadolivre.com.br/",    params: "?matt_word=iz20260906191615749&matt_tool=30552940&forceInApp=true" },
-  amazon:       { label: "Amazon",        search: "https://www.amazon.com.br/s?k=",        params: "&tag=reformei04-20" },
-};
-// Casa de material de construção física — abre o mapa na localização do aparelho.
-const LOCAL_STORE = {
-  label: "📍 Perto de mim",
-  maps: "https://www.google.com/maps/search/?api=1&query=",
-  termo: "materiais de construção",
-};
-function linkAfiliado(loja, termo){
-  const cfg = AFFILIATE[loja];
-  if (loja === "mercadolivre") return cfg.search + encodeURIComponent(termo).replace(/%20/g, "-") + cfg.params;
-  return cfg.search + encodeURIComponent(termo) + cfg.params;
-}
-function linkLojaLocal(termo){
-  return LOCAL_STORE.maps + encodeURIComponent(LOCAL_STORE.termo + (termo ? " " + termo : ""));
-}
-
-/* ────────────────────────────────────────────────────────────────
-   2) PARÂMETROS DE CÁLCULO
-   ──────────────────────────────────────────────────────────────── */
-const CONFIG = {
-  peDireito: 2.4, argamassaPorM2: 4, rejuntePorM2: 0.5,
-  tintaRendPorLitro: 10, demaos: 2, galaoLitros: 3.6, lataGrandeLitros: 18,
-  caixaPisoM2: 2.0, vaoPorta: 0.8,
-};
-const nf   = (n, d = 2) => Number(n).toLocaleString("pt-BR", { minimumFractionDigits: 0, maximumFractionDigits: d });
-const m2   = (n) => nf(n, 2) + " m²";
-const ml   = (n) => nf(n, 2) + " m";
-const ceil = Math.ceil;
-
-/* ────────────────────────────────────────────────────────────────
-   PREÇOS · são de referência, não valor de tabela.
-   Para reajustar TODOS de uma vez (inflação): mude "reajuste".
-     1.0  = como está    ·    1.08 = sobe 8%    ·    0.95 = baixa 5%
-   Para ajuste fino, edite o item na lista (ITENS ou dentro de stages).
-   ──────────────────────────────────────────────────────────────── */
-const PRECO = { atualizadoEm: "setembro de 2026", reajuste: 1.0 };
-function ajustaPreco(str){
-  if (PRECO.reajuste === 1) return str;
-  return String(str).replace(/\d[\d.]*/g, (m) => {
-    const n = parseInt(m.replace(/\./g, ""), 10);
-    const passo = n < 30 ? 1 : 5;
-    const v = Math.round(n * PRECO.reajuste / passo) * passo;
-    return v.toLocaleString("pt-BR");
-  });
-}
-/* Preços vindos do banco de dados do artefato (editáveis pelo chat, sem
-   republicar). Documento: precos/tabela = { atualizadoEm, reajuste, overrides }.
-   overrides é opcional e mapeia a busca do item -> preço, ex.:
-     { "cimento cp2 50kg": "R$ 34–46" }. Item sem override usa o preço do código. */
-let PRICE_OVERRIDES = {};
-function priceFor(item){
-  if (item){
-    if (item.q && PRICE_OVERRIDES[item.q]) return PRICE_OVERRIDES[item.q];
-    if (item.baseQ && PRICE_OVERRIDES[item.baseQ]) return PRICE_OVERRIDES[item.baseQ];
-    return item.price;
-  }
-  return "";
-}
-
-/* ────────────────────────────────────────────────────────────────
-   3) ESTILOS DE ACABAMENTO
-   swatches → paleta de referência (não é a cor do app)
-   traço    → como o estilo "veste" cada enfeite genérico:
-              q2   sufixo que entra no nome do produto
-              kw   palavras extras na busca da loja
-              mult fator no preço médio
-   ──────────────────────────────────────────────────────────────── */
-const STYLES = [
-  { id: "contemporaneo", label: "Contemporâneo",
-    swatches: ["#2E3A46", "#8A94A0", "#D9D2C7", "#C98B5A"],
-    blurb: "Neutros quentes, linhas limpas, LED escondido e um ponto de cor.",
-    q2: "moderno", kw: "moderno cinza madeira clean", mult: 1.15 },
-  { id: "minimalista", label: "Minimalista",
-    swatches: ["#F3F1EC", "#D8D3C9", "#A7A197", "#1A1A1A"],
-    blurb: "Branco, off-white e preto. Poucas peças, tudo com função.",
-    q2: "branco minimalista", kw: "branco minimalista sem moldura liso", mult: 1.0 },
-  { id: "industrial", label: "Industrial",
-    swatches: ["#2B2B2B", "#6E6E6E", "#A9744F", "#3A4A3F"],
-    blurb: "Cimento, metal preto, cano aparente e lâmpada à mostra.",
-    q2: "de metal preto", kw: "industrial ferro preto cano aparente", mult: 1.1 },
-  { id: "americano", label: "Estilo americano",
-    swatches: ["#EAE3D6", "#34506B", "#B23A2E", "#C8A15A"],
-    blurb: "Móvel clássico com puxador, madeira, azul-marinho e boiserie.",
-    q2: "clássico", kw: "classico provencal puxador retro", mult: 1.4 },
-  { id: "rustico", label: "Rústico",
-    swatches: ["#6B4A2F", "#A9783F", "#D9C4A3", "#4B5B3F"],
-    blurb: "Madeira de demolição, ferro forjado, barro e fibra.",
-    q2: "rústico de madeira", kw: "rustico madeira demolicao ferro forjado", mult: 1.0 },
-  { id: "escandinavo", label: "Escandinavo",
-    swatches: ["#FFFFFF", "#E9E4DC", "#C9B79C", "#9AB0A5"],
-    blurb: "Madeira clara, branco, fibra natural e muita luz.",
-    q2: "de madeira clara", kw: "escandinavo madeira clara fibra natural nordico", mult: 1.05 },
-  { id: "divertido", label: "Divertido",
-    swatches: ["#F2B705", "#EF6461", "#2D9CDB", "#7FB800"],
-    blurb: "Cor forte, meme na parede, neon e coisas em formato de fruta.",
-    q2: "colorido / divertido", kw: "colorido divertido estampado geek", mult: 0.9 },
-];
-
-/* ────────────────────────────────────────────────────────────────
-   4) AMBIENTES
-   compute(w,l)  → { hero:{value,unit}, lines:[{label,value}] }
-   stages[]      → etapas da obra em ordem: { etapa, nota?, itens:[...] }
-   decorBase[]   → categorias de enfeite (o "o quê"); cada estilo
-                   as transforma em produto (nome + preço + busca)
-   decorExtra[]  → peças assinatura, presas a estilos específicos
-   ──────────────────────────────────────────────────────────────── */
-const ICONS = {
-  banheiro:   '<svg viewBox="0 0 24 24"><path d="M12 3s6 6.4 6 10.8A6 6 0 0 1 6 13.8C6 9.4 12 3 12 3z"/></svg>',
-  quarto:     '<svg viewBox="0 0 24 24"><path d="M3 18v-6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v6"/><path d="M3 15h18"/><path d="M7 10V8h4v2"/><path d="M3 18v2M21 18v2"/></svg>',
-  cozinha:    '<svg viewBox="0 0 24 24"><path d="M5 11h14v3a5 5 0 0 1-5 5h-4a5 5 0 0 1-5-5z"/><path d="M9 11V5M12 11V4M15 11V5"/></svg>',
-  sala:       '<svg viewBox="0 0 24 24"><path d="M5 12V9a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v3"/><path d="M4 13a2 2 0 0 1 4 0v3h8v-3a2 2 0 0 1 4 0v5H4z"/></svg>',
-  lavanderia: '<svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2"/><circle cx="12" cy="13" r="5"/><circle cx="12" cy="13" r="1.6"/><path d="M8 6h.01M11 6h.01"/></svg>',
-  varanda:    '<svg viewBox="0 0 24 24"><circle cx="12" cy="9" r="3.3"/><path d="M12 2v2M12 14v8M4 9H2M22 9h-2M5 3l1.4 1.4M19 3l-1.4 1.4M3 22h18"/></svg>',
-  escritorio: '<svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg>',
-  corredor:   '<svg viewBox="0 0 24 24"><path d="M6 21V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v17M4 21h16M14 12h.6"/></svg>',
-  livre:      '<svg viewBox="0 0 24 24"><rect x="2" y="8" width="20" height="8" rx="1.5"/><path d="M6 8v3M10 8v4M14 8v3M18 8v4"/></svg>',
-};
-
-/* Blocos de material reaproveitados nas etapas de obra (edite à vontade) */
-const ITENS = {
-  preparo: [
-    { name: "Kit EPI (luva, óculos, máscara, protetor auricular)", price: "R$ 30–70", q: "kit epi obra luva oculos mascara", eco: true },
-    { name: "Lona plástica de proteção (rolo 4×5 m)",  price: "R$ 20–45", q: "lona plastica protecao obra 4x5", eco: true },
-    { name: "Marreta + talhadeira / ponteiro",         price: "R$ 40–90", q: "marreta talhadeira ponteiro", eco: true },
-    { name: "Sacos para entulho (fardo)",              price: "R$ 25–55", q: "saco para entulho rafia fardo", eco: true },
-    { name: "Espátula + desempenadeira",               price: "R$ 20–50", q: "espatula desempenadeira aco", eco: true },
-  ],
-  eletrica: [
-    { name: "Cabo flexível 2,5 mm² (rolo 100 m)",       price: "R$ 180–330", q: "cabo flexivel 2,5mm 100 metros" },
-    { name: "Cabo flexível 1,5 mm² (rolo 100 m)",       price: "R$ 120–240", q: "cabo flexivel 1,5mm 100 metros" },
-    { name: "Eletroduto corrugado / conduíte (rolo)",   price: "R$ 25–60",   q: "conduite corrugado eletroduto rolo", eco: true },
-    { name: "Caixas de luz 4×2 e 4×4 (kit)",            price: "R$ 15–40",   q: "caixa de luz 4x2 4x4 kit", eco: true },
-    { name: "Tomadas + interruptores com placas (kit)", price: "R$ 45–120",  q: "kit tomada interruptor com placa" },
-    { name: "Disjuntores + interruptor DR",             price: "R$ 60–170",  q: "disjuntor dr protecao" },
-    { name: "Quadro de distribuição de embutir",        price: "R$ 45–120",  q: "quadro distribuicao embutir" },
-    { name: "Fita isolante + conectores de emenda",     price: "R$ 15–35",   q: "fita isolante conector emenda", eco: true },
-  ],
-  eletricaPonto: [
-    { name: "Cabo flexível 2,5 mm² (rolo 50 m)",        price: "R$ 95–170", q: "cabo flexivel 2,5mm 50 metros" },
-    { name: "Eletroduto corrugado / conduíte (rolo)",   price: "R$ 25–60",  q: "conduite corrugado eletroduto rolo", eco: true },
-    { name: "Caixas de luz 4×2 (kit)",                  price: "R$ 10–25",  q: "caixa de luz 4x2 kit", eco: true },
-    { name: "Tomadas + interruptores com placas (kit)", price: "R$ 40–100", q: "kit tomada interruptor com placa" },
-    { name: "Fita isolante + conectores",               price: "R$ 12–28",  q: "fita isolante conector emenda", eco: true },
-  ],
-  hidraulica: [
-    { name: "Tubos e conexões de água fria PVC 25 mm (kit)", price: "R$ 60–150", q: "tubo conexao pvc soldavel 25mm kit" },
-    { name: "Tubos e conexões de esgoto 40 / 50 / 100 mm",   price: "R$ 70–180", q: "tubo conexao esgoto 40 50 100mm" },
-    { name: "Registros de gaveta e de pressão + canopla",    price: "R$ 55–140", q: "registro gaveta pressao canopla acabamento" },
-    { name: "Adesivo plástico PVC + fita veda-rosca",        price: "R$ 15–35",  q: "adesivo plastico pvc fita veda rosca", eco: true },
-    { name: "Engates flexíveis (kit)",                       price: "R$ 20–50",  q: "engate flexivel kit", eco: true },
-    { name: "Ralo / caixa sifonada",                         price: "R$ 25–60",  q: "ralo caixa sifonada", eco: true },
-  ],
-  hidraulicaLeve: [
-    { name: "Tubos e conexões de água fria PVC 25 mm (kit)", price: "R$ 50–130", q: "tubo conexao pvc soldavel 25mm kit" },
-    { name: "Tubos e conexões de esgoto 40 / 50 mm",        price: "R$ 45–110", q: "tubo conexao esgoto 40 50mm" },
-    { name: "Registro + adesivo PVC + veda-rosca",          price: "R$ 40–90",  q: "registro adesivo pvc veda rosca", eco: true },
-    { name: "Engate flexível + sifão + válvula",            price: "R$ 30–70",  q: "engate flexivel sifao valvula pia" },
-    { name: "Ralo sifonado",                                price: "R$ 20–50",  q: "ralo sifonado", eco: true },
-  ],
-  regularizacao: [
-    { name: "Cimento CP-II 50 kg",                     price: "R$ 30–42",  q: "cimento cp2 50kg", eco: true },
-    { name: "Cal hidratada 20 kg",                     price: "R$ 14–26",  q: "cal hidratada 20kg", eco: true },
-    { name: "Areia média (m³ ou sacos)",              price: "R$ 120–220", q: "areia media lavada m3" },
-    { name: "Argamassa de assentamento / reboco pronto", price: "R$ 18–30", q: "argamassa multiuso assentamento reboco", eco: true },
-    { name: "Chapisco rolado pronto (saco)",          price: "R$ 22–36",  q: "chapisco rolado pronto saco", eco: true },
-  ],
-  impermeabilizacao: [
-    { name: "Impermeabilizante flexível (balde 4 kg)", price: "R$ 60–120", q: "impermeabilizante flexivel balde 4kg" },
-    { name: "Tela de poliéster para reforço (rolo)",   price: "R$ 20–45",  q: "tela poliester impermeabilizacao rolo", eco: true },
-    { name: "Fita / banda para cantos e ralos",        price: "R$ 25–55",  q: "fita veda canto ralo impermeabilizacao", eco: true },
-  ],
-  revParede: [
-    { name: "Azulejo / revestimento de parede (m²)",   price: "R$ 30–55/m²", q: "azulejo revestimento parede" },
-    { name: "Argamassa colante AC-II (saco 20 kg)",    price: "R$ 18–30",    q: "argamassa colante ac2 20kg", eco: true },
-    { name: "Rejunte impermeável (kg)",               price: "R$ 12–28",    q: "rejunte impermeavel", eco: true },
-    { name: "Espaçadores + cunhas niveladoras (kit)",  price: "R$ 15–40",    q: "espacador cunha nivelador piso kit", eco: true },
-    { name: "Cantoneira / perfil de arremate",        price: "R$ 12–30",    q: "cantoneira perfil arremate acabamento", eco: true },
-  ],
-  revPiso: [
-    { name: "Piso cerâmico / porcelanato (m²)",        price: "R$ 30–55/m²", q: "piso ceramico porcelanato" },
-    { name: "Argamassa colante AC-III (saco 20 kg)",   price: "R$ 24–38",    q: "argamassa colante ac3 20kg", eco: true },
-    { name: "Rejunte (kg)",                           price: "R$ 10–26",    q: "rejunte", eco: true },
-    { name: "Espaçadores + cunhas niveladoras (kit)",  price: "R$ 15–40",    q: "espacador cunha nivelador piso kit", eco: true },
-  ],
-  pisoLaminado: [
-    { name: "Piso laminado / vinílico clicado (caixa ~2 m²)", price: "R$ 70–120", q: "piso laminado vinilico clicado caixa" },
-    { name: "Manta acústica / EVA de nivelamento (rolo)",     price: "R$ 25–55",  q: "manta acustica eva piso laminado rolo", eco: true },
-    { name: "Rodapé + cola / prego de acabamento",            price: "R$ 20–40",  q: "rodape poliestireno barra cola", eco: true },
-    { name: "Perfil de transição / redutor de piso",          price: "R$ 15–35",  q: "perfil transicao redutor piso", eco: true },
-  ],
-  esquadrias: [
-    { name: "Janela de alumínio com vidro (medir o vão)",  price: "R$ 150–420", q: "janela aluminio com vidro correr" },
-    { name: "Vidro para reposição / troca (m²)",           price: "R$ 90–170/m²", q: "vidro comum canelado reposicao m2" },
-    { name: "Porta + batente + dobradiças (kit)",          price: "R$ 220–420",  q: "kit porta batente dobradica" },
-    { name: "Fechadura + maçaneta",                        price: "R$ 45–120",   q: "fechadura macaneta porta" },
-    { name: "Silicone + espuma expansiva (spray)",         price: "R$ 25–55",    q: "silicone espuma expansiva spray", eco: true },
-  ],
-  janelaPequena: [
-    { name: "Janela basculante de alumínio 40×40 cm (com vidro)", price: "R$ 90–180", q: "janela basculante aluminio 40x40 com vidro" },
-    { name: "Vidro canelado / fantasia para reposição",          price: "R$ 40–110", q: "vidro canelado fantasia reposicao" },
-    { name: "Grade de proteção para janela pequena",             price: "R$ 60–150", q: "grade protecao janela pequena", eco: true },
-    { name: "Silicone + espuma expansiva",                       price: "R$ 25–55",  q: "silicone espuma expansiva janela", eco: true },
-  ],
-  forro: [
-    { name: "Forro de PVC (m²)",                       price: "R$ 25–45/m²", q: "forro pvc m2" },
-    { name: "Perfis, cantoneira e roda-forro (m)",     price: "R$ 8–18",     q: "perfil roda forro pvc metro" },
-    { name: "Parafusos + buchas de fixação (kit)",     price: "R$ 12–30",    q: "parafuso bucha fixacao forro kit", eco: true },
-  ],
-  pintura: [
-    { name: "Fundo preparador / selador (galão 3,6 L)",  price: "R$ 45–90", q: "fundo preparador selador acrilico 3,6 litros", eco: true },
-    { name: "Massa corrida 25 kg (parede interna seca)", price: "R$ 35–55", q: "massa corrida 25kg", eco: true },
-    { name: "Massa acrílica 25 kg (área úmida / externa)", price: "R$ 55–90", q: "massa acrilica 25kg" },
-    { name: "Lixa para parede grão 120 e 220 (pacote)", price: "R$ 12–26", q: "lixa parede 120 220 pacote", eco: true },
-    { name: "Fita crepe + lona de proteção",            price: "R$ 18–40", q: "fita crepe lona protecao pintura", eco: true },
-    { name: "Kit rolo antigota + bandeja + trincha",    price: "R$ 30–60", q: "kit rolo bandeja trincha pintura", eco: true },
-  ],
-  iluminacao: [
-    { name: "Luminária de teto / plafon LED",          price: "R$ 40–110", q: "plafon luminaria teto led" },
-    { name: "Lâmpadas LED (kit)",                      price: "R$ 25–60",  q: "kit lampada led", eco: true },
-    { name: "Placas / espelhos de tomada e interruptor", price: "R$ 12–30", q: "placa espelho tomada interruptor", eco: true },
-  ],
-  limpeza: [
-    { name: "Limpa pós-obra / removedor de respingos", price: "R$ 20–45", q: "limpa pos obra removedor respingo cimento", eco: true },
-    { name: "Rodo + vassoura + panos (kit)",           price: "R$ 30–60", q: "kit rodo vassoura pano limpeza", eco: true },
-    { name: "Sacos de lixo reforçados 100 L (rolo)",   price: "R$ 15–30", q: "saco lixo reforcado 100 litros", eco: true },
-  ],
-};
-
-const ROOMS = [
-  {
-    id: "banheiro", label: "Banheiro", title: "Banheiro",
-    tagline: "Piso + azulejo em todas as paredes",
-    hint: "Meça os dois lados do chão. O app calcula o piso e os azulejos de todas as paredes. Ex.: 1,60 × 2,20.",
-    example: { w: "1,60", l: "2,20" },
-    compute(w, l){
-      const piso = w*l, perim = 2*(w+l), parede = perim*CONFIG.peDireito, revest = piso+parede;
-      return { hero: { value: nf(piso,2), unit: "Área de piso" }, lines: [
-        { label: "Azulejo de parede (pé-direito 2,4 m)", value: m2(parede) },
-        { label: "Argamassa AC-II (saco 20 kg · ~4 m²)", value: nf(ceil(revest/CONFIG.argamassaPorM2),0)+" sacos" },
-        { label: "Piso cerâmico (caixa ~2 m²)",          value: nf(ceil(piso/CONFIG.caixaPisoM2),0)+" caixas" },
-        { label: "Rejunte",                              value: nf(ceil(revest*CONFIG.rejuntePorM2),0)+" kg" },
-      ]};
-    },
-    stages: [
-      { etapa: "Preparo e demolição", itens: ITENS.preparo },
-      { etapa: "Hidráulica", nota: "Refazer pontos de água fria/quente e esgoto do vaso, pia e chuveiro.", itens: [
-        ...ITENS.hidraulica,
-        { name: "Kit de fixação do vaso (anel de vedação, parafusos, tubo de ligação)", price: "R$ 20–45", q: "kit fixacao vaso anel vedacao", eco: true },
-      ]},
-      { etapa: "Elétrica", nota: "Ponto reforçado para o chuveiro e tomada de área molhada.", itens: [
-        ...ITENS.eletricaPonto,
-        { name: "Ponto de chuveiro: cabo 4 mm² + disjuntor 40 A", price: "R$ 60–130", q: "cabo 4mm disjuntor 40a chuveiro" },
-      ]},
-      { etapa: "Impermeabilização", nota: "Piso, box e primeira fiada da parede antes do revestimento.", itens: ITENS.impermeabilizacao },
-      { etapa: "Revestimento de parede (azulejo)", itens: ITENS.revParede },
-      { etapa: "Revestimento de piso", itens: ITENS.revPiso },
-      { etapa: "Esquadrias (janela de vidro pequena + porta)", itens: [
-        ...ITENS.janelaPequena,
-        { name: "Porta de banheiro + batente + fechadura (kit)", price: "R$ 200–360", q: "kit porta banheiro batente fechadura" },
-      ]},
-      { etapa: "Louças e metais", itens: [
-        { name: "Vaso sanitário com caixa acoplada", price: "R$ 300–380", q: "vaso sanitario caixa acoplada" },
-        { name: "Cuba / lavatório + coluna ou gabinete", price: "R$ 90–320", q: "cuba lavatorio coluna gabinete banheiro" },
-        { name: "Torneira para lavatório", price: "R$ 35–80", q: "torneira lavatorio banheiro", eco: true },
-        { name: "Chuveiro elétrico 5500 W", price: "R$ 80–130", q: "chuveiro eletrico 5500w" },
-        { name: "Ducha higiênica com registro", price: "R$ 45–90", q: "ducha higienica com registro", eco: true },
-        { name: "Kit de acessórios (papeleira, saboneteira, toalheiro)", price: "R$ 45–90", q: "kit acessorios banheiro 5 pecas", eco: true },
-        { name: "Assento sanitário", price: "R$ 30–55", q: "assento sanitario oval", eco: true },
-      ]},
-      { etapa: "Forro (opcional)", nota: "Comum em banheiro para esconder a fiação e o encanamento.", itens: ITENS.forro },
-      { etapa: "Pintura", itens: [
-        ...ITENS.pintura,
-        { name: "Tinta acrílica acetinada lavável 3,6 L (antimofo)", price: "R$ 60–110", q: "tinta acrilica acetinada lavavel antimofo 3,6 litros" },
-      ]},
-      { etapa: "Iluminação", itens: [
-        ...ITENS.iluminacao,
-        { name: "Spot de embutir LED à prova d'água (kit)", price: "R$ 55–110", q: "spot embutir led prova dagua kit" },
-      ]},
-      { etapa: "Limpeza pós-obra", itens: ITENS.limpeza },
-    ],
-    decorBase: [
-      { base: "Espelho",                        q: "espelho banheiro",                 price: [80, 240] },
-      { base: "Toalheiro de parede",            q: "toalheiro parede banheiro",        price: [25, 100] },
-      { base: "Kit saboneteira + porta-escova", q: "kit saboneteira porta escova banheiro", price: [25, 90] },
-      { base: "Porta-papel higiênico",          q: "porta papel higienico banheiro",   price: [15, 55] },
-      { base: "Tapete de banheiro",             q: "tapete banheiro antiderrapante",   price: [20, 80] },
-      { base: "Cortina de box",                 q: "cortina box banheiro",             price: [25, 90] },
-      { base: "Nicho / prateleira de box",      q: "nicho prateleira box banheiro",    price: [25, 95] },
-      { base: "Quadro / placa decorativa",      q: "quadro placa decorativa banheiro", price: [15, 80] },
-      { base: "Luminária de teto",              q: "luminaria teto banheiro",          price: [40, 150] },
-      { base: "Cesto para roupa suja",          q: "cesto roupa suja banheiro",        price: [40, 130] },
-      { base: "Organizador de pia / bancada",   q: "organizador pia bancada banheiro", price: [20, 70] },
-      { base: "Kit de ganchos de parede",       q: "kit gancho parede banheiro",       price: [12, 45] },
-      { base: "Vaso com planta",                q: "vaso planta decorativa banheiro",  price: [20, 80] },
-      { base: "Porta-shampoo de canto",         q: "porta shampoo canto box banheiro", price: [25, 80] },
-      { base: "Espelho de aumento de bancada",  q: "espelho aumento bancada banheiro", price: [30, 90] },
-    ],
-    decorExtra: [
-      { name: "Jogo de toalhas em formato de fruta / coco", price: "R$ 40–90", q: "jogo toalha divertida formato fruta coco", styles: ["divertido"], eco: true },
-      { name: "Quadro releitura da Monalisa (divertida)",   price: "R$ 30–80", q: "quadro releitura monalisa divertido banheiro", styles: ["divertido"] },
-      { name: "Tapete que muda de cor com a água",          price: "R$ 25–60", q: "tapete banheiro muda de cor com agua", styles: ["divertido"], eco: true },
-      { name: "Bancada de madeira maciça para cuba (m linear)", price: "R$ 200–380/m", q: "bancada madeira macica cuba banheiro", styles: ["rustico"] },
-      { name: "Espelheira com LED touch antiembaçante",     price: "R$ 180–350", q: "espelheira led touch antiembacante banheiro", styles: ["contemporaneo", "minimalista"] },
-      { name: "Gabinete com pés torneados e puxador de metal", price: "R$ 320–580", q: "gabinete banheiro pes torneados classico", styles: ["americano"] },
-    ],
-  },
-  {
-    id: "quarto", label: "Quarto", title: "Quarto",
-    tagline: "Piso + tinta de parede + rodapé",
-    hint: "Meça os dois lados do chão. O app calcula o piso, a tinta das paredes e o rodapé. Ex.: 3,00 × 3,50.",
-    example: { w: "3,00", l: "3,50" },
-    compute(w, l){
-      const piso = w*l, perim = 2*(w+l), parede = perim*CONFIG.peDireito;
-      const litros = parede*CONFIG.demaos/CONFIG.tintaRendPorLitro;
-      const rodape = Math.max(0, perim - CONFIG.vaoPorta);
-      return { hero: { value: nf(piso,2), unit: "Área de piso" }, lines: [
-        { label: "Parede para pintura (2 demãos)",         value: m2(parede) },
-        { label: "Tinta (galão 3,6 L)",                    value: nf(ceil(litros/CONFIG.galaoLitros),0)+" galões" },
-        { label: "Piso laminado / vinílico (caixa ~2 m²)", value: nf(ceil(piso/CONFIG.caixaPisoM2),0)+" caixas" },
-        { label: "Rodapé",                                 value: ml(rodape)+" lineares" },
-      ]};
-    },
-    stages: [
-      { etapa: "Preparo", itens: ITENS.preparo },
-      { etapa: "Elétrica", nota: "Pontos de tomada, ponto de TV e ponto para ar-condicionado.", itens: [
-        ...ITENS.eletricaPonto,
-        { name: "Ponto de ar-condicionado: cabo + disjuntor + tomada 20 A", price: "R$ 60–140", q: "ponto ar condicionado cabo disjuntor tomada 20a" },
-      ]},
-      { etapa: "Esquadrias (janela + porta)", itens: ITENS.esquadrias },
-      { etapa: "Piso", nota: "Piso flutuante não usa argamassa — vai sobre a manta.", itens: ITENS.pisoLaminado },
-      { etapa: "Forro (opcional)", itens: ITENS.forro },
-      { etapa: "Pintura", itens: [
-        ...ITENS.pintura,
-        { name: "Tinta látex / acrílica 18 L (quarto)", price: "R$ 150–260", q: "tinta latex acrilica 18 litros quarto" },
-      ]},
-      { etapa: "Iluminação", itens: ITENS.iluminacao },
-      { etapa: "Limpeza pós-obra", itens: ITENS.limpeza },
-    ],
-    decorBase: [
-      { base: "Quadro / painel decorativo",       q: "quadro painel decorativo quarto",     price: [25, 140] },
-      { base: "Par de luminárias de cabeceira",   q: "abajur luminaria cabeceira par quarto", price: [60, 220] },
-      { base: "Tapete de quarto",                 q: "tapete quarto",                       price: [70, 260] },
-      { base: "Cortina blackout (m²)",            q: "cortina blackout quarto",             price: [50, 140] },
-      { base: "Painel de cabeceira",              q: "cabeceira painel cama casal",         price: [150, 400] },
-      { base: "Cesto organizador de roupa",       q: "cesto organizador roupa quarto",      price: [30, 110] },
-      { base: "Prateleira de parede",             q: "prateleira parede quarto",            price: [30, 110] },
-      { base: "Cabideiro / arara de roupa",       q: "cabideiro arara roupa quarto",        price: [40, 150] },
-      { base: "Espelho de corpo inteiro",         q: "espelho corpo inteiro quarto",        price: [90, 260] },
-      { base: "Porta-joias / organizador",        q: "porta joias organizador quarto",      price: [25, 90] },
-      { base: "Manta para o pé da cama",          q: "manta xale pe da cama",               price: [40, 150] },
-      { base: "Luminária decorativa de parede",   q: "luminaria arandela decorativa parede quarto", price: [20, 70] },
-      { base: "Puff / banqueta",                  q: "puff banqueta quarto",                price: [90, 260] },
-      { base: "Suporte de TV suspenso",           q: "suporte rack tv suspenso quarto",     price: [90, 260] },
-      { base: "Kit de almofadas decorativas",     q: "kit almofadas decorativas quarto",    price: [50, 150] },
-    ],
-    decorExtra: [
-      { name: "Letreiro de neon LED (nome ou frase)",  price: "R$ 80–220", q: "neon led personalizado quarto", styles: ["divertido"] },
-      { name: "Luminária projetor de galáxia",         price: "R$ 60–130", q: "luminaria projetor galaxia estrelas quarto", styles: ["divertido"], eco: true },
-      { name: "Dossel / mosquiteiro decorativo",       price: "R$ 70–180", q: "dossel mosquiteiro decorativo cama", styles: ["divertido", "escandinavo", "rustico"] },
-      { name: "Cabeceira capitonê com peseira",        price: "R$ 400–800", q: "cabeceira capitone peseira cama casal", styles: ["americano"] },
-      { name: "Cabeceira de madeira de demolição",     price: "R$ 180–360", q: "cabeceira madeira demolicao quarto", styles: ["rustico", "industrial"] },
-    ],
-  },
-  {
-    id: "cozinha", label: "Cozinha", title: "Cozinha",
-    tagline: "Piso resistente + revestimento da pia",
-    hint: "Meça os dois lados do chão. O app calcula o piso e uma faixa de azulejo acima da pia. Ex.: 2,40 × 3,20.",
-    example: { w: "2,40", l: "3,20" },
-    compute(w, l){
-      const piso = w*l, perim = 2*(w+l), faixa = perim*0.6, revest = piso+faixa;
-      return { hero: { value: nf(piso,2), unit: "Área de piso" }, lines: [
-        { label: "Revestimento de parede (faixa 60 cm)",  value: m2(faixa) },
-        { label: "Porcelanato de piso (caixa ~2 m²)",     value: nf(ceil(piso/CONFIG.caixaPisoM2),0)+" caixas" },
-        { label: "Argamassa AC-III (saco 20 kg · ~4 m²)", value: nf(ceil(revest/CONFIG.argamassaPorM2),0)+" sacos" },
-        { label: "Rejunte",                               value: nf(ceil(revest*CONFIG.rejuntePorM2),0)+" kg" },
-      ]};
-    },
-    stages: [
-      { etapa: "Preparo e demolição", itens: ITENS.preparo },
-      { etapa: "Hidráulica", nota: "Pontos da pia e, se houver, da máquina de lavar louça e do filtro.", itens: [
-        ...ITENS.hidraulicaLeve,
-        { name: "Ponto de água e esgoto para máquina de lavar louça (opcional)", price: "R$ 30–70", q: "ponto agua esgoto maquina lavar louca" },
-      ]},
-      { etapa: "Elétrica", nota: "Circuito de 20 A separado para as tomadas de bancada (micro-ondas, air fryer).", itens: [
-        ...ITENS.eletrica,
-        { name: "Circuito 20 A para tomadas de bancada (cabo 4 mm²)", price: "R$ 40–90", q: "cabo 4mm circuito 20a cozinha" },
-      ]},
-      { etapa: "Revestimento de parede (faixa da pia)", itens: ITENS.revParede },
-      { etapa: "Revestimento de piso", itens: ITENS.revPiso },
-      { etapa: "Esquadrias (janela + porta)", itens: ITENS.esquadrias },
-      { etapa: "Louças, metais e marcenaria", itens: [
-        { name: "Cuba de inox (simples ou dupla)", price: "R$ 90–180", q: "cuba inox cozinha simples dupla" },
-        { name: "Torneira de cozinha", price: "R$ 55–95", q: "torneira cozinha parede", eco: true },
-        { name: "Gabinete / balcão para a pia", price: "R$ 250–500", q: "gabinete balcao pia cozinha" },
-        { name: "Sifão duplo + válvula para pia", price: "R$ 25–45", q: "sifao duplo valvula pia cozinha", eco: true },
-        { name: "Bancada / tampo (granito, inox ou pré-moldado) — m linear", price: "R$ 200–400/m", q: "bancada tampo cozinha granito pre moldado" },
-      ]},
-      { etapa: "Forro (opcional)", itens: ITENS.forro },
-      { etapa: "Pintura", itens: [
-        ...ITENS.pintura,
-        { name: "Tinta acrílica lavável 3,6 L (cozinha)", price: "R$ 55–100", q: "tinta acrilica lavavel 3,6 litros cozinha" },
-      ]},
-      { etapa: "Iluminação", itens: [
-        ...ITENS.iluminacao,
-        { name: "Luminária / pendente para a bancada", price: "R$ 55–150", q: "pendente luminaria bancada cozinha" },
-      ]},
-      { etapa: "Limpeza pós-obra", itens: ITENS.limpeza },
-    ],
-    decorBase: [
-      { base: "Quadro / placa decorativa",        q: "quadro placa decorativa cozinha",     price: [15, 70] },
-      { base: "Fruteira de bancada",              q: "fruteira bancada cozinha",            price: [30, 110] },
-      { base: "Pendente sobre a bancada",         q: "pendente bancada cozinha",            price: [55, 180] },
-      { base: "Barra / trilho de utensílios",     q: "barra trilho utensilios cozinha",     price: [25, 90] },
-      { base: "Porta-temperos",                   q: "porta temperos organizador cozinha",  price: [25, 90] },
-      { base: "Jogo de potes para mantimentos",   q: "jogo potes mantimentos cozinha",      price: [50, 160] },
-      { base: "Tapete de cozinha (passadeira)",   q: "tapete passadeira cozinha",           price: [30, 120] },
-      { base: "Adesivo de azulejo / parede (rolo)", q: "adesivo azulejo parede cozinha",    price: [20, 60] },
-      { base: "Relógio de parede",                q: "relogio parede cozinha",              price: [40, 130] },
-      { base: "Prateleira / nicho de parede",     q: "prateleira nicho parede cozinha",     price: [35, 120] },
-      { base: "Suporte de papel toalha",          q: "suporte papel toalha cozinha",        price: [20, 70] },
-      { base: "Escorredor de louça de bancada",   q: "escorredor louca bancada cozinha",    price: [40, 140] },
-      { base: "Lixeira de bancada / embutir",     q: "lixeira bancada embutir cozinha",     price: [50, 150] },
-      { base: "Cortina de meia-janela",           q: "cortina meia janela cozinha",         price: [30, 90] },
-      { base: "Horta de bancada / vaso de ervas", q: "horta vaso ervas bancada cozinha",    price: [25, 90] },
-    ],
-    decorExtra: [
-      { name: "Kit de adesivos de azulejo colorido",   price: "R$ 20–55", q: "adesivo azulejo colorido cozinha kit", styles: ["divertido"] },
-      { name: "Kit de ímãs de geladeira divertidos",   price: "R$ 15–40", q: "kit imas geladeira divertidos", styles: ["divertido"], eco: true },
-      { name: "Kit de panos de prato com estampa de meme", price: "R$ 20–50", q: "kit pano de prato estampa divertida meme", styles: ["divertido"], eco: true },
-      { name: "Trio de pendentes retrô sobre a bancada", price: "R$ 150–280", q: "kit 3 pendentes retro bancada cozinha", styles: ["americano", "industrial"] },
-      { name: "Kit de potes de vidro com tampa de bambu", price: "R$ 60–140", q: "kit potes vidro tampa bambu mantimentos", styles: ["escandinavo", "rustico"] },
-    ],
-  },
-  {
-    id: "sala", label: "Sala", title: "Sala",
-    tagline: "Pintura ampla + metros de rodapé",
-    hint: "Meça os dois lados do chão. O app calcula a tinta das paredes e os metros de rodapé. Ex.: 4,00 × 4,50.",
-    example: { w: "4,00", l: "4,50" },
-    compute(w, l){
-      const piso = w*l, perim = 2*(w+l), parede = perim*CONFIG.peDireito;
-      const litros = parede*CONFIG.demaos/CONFIG.tintaRendPorLitro;
-      const rodape = Math.max(0, perim - CONFIG.vaoPorta*2);
-      return { hero: { value: nf(piso,2), unit: "Área de piso" }, lines: [
-        { label: "Parede para pintura (2 demãos)", value: m2(parede) },
-        { label: "Tinta acrílica (lata 18 L)",     value: nf(ceil(litros/CONFIG.lataGrandeLitros),0)+" latas" },
-        { label: "ou galões de 3,6 L",             value: nf(ceil(litros/CONFIG.galaoLitros),0)+" galões" },
-        { label: "Massa corrida",                  value: nf(ceil(parede*CONFIG.rejuntePorM2),0)+" kg" },
-        { label: "Rodapé",                         value: ml(rodape)+" lineares" },
-      ]};
-    },
-    stages: [
-      { etapa: "Preparo", itens: ITENS.preparo },
-      { etapa: "Elétrica", nota: "Pontos de tomada, ponto do painel de TV e passagem de cabos.", itens: [
-        ...ITENS.eletricaPonto,
-        { name: "Ponto de TV / painel: tomada + conduíte para os cabos", price: "R$ 40–100", q: "ponto tv painel tomada conduite sala" },
-      ]},
-      { etapa: "Esquadrias (janela + porta)", itens: ITENS.esquadrias },
-      { etapa: "Piso", nota: "Escolha um caminho: cerâmico/porcelanato (com argamassa) ou laminado/vinílico (com manta).", itens: [
-        ...ITENS.revPiso,
-        ...ITENS.pisoLaminado,
-      ]},
-      { etapa: "Forro (opcional)", itens: ITENS.forro },
-      { etapa: "Pintura", itens: [
-        ...ITENS.pintura,
-        { name: "Tinta acrílica lavável 18 L (sala)", price: "R$ 190–290", q: "tinta acrilica lavavel 18 litros sala" },
-      ]},
-      { etapa: "Iluminação", itens: [
-        ...ITENS.iluminacao,
-        { name: "Trilho de spots / lustre para a sala", price: "R$ 90–240", q: "trilho spot lustre sala" },
-      ]},
-      { etapa: "Limpeza pós-obra", itens: ITENS.limpeza },
-    ],
-    decorBase: [
-      { base: "Painel / rack para TV",            q: "painel rack tv sala",                 price: [150, 500] },
-      { base: "Galeria de quadros de parede (kit)", q: "kit quadros galeria parede sala",   price: [50, 200] },
-      { base: "Tapete de sala grande",            q: "tapete sala grande",                  price: [120, 350] },
-      { base: "Cortina de sala com trilho",       q: "cortina sala trilho",                 price: [60, 180] },
-      { base: "Luminária de piso",                q: "luminaria piso sala",                 price: [100, 320] },
-      { base: "Aparador / buffet",                q: "aparador buffet sala",                price: [200, 600] },
-      { base: "Mesa de centro",                   q: "mesa de centro sala",                 price: [150, 500] },
-      { base: "Kit de 4 almofadas para o sofá",   q: "kit 4 almofadas sofa sala",           price: [60, 180] },
-      { base: "Manta para o sofá",                q: "manta sofa decorativa",               price: [50, 160] },
-      { base: "Cesto organizador grande",         q: "cesto organizador grande sala",       price: [40, 140] },
-      { base: "Prateleiras / nichos de parede",   q: "prateleira nicho parede sala",        price: [40, 160] },
-      { base: "Espelho decorativo grande",        q: "espelho decorativo grande sala",      price: [90, 280] },
-      { base: "Vaso de planta grande / cachepô",  q: "vaso planta grande cachepo sala",     price: [50, 180] },
-      { base: "Mesa lateral / de canto",          q: "mesa lateral canto sala",             price: [90, 280] },
-      { base: "Trilho de spots para o teto",      q: "trilho spot iluminacao teto sala",    price: [90, 240] },
-    ],
-    decorExtra: [
-      { name: "Letreiro de neon LED personalizado",   price: "R$ 80–220", q: "neon led personalizado parede sala", styles: ["divertido"] },
-      { name: "Par de puffs coloridos",               price: "R$ 120–280", q: "par puff colorido sala", styles: ["divertido"] },
-      { name: "Papel de parede statement (rolo)",      price: "R$ 35–90", q: "papel de parede statement estampado sala", styles: ["divertido", "americano"] },
-      { name: "Kit boiserie / quadriculado de parede", price: "R$ 120–300", q: "kit boiserie moldura parede sala", styles: ["americano"] },
-      { name: "Estante industrial de nichos (ferro + madeira)", price: "R$ 200–450", q: "estante industrial nicho ferro madeira sala", styles: ["industrial"] },
-    ],
-  },
-  {
-    id: "lavanderia", label: "Lavanderia", title: "Lavanderia / Área de serviço",
-    tagline: "Piso + faixa impermeável da área molhada",
-    hint: "Meça os dois lados do chão. O app calcula o piso e o azulejo da parte que molha. Ex.: 2,00 × 3,00.",
-    example: { w: "2,00", l: "3,00" },
-    compute(w, l){
-      const piso = w*l, perim = 2*(w+l), faixa = perim*1.5, revest = piso+faixa;
-      return { hero: { value: nf(piso,2), unit: "Área de piso" }, lines: [
-        { label: "Revestimento da área molhada (1,5 m)", value: m2(faixa) },
-        { label: "Piso antiderrapante (caixa ~2 m²)",    value: nf(ceil(piso/CONFIG.caixaPisoM2),0)+" caixas" },
-        { label: "Argamassa AC-II (saco 20 kg · ~4 m²)", value: nf(ceil(revest/CONFIG.argamassaPorM2),0)+" sacos" },
-        { label: "Rejunte",                              value: nf(ceil(revest*CONFIG.rejuntePorM2),0)+" kg" },
-      ]};
-    },
-    stages: [
-      { etapa: "Preparo", itens: ITENS.preparo },
-      { etapa: "Hidráulica", nota: "Pontos do tanque e da máquina de lavar, com registro individual.", itens: [
-        ...ITENS.hidraulicaLeve,
-        { name: "Ponto + torneira para máquina de lavar com registro", price: "R$ 30–70", q: "ponto torneira maquina lavar registro" },
-        { name: "Tanque de lavar roupa 22 L + kit válvula e sifão", price: "R$ 120–190", q: "tanque lavar roupa 22 litros kit valvula sifao" },
-      ]},
-      { etapa: "Elétrica", itens: [
-        ...ITENS.eletricaPonto,
-        { name: "Tomada 20 A para máquina de lavar / secadora", price: "R$ 20–45", q: "tomada 20a maquina lavar" },
-      ]},
-      { etapa: "Impermeabilização", itens: ITENS.impermeabilizacao },
-      { etapa: "Revestimento de parede (área molhada)", itens: ITENS.revParede },
-      { etapa: "Revestimento de piso", itens: ITENS.revPiso },
-      { etapa: "Esquadrias (janela pequena + porta)", itens: [
-        ...ITENS.janelaPequena,
-        { name: "Porta de PVC / com veneziana para área de serviço", price: "R$ 180–380", q: "porta pvc veneziana area servico" },
-      ]},
-      { etapa: "Marcenaria e apoio", itens: [
-        { name: "Armário aéreo para lavanderia", price: "R$ 120–260", q: "armario aereo lavanderia" },
-        { name: "Prateleira com barra de cabides", price: "R$ 40–110", q: "prateleira barra cabide lavanderia" },
-        { name: "Bancada de apoio sobre a máquina", price: "R$ 90–220", q: "bancada apoio sobre maquina lavar" },
-      ]},
-      { etapa: "Pintura", itens: [
-        ...ITENS.pintura,
-        { name: "Tinta acrílica lavável 3,6 L (área de serviço)", price: "R$ 55–100", q: "tinta acrilica lavavel 3,6 litros area servico" },
-      ]},
-      { etapa: "Iluminação", itens: ITENS.iluminacao },
-      { etapa: "Limpeza pós-obra", itens: ITENS.limpeza },
-    ],
-    decorBase: [
-      { base: "Armário aéreo",                    q: "armario aereo lavanderia",            price: [120, 280] },
-      { base: "Prateleira com barra de cabides",  q: "prateleira barra cabide lavanderia",  price: [40, 120] },
-      { base: "Cesto organizador de roupa",       q: "cesto organizador roupa lavanderia",  price: [30, 120] },
-      { base: "Varal (parede / sanfonado / teto)", q: "varal parede sanfonado teto lavanderia", price: [40, 120] },
-      { base: "Organizador de produtos de limpeza", q: "organizador produtos limpeza lavanderia", price: [30, 90] },
-      { base: "Placa / quadro decorativo",        q: "placa quadro decorativo lavanderia",  price: [15, 50] },
-      { base: "Tapete para área de serviço",      q: "tapete area de servico lavanderia",   price: [20, 70] },
-      { base: "Bancada de apoio sobre a máquina", q: "bancada apoio sobre maquina lavar",   price: [90, 220] },
-      { base: "Base com rodinhas para máquina",   q: "base suporte rodinha maquina lavar",  price: [30, 90] },
-      { base: "Carrinho / cesto com rodízio",     q: "carrinho cesto rodizio lavanderia",   price: [80, 200] },
-      { base: "Dispenser de sabão de parede",     q: "dispenser sabao parede lavanderia",   price: [25, 80] },
-      { base: "Tábua de passar de parede",        q: "tabua de passar de parede",           price: [80, 200] },
-      { base: "Luminária de teto",                q: "luminaria teto lavanderia",           price: [35, 120] },
-      { base: "Cabideiro de parede",              q: "cabideiro parede lavanderia",         price: [25, 80] },
-    ],
-    decorExtra: [
-      { name: "Adesivo decorativo para a máquina de lavar", price: "R$ 15–45", q: "adesivo maquina de lavar decorativo", styles: ["divertido"] },
-      { name: "Kit de placas com frases divertidas de lavanderia", price: "R$ 20–50", q: "kit placa frase divertida lavanderia", styles: ["divertido"], eco: true },
-      { name: "Prendedores coloridos + cesto pop",  price: "R$ 20–50", q: "prendedor colorido cesto pop lavanderia", styles: ["divertido"], eco: true },
-      { name: "Placa esmaltada retrô estilo lavanderia", price: "R$ 25–60", q: "placa esmaltada laundry retro", styles: ["americano", "industrial"], eco: true },
-      { name: "Cabideiro de cano de ferro no teto", price: "R$ 60–150", q: "cabideiro cano ferro teto lavanderia", styles: ["industrial"] },
-    ],
-  },
-  {
-    id: "varanda", label: "Varanda", title: "Varanda / Área externa",
-    tagline: "Piso externo + impermeabilização",
-    hint: "Meça os dois lados do chão. O app calcula o piso antiderrapante e a impermeabilização. Ex.: 2,50 × 4,00.",
-    example: { w: "2,50", l: "4,00" },
-    compute(w, l){
-      const area = w*l, perim = 2*(w+l);
-      return { hero: { value: nf(area,2), unit: "Área total" }, lines: [
-        { label: "Perímetro (guarda-corpo / acabamento)", value: ml(perim) },
-        { label: "Piso externo antiderrapante (caixa ~2 m²)", value: nf(ceil(area/CONFIG.caixaPisoM2),0)+" caixas" },
-        { label: "Argamassa AC-III (saco 20 kg · ~4 m²)", value: nf(ceil(area/CONFIG.argamassaPorM2),0)+" sacos" },
-        { label: "Impermeabilizante (2 demãos)",          value: nf(ceil(area*1.2),0)+" kg" },
-      ]};
-    },
-    stages: [
-      { etapa: "Preparo", itens: ITENS.preparo },
-      { etapa: "Elétrica externa", itens: [
-        ...ITENS.eletricaPonto,
-        { name: "Ponto de luz externo + arandela IP65", price: "R$ 40–100", q: "ponto luz externo arandela ip65" },
-      ]},
-      { etapa: "Impermeabilização da laje", itens: [
-        { name: "Impermeabilizante para laje 18 kg", price: "R$ 130–190", q: "impermeabilizante laje 18kg" },
-        { name: "Tela de poliéster para reforço (rolo)", price: "R$ 20–45", q: "tela poliester impermeabilizacao rolo", eco: true },
-        { name: "Primer / fundo para laje", price: "R$ 45–90", q: "primer fundo laje impermeabilizacao", eco: true },
-      ]},
-      { etapa: "Regularização e caimento", nota: "Argamassa em desnível para a água escorrer para o ralo.", itens: [
-        { name: "Cimento CP-II 50 kg", price: "R$ 30–42", q: "cimento cp2 50kg", eco: true },
-        { name: "Areia média (m³ ou sacos)", price: "R$ 120–220", q: "areia media lavada m3" },
-        { name: "Aditivo impermeabilizante para argamassa", price: "R$ 20–45", q: "aditivo impermeabilizante argamassa", eco: true },
-        { name: "Ralo linear / grelha para área externa", price: "R$ 35–90", q: "ralo linear grelha area externa" },
-      ]},
-      { etapa: "Piso externo", itens: [
-        { name: "Porcelanato externo antiderrapante (m²)", price: "R$ 25–45/m²", q: "porcelanato externo antiderrapante" },
-        { name: "Argamassa colante AC-III (saco 20 kg)", price: "R$ 24–38", q: "argamassa colante ac3 20kg", eco: true },
-        { name: "Rejunte para área externa (kg)", price: "R$ 12–30", q: "rejunte area externa", eco: true },
-        { name: "Espaçadores + cunhas niveladoras (kit)", price: "R$ 15–40", q: "espacador cunha nivelador piso kit", eco: true },
-      ]},
-      { etapa: "Guarda-corpo e acabamento", itens: [
-        { name: "Guarda-corpo de alumínio ou ferro (m)", price: "R$ 120–280", q: "guarda corpo aluminio ferro varanda metro" },
-        { name: "Fechamento em vidro ou tela (opcional)", price: "R$ 150–400", q: "fechamento vidro tela varanda" },
-        { name: "Rufo / pingadeira / soleira", price: "R$ 30–80", q: "rufo pingadeira soleira aluminio", eco: true },
-        { name: "Silicone + espuma expansiva", price: "R$ 25–55", q: "silicone espuma expansiva", eco: true },
-      ]},
-      { etapa: "Pintura externa", itens: [
-        { name: "Fundo preparador para área externa (3,6 L)", price: "R$ 45–90", q: "fundo preparador externo 3,6 litros", eco: true },
-        { name: "Massa acrílica 25 kg", price: "R$ 55–90", q: "massa acrilica 25kg" },
-        { name: "Tinta acrílica emborrachada / fachada 18 L", price: "R$ 120–230", q: "tinta acrilica emborrachada fachada 18 litros" },
-        { name: "Lixa + kit rolo e trincha", price: "R$ 30–60", q: "lixa kit rolo trincha pintura", eco: true },
-      ]},
-      { etapa: "Iluminação externa", itens: [
-        { name: "Arandela / balizador externo IP65", price: "R$ 40–100", q: "arandela balizador externo ip65" },
-        { name: "Refletor LED", price: "R$ 35–90", q: "refletor led externo", eco: true },
-        { name: "Lâmpadas LED (kit)", price: "R$ 25–60", q: "kit lampada led", eco: true },
-        { name: "Sensor de presença (opcional)", price: "R$ 25–60", q: "sensor de presenca iluminacao", eco: true },
-      ]},
-      { etapa: "Limpeza pós-obra", itens: ITENS.limpeza },
-    ],
-    decorBase: [
-      { base: "Vaso / cachepô grande",           q: "vaso cachepo grande varanda",         price: [30, 120] },
-      { base: "Jardim vertical / treliça",       q: "jardim vertical trelica varanda",     price: [50, 160] },
-      { base: "Cordão de luz para área externa", q: "cordao luz led externo varanda",      price: [30, 80] },
-      { base: "Cadeira / poltrona de área externa", q: "cadeira poltrona area externa varanda", price: [150, 450] },
-      { base: "Mesa de apoio / bistrô",          q: "mesa apoio bistro varanda",           price: [120, 400] },
-      { base: "Luminária de parede externa",     q: "luminaria arandela parede externa varanda", price: [40, 120] },
-      { base: "Tapete de área externa",          q: "tapete area externa varanda",         price: [50, 160] },
-      { base: "Banco / baú de varanda",          q: "banco bau varanda",                   price: [150, 400] },
-      { base: "Placa / quadro para área externa", q: "placa quadro area externa varanda",  price: [15, 50] },
-      { base: "Jardineira / floreira",           q: "jardineira floreira varanda",         price: [50, 180] },
-      { base: "Rede / cadeira suspensa",         q: "rede cadeira suspensa varanda",       price: [90, 320] },
-      { base: "Kit de almofadas impermeáveis",   q: "kit almofadas impermeaveis area externa", price: [60, 180] },
-      { base: "Painel de ripas / divisória",     q: "painel ripa divisoria varanda",       price: [120, 320] },
-      { base: "Persiana / cortina de varanda",   q: "persiana cortina varanda externa",    price: [80, 240] },
-    ],
-    decorExtra: [
-      { name: "Kit de luminárias solares em formato de bichinho", price: "R$ 25–70", q: "kit luminaria solar jardim formato bichinho", styles: ["divertido"], eco: true },
-      { name: "Kit de almofadas de área externa estampadas", price: "R$ 60–140", q: "kit almofada area externa estampada colorida", styles: ["divertido"] },
-      { name: "Rede de dormir colorida",              price: "R$ 90–220", q: "rede dormir colorida varanda", styles: ["divertido", "rustico"] },
-      { name: "Jogo bistrô clássico (mesa + 2 cadeiras)", price: "R$ 300–650", q: "jogo bistro classico mesa 2 cadeiras varanda", styles: ["americano"] },
-      { name: "Kit de lanternas marroquinas",         price: "R$ 60–160", q: "kit lanterna marroquina externa", styles: ["rustico"] },
-    ],
-  },
-  {
-    id: "escritorio", label: "Escritório", title: "Escritório / Home office",
-    tagline: "Piso + pintura + pontos de tomada",
-    hint: "Meça os dois lados do chão. O app calcula piso, tinta e uma ideia de quantas tomadas. Ex.: 2,80 × 3,00.",
-    example: { w: "2,80", l: "3,00" },
-    compute(w, l){
-      const piso = w*l, perim = 2*(w+l), parede = perim*CONFIG.peDireito;
-      const litros = parede*CONFIG.demaos/CONFIG.tintaRendPorLitro;
-      const rodape = Math.max(0, perim - CONFIG.vaoPorta);
-      return { hero: { value: nf(piso,2), unit: "Área de piso" }, lines: [
-        { label: "Parede para pintura (2 demãos)", value: m2(parede) },
-        { label: "Tinta (galão 3,6 L)",            value: nf(ceil(litros/CONFIG.galaoLitros),0)+" galões" },
-        { label: "Piso (caixa ~2 m²)",             value: nf(ceil(piso/CONFIG.caixaPisoM2),0)+" caixas" },
-        { label: "Rodapé",                         value: ml(rodape)+" lineares" },
-        { label: "Pontos de tomada sugeridos",     value: nf(ceil(perim/3),0)+" pontos" },
-      ]};
-    },
-    stages: [
-      { etapa: "Preparo", itens: ITENS.preparo },
-      { etapa: "Elétrica e rede", nota: "Mais tomadas para os equipamentos e ponto de internet cabeada.", itens: [
-        ...ITENS.eletrica,
-        { name: "Cabo de rede + conectores RJ45 (ponto de internet)", price: "R$ 40–110", q: "cabo rede rj45 conector ponto internet" },
-        { name: "Réguas / pontos extras de tomada + conduíte", price: "R$ 40–100", q: "regua ponto tomada conduite escritorio" },
-      ]},
-      { etapa: "Esquadrias (janela + porta)", itens: ITENS.esquadrias },
-      { etapa: "Piso", itens: ITENS.pisoLaminado },
-      { etapa: "Forro (opcional)", itens: ITENS.forro },
-      { etapa: "Pintura", itens: [
-        ...ITENS.pintura,
-        { name: "Tinta látex acrílica 3,6 L (escritório)", price: "R$ 55–100", q: "tinta latex acrilica 3,6 litros escritorio" },
-      ]},
-      { etapa: "Iluminação", itens: [
-        ...ITENS.iluminacao,
-        { name: "Luminária de trabalho / spot direcionável", price: "R$ 45–120", q: "luminaria trabalho spot direcionavel escritorio" },
-      ]},
-      { etapa: "Limpeza pós-obra", itens: ITENS.limpeza },
-    ],
-    decorBase: [
-      { base: "Quadro / pôster para escritório",  q: "quadro poster escritorio",            price: [20, 120] },
-      { base: "Luminária de mesa",                q: "luminaria de mesa escritorio",        price: [45, 150] },
-      { base: "Prateleira suspensa",              q: "prateleira suspensa escritorio",      price: [50, 160] },
-      { base: "Kit organizador de mesa",          q: "kit organizador de mesa escritorio",  price: [30, 90] },
-      { base: "Suporte para monitor",             q: "suporte para monitor escritorio",     price: [40, 140] },
-      { base: "Painel organizador (memo board)",  q: "painel organizador memo board escritorio", price: [50, 160] },
-      { base: "Cadeira de escritório",            q: "cadeira de escritorio",               price: [300, 700] },
-      { base: "Tapete para o piso / cadeira",     q: "tapete escritorio home office",       price: [60, 200] },
-      { base: "Nichos / estante de parede",       q: "nicho estante parede escritorio",     price: [40, 160] },
-      { base: "Canaleta organizadora de cabos",   q: "canaleta passa cabo organizador escritorio", price: [20, 70] },
-      { base: "Cortina / persiana",               q: "cortina persiana escritorio",         price: [50, 160] },
-      { base: "Vaso com planta de mesa",          q: "vaso planta de mesa escritorio",      price: [20, 70] },
-      { base: "Relógio de parede",                q: "relogio de parede escritorio",        price: [35, 110] },
-      { base: "Suporte / apoio para notebook",    q: "suporte apoio notebook mesa",         price: [30, 110] },
-    ],
-    decorExtra: [
-      { name: "Pôster de humor motivacional", price: "R$ 20–60", q: "poster nao hoje escritorio divertido frase", styles: ["divertido"], eco: true },
-      { name: "Mousepad gigante estampado",           price: "R$ 30–80", q: "mousepad gigante estampado divertido", styles: ["divertido"], eco: true },
-      { name: "Suporte de fone em formato divertido", price: "R$ 20–60", q: "suporte headset boneco divertido mesa", styles: ["divertido"], eco: true },
-      { name: "Globo terrestre decorativo",           price: "R$ 60–150", q: "globo terrestre decorativo escritorio", styles: ["americano", "rustico"] },
-      { name: "Pegboard de metal preto (kit acessórios)", price: "R$ 70–170", q: "pegboard metal preto kit escritorio", styles: ["industrial"] },
-    ],
-  },
-  {
-    id: "corredor", label: "Corredor", title: "Corredor / Hall",
-    tagline: "Pintura + piso + rodapé de passagem",
-    hint: "Meça a largura e o comprimento do corredor. O app calcula tinta, piso e rodapé dos dois lados. Ex.: 1,20 × 4,00.",
-    example: { w: "1,20", l: "4,00" },
-    compute(w, l){
-      const piso = w*l, perim = 2*(w+l), parede = perim*CONFIG.peDireito;
-      const litros = parede*CONFIG.demaos/CONFIG.tintaRendPorLitro;
-      const rodape = Math.max(0, perim - CONFIG.vaoPorta*2);
-      return { hero: { value: nf(piso,2), unit: "Área de piso" }, lines: [
-        { label: "Parede para pintura (2 demãos)", value: m2(parede) },
-        { label: "Tinta (galão 3,6 L)",            value: nf(ceil(litros/CONFIG.galaoLitros),0)+" galões" },
-        { label: "Piso (caixa ~2 m²)",             value: nf(ceil(piso/CONFIG.caixaPisoM2),0)+" caixas" },
-        { label: "Rodapé",                         value: ml(rodape)+" lineares" },
-      ]};
-    },
-    stages: [
-      { etapa: "Preparo", itens: ITENS.preparo },
-      { etapa: "Elétrica", nota: "Interruptor paralelo (three-way) para acender/apagar nas duas pontas.", itens: [
-        ...ITENS.eletricaPonto,
-        { name: "Interruptores paralelos (three-way) + cabo", price: "R$ 30–70", q: "interruptor paralelo three way corredor" },
-      ]},
-      { etapa: "Esquadrias", nota: "Portas do corredor e, se houver, uma janela basculante pequena.", itens: [
-        ...ITENS.janelaPequena,
-        { name: "Porta + batente + dobradiças (kit)", price: "R$ 220–420", q: "kit porta batente dobradica" },
-        { name: "Fechadura + maçaneta", price: "R$ 45–120", q: "fechadura macaneta porta" },
-      ]},
-      { etapa: "Piso", itens: ITENS.revPiso },
-      { etapa: "Pintura", itens: [
-        ...ITENS.pintura,
-        { name: "Tinta látex PVA 3,6 L (corredor)", price: "R$ 45–75", q: "tinta latex pva 3,6 litros corredor" },
-      ]},
-      { etapa: "Iluminação", itens: ITENS.iluminacao },
-      { etapa: "Limpeza pós-obra", itens: ITENS.limpeza },
-    ],
-    decorBase: [
-      { base: "Galeria de quadros (kit molduras)", q: "kit molduras galeria corredor",       price: [40, 150] },
-      { base: "Aparador / console estreito",       q: "aparador console estreito corredor",  price: [150, 400] },
-      { base: "Espelho de parede",                 q: "espelho parede corredor",             price: [90, 300] },
-      { base: "Arandela / spot de parede",         q: "arandela spot parede corredor",       price: [35, 110] },
-      { base: "Tapete passadeira",                 q: "tapete passadeira corredor",          price: [60, 200] },
-      { base: "Papel de parede (rolo)",            q: "papel de parede rolo corredor",       price: [35, 110] },
-      { base: "Cabideiro / gancheira de entrada",  q: "cabideiro gancheira entrada corredor", price: [25, 90] },
-      { base: "Prateleira / nicho de parede",      q: "prateleira nicho parede corredor",    price: [30, 110] },
-      { base: "Sapateira estreita",                q: "sapateira estreita corredor entrada", price: [120, 320] },
-      { base: "Vaso alto com planta",              q: "vaso alto planta corredor",           price: [40, 150] },
-      { base: "Capacho / tapete de entrada",       q: "capacho tapete de entrada",           price: [20, 70] },
-      { base: "Porta-chaves de parede",            q: "porta chaves de parede entrada",      price: [15, 60] },
-      { base: "Luminária de teto / plafon",        q: "plafon luminaria teto corredor",      price: [35, 120] },
-    ],
-    decorExtra: [
-      { name: "Papel de parede statement estampado (rolo)", price: "R$ 35–90", q: "papel de parede statement estampado corredor", styles: ["divertido", "americano"] },
-      { name: "Capacho com frase de humor",         price: "R$ 20–50", q: "capacho frase humor entrada", styles: ["divertido"], eco: true },
-      { name: "Kit de plaquinhas de setas divertidas", price: "R$ 20–55", q: "kit placa seta decorativa divertida", styles: ["divertido"], eco: true },
-      { name: "Banco baú de madeira para a entrada", price: "R$ 200–450", q: "banco bau madeira entrada corredor", styles: ["rustico", "americano"] },
-      { name: "Trilho de spots preto (3–4 lâmpadas)", price: "R$ 95–180", q: "trilho spot preto corredor", styles: ["industrial", "contemporaneo"] },
-    ],
-  },
-  {
-    id: "livre", label: "Área livre", title: "Área livre (medida solta)",
-    tagline: "Cálculo genérico por metro quadrado",
-    hint: "Serve pra qualquer espaço. Meça os dois lados do chão. Ex.: 2,00 × 4,00.",
-    example: { w: "2,00", l: "4,00" },
-    compute(w, l){
-      const area = w*l, perim = 2*(w+l);
-      return { hero: { value: nf(area,2), unit: "Área total" }, lines: [
-        { label: "Perímetro",                          value: ml(perim) },
-        { label: "Argamassa (saco 20 kg · ~4 m²)",     value: nf(ceil(area/CONFIG.argamassaPorM2),0)+" sacos" },
-        { label: "Piso / revestimento (caixa ~2 m²)",  value: nf(ceil(area/CONFIG.caixaPisoM2),0)+" caixas" },
-        { label: "Impermeabilizante (2 demãos)",       value: nf(ceil(area*1.2),0)+" kg" },
-      ]};
-    },
-    stages: [
-      { etapa: "Preparo", itens: ITENS.preparo },
-      { etapa: "Elétrica (se houver)", itens: ITENS.eletricaPonto },
-      { etapa: "Hidráulica (se houver ponto de água)", itens: ITENS.hidraulicaLeve },
-      { etapa: "Regularização / contrapiso", itens: [
-        ...ITENS.regularizacao,
-        { name: "Aditivo impermeabilizante para argamassa", price: "R$ 20–45", q: "aditivo impermeabilizante argamassa", eco: true },
-        { name: "Sarrafo / guia de nível", price: "R$ 10–25", q: "sarrafo guia nivel contrapiso", eco: true },
-      ]},
-      { etapa: "Impermeabilização (área molhada / laje)", itens: ITENS.impermeabilizacao },
-      { etapa: "Revestimento de piso", itens: ITENS.revPiso },
-      { etapa: "Esquadrias (se houver vão)", itens: [
-        ...ITENS.janelaPequena,
-        { name: "Porta / portão (se aplicável)", price: "R$ 200–600", q: "porta portao area externa" },
-      ]},
-      { etapa: "Pintura", itens: [
-        ...ITENS.pintura,
-        { name: "Tinta acrílica / emborrachada 18 L", price: "R$ 120–230", q: "tinta acrilica emborrachada 18 litros" },
-      ]},
-      { etapa: "Iluminação", itens: ITENS.iluminacao },
-      { etapa: "Limpeza pós-obra", itens: ITENS.limpeza },
-    ],
-    decorBase: [
-      { base: "Quadro / pôster decorativo",       q: "quadro poster decorativo parede",     price: [20, 110] },
-      { base: "Prateleira / nicho de parede",     q: "prateleira nicho parede",             price: [25, 100] },
-      { base: "Vaso com planta",                  q: "vaso planta decorativa",              price: [20, 90] },
-      { base: "Espelho decorativo",               q: "espelho decorativo parede",           price: [80, 260] },
-      { base: "Luminária (teto / parede)",        q: "luminaria teto parede decorativa",    price: [40, 140] },
-      { base: "Cordão de luz LED",                q: "cordao luz led decorativo",           price: [20, 70] },
-      { base: "Cesto organizador",                q: "cesto organizador decorativo",        price: [30, 110] },
-      { base: "Tapete",                           q: "tapete decorativo ambiente",          price: [50, 180] },
-      { base: "Cabideiro / gancheira de parede",  q: "cabideiro gancheira parede",          price: [20, 80] },
-      { base: "Placa / letreiro decorativo",      q: "placa letreiro decorativo parede",    price: [15, 70] },
-      { base: "Cortina / persiana",               q: "cortina persiana ambiente",           price: [50, 160] },
-      { base: "Relógio de parede",                q: "relogio de parede decorativo",        price: [35, 120] },
-      { base: "Adesivo / painel de parede",       q: "adesivo painel parede decorativo",    price: [20, 80] },
-    ],
-    decorExtra: [
-      { name: "Letreiro de neon LED pequeno",       price: "R$ 70–160", q: "neon led pequeno decorativo", styles: ["divertido"] },
-      { name: "Kit de adesivos de parede coloridos", price: "R$ 20–55", q: "kit adesivo parede colorido decorativo", styles: ["divertido"], eco: true },
-      { name: "Placa personalizada com frase",      price: "R$ 15–45", q: "placa decorativa personalizada frase", styles: ["divertido"], eco: true },
-      { name: "Prateleira de madeira de demolição", price: "R$ 70–150", q: "prateleira madeira demolicao", styles: ["rustico", "industrial"] },
-      { name: "Trio de vasos de fibra clara",       price: "R$ 60–150", q: "kit 3 vasos fibra clara", styles: ["escandinavo"], eco: true },
-    ],
-  },
-];
-
-/* ────────────────────────────────────────────────────────────────
-   5) ESTADO + PERSISTÊNCIA
-   ──────────────────────────────────────────────────────────────── */
-const STORE_KEY = "reformei.v4";
-let store = { tab: "banheiro", style: "contemporaneo", inputs: {}, budget: [], summed: {} };
-try {
-  const saved = JSON.parse(localStorage.getItem(STORE_KEY) || "{}");
-  if (saved && typeof saved === "object") store = Object.assign(store, saved);
-} catch (e) {}
-store.inputs = store.inputs || {};
-store.budget = Array.isArray(store.budget) ? store.budget : [];
-store.summed = (store.summed && typeof store.summed === "object") ? store.summed : {};
-ROOMS.forEach(r => { if (!store.inputs[r.id]) store.inputs[r.id] = { ...r.example }; });
-if (!ROOMS.some(r => r.id === store.tab)) store.tab = "banheiro";
-if (!STYLES.some(s => s.id === store.style)) store.style = "contemporaneo";
-function persist(){ try { localStorage.setItem(STORE_KEY, JSON.stringify(store)); } catch (e) {} }
-
-/* ────────────────────────────────────────────────────────────────
-   6) DOM
-   ──────────────────────────────────────────────────────────────── */
-const $ = (id) => document.getElementById(id);
-const els = {
-  roomnav: $("roomnav"), ico: $("roomIco"), title: $("roomTitle"), tagline: $("roomTagline"),
-  hint: $("roomHint"), w: $("w"), l: $("l"), form: $("form"), result: $("result"),
-  shopTitle: $("shopTitle"), shopIntro: $("shopIntro"), stagesWrap: $("stagesWrap"),
-  localBtn: $("localBtn"), stagesToggle: $("stagesToggle"),
-  decorTitle: $("decorTitle"), decorIntro: $("decorIntro"), decorCount: $("decorCount"),
-  stylenav: $("stylenav"), moodSwatches: $("moodSwatches"), moodText: $("moodText"),
-  decorList: $("decorList"), themeBtn: $("themeBtn"),
-  budgetSec: $("budgetSec"), budgetList: $("budgetList"), budgetTotal: $("budgetTotal"),
-  budgetCopy: $("budgetCopy"), budgetMaps: $("budgetMaps"), budgetClear: $("budgetClear"),
-};
-const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-const currentRoom  = () => ROOMS.find(r => r.id === store.tab) || ROOMS[0];
-const currentStyle = () => STYLES.find(s => s.id === store.style) || STYLES[0];
-const parseNum = (v) => { const n = parseFloat(String(v).replace(",", ".").trim()); return isFinite(n) ? n : NaN; };
-const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-
-/* Itens visíveis agora, para o botão "adicionar ao orçamento" */
-let CUR = { prod: [], decor: [] };
-let allStagesOpen = false;
-
-function storeLinks(q){
-  return ["shopee", "mercadolivre", "amazon"].map(k => {
-    const cfg = AFFILIATE[k];
-    return '<a class="store" href="' + linkAfiliado(k, q) + '" target="_blank" rel="noopener noreferrer" ' +
-           'aria-label="Buscar &quot;' + esc(q) + '&quot; na ' + cfg.label + '">' + cfg.label + '</a>';
-  }).join("");
-}
-function productRow(p, src, idx){
-  return '<div class="prod">' +
-      '<div class="prod__top"><span class="prod__name">' + esc(p.name) + '</span>' +
-      '<span class="prod__price">' + esc(ajustaPreco(priceFor(p))) + '</span></div>' +
-      (p.eco ? '<div class="prod__meta"><span class="chip-eco">Econômico</span></div>' : '') +
-      '<div class="stores">' + storeLinks(p.q) + '</div>' +
-      '<button class="addbtn" type="button" data-src="' + src + '" data-idx="' + idx + '">+ Adicionar ao orçamento</button>' +
-    '</div>';
-}
-
-/* ── Orçamento ─────────────────────────────────────────────────── */
-function parsePrice(str){
-  const nums = (String(str).match(/\d[\d.]*/g) || []).map(s => parseInt(s.replace(/\./g, ""), 10));
-  const lo = nums[0] || 0;
-  const hi = nums[1] || lo;
-  return { lo, hi };
-}
-function addToBudget(item){
-  const found = store.budget.find(b => b.q === item.q);
-  if (found) found.qty += 1;
-  else store.budget.push({ name: item.name, price: ajustaPreco(priceFor(item)), q: item.q, qty: 1 });
-  persist();
-  renderBudget();
-}
-function renderBudget(){
-  const list = store.budget;
-  els.budgetSec.hidden = list.length === 0;
-  if (!list.length){ els.budgetList.innerHTML = ""; return; }
-  let lo = 0, hi = 0;
-  els.budgetList.innerHTML = list.map(b => {
-    const p = parsePrice(b.price);
-    lo += p.lo * b.qty; hi += p.hi * b.qty;
-    return '<div class="prod">' +
-        '<div class="prod__top"><span class="prod__name">' + esc(b.name) + '</span>' +
-        '<span class="prod__price">' + esc(b.price) + '</span></div>' +
-        '<div class="budget__row">' +
-          '<div class="budget__qty">' +
-            '<button type="button" data-bq="-" data-q="' + esc(b.q) + '" aria-label="Menos um">−</button>' +
-            '<span>' + b.qty + '</span>' +
-            '<button type="button" data-bq="+" data-q="' + esc(b.q) + '" aria-label="Mais um">+</button>' +
-          '</div>' +
-          '<button class="budget__rm" type="button" data-brm="' + esc(b.q) + '">Remover</button>' +
-        '</div>' +
-      '</div>';
-  }).join("");
-  els.budgetTotal.textContent = "R$ " + nf(lo, 0) + "–" + nf(hi, 0);
-}
-function budgetText(){
-  const lines = ["*Orçamento Reformei*", ""];
-  let lo = 0, hi = 0;
-  store.budget.forEach(b => {
-    const p = parsePrice(b.price);
-    lo += p.lo * b.qty; hi += p.hi * b.qty;
-    lines.push("- " + b.qty + "x " + b.name + "  (" + b.price + ")");
-  });
-  lines.push("", "Estimativa online: R$ " + nf(lo, 0) + "–" + nf(hi, 0));
-  lines.push("Feito no app Reformei");
-  return lines.join("\n");
-}
-
-/* Navegação de ambientes */
-function renderRoomNav(){
-  els.roomnav.innerHTML = "";
-  ROOMS.forEach(room => {
-    const b = document.createElement("button");
-    b.className = "rpill";
-    b.type = "button";
-    b.setAttribute("role", "tab");
-    b.setAttribute("aria-selected", String(room.id === store.tab));
-    b.innerHTML = ICONS[room.id] + "<span>" + room.label + "</span>";
-    b.addEventListener("click", () => {
-      store.tab = room.id; persist();
-      renderRoomNav(); renderRoom();
-      b.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", inline: "center", block: "nearest" });
-    });
-    els.roomnav.appendChild(b);
-  });
-}
-
-/* Ambiente */
-function renderRoom(){
-  const room = currentRoom();
-  els.ico.innerHTML = ICONS[room.id];
-  els.title.textContent = room.title;
-  els.tagline.textContent = room.tagline;
-  els.hint.textContent = room.hint;
-  const vals = store.inputs[room.id];
-  els.w.value = vals.w || "";
-  els.l.value = vals.l || "";
-  els.shopTitle.textContent = "Lista completa da obra · " + room.label;
-  els.shopIntro.textContent = "Toque numa etapa para abrir. Cada preço é de referência (" + PRECO.atualizadoEm + ") e por unidade — um saco, um rolo, uma peça. O preço de hoje está nos botões das lojas.";
-  const roomStages = (room.stages || []).filter((s) => s.itens !== ITENS.preparo && s.itens !== ITENS.limpeza);
-  const stages = [
-    { etapa: "Preparo e proteção", nota: "Igual em toda reforma: proteja móveis e piso e separe as ferramentas.", itens: ITENS.preparo },
-  ].concat(roomStages, [
-    { etapa: "Limpeza pós-obra", nota: "Igual em toda reforma.", itens: ITENS.limpeza },
-  ]);
-  CUR.prod = [];
-  allStagesOpen = false;
-  els.stagesToggle.textContent = "Abrir todas as etapas";
-  let gi = 0;
-  els.stagesWrap.innerHTML = stages.map((stg, si) => {
-    const rows = stg.itens.map((it) => {
-      CUR.prod.push(it);
-      const html = productRow(it, "prod", gi);
-      gi += 1;
-      return html;
-    }).join("");
-    const num = (si < 9 ? "0" : "") + (si + 1);
-    const open = si === 1; // a primeira etapa do cômodo já vem aberta
-    return '<div class="stage">' +
-        '<button class="stage__head" type="button" aria-expanded="' + open + '">' +
-          '<span class="stage__chev" aria-hidden="true">▸</span>' +
-          '<span class="stage__num">' + num + '</span>' +
-          '<span class="stage__ttl">' + stg.etapa + '</span>' +
-          '<span class="stage__count">' + stg.itens.length + ' itens</span>' +
-        '</button>' +
-        '<div class="stage__panel"' + (open ? '' : ' hidden') + '>' +
-          (stg.nota ? '<p class="stage__note">' + stg.nota + '</p>' : '') +
-          '<div class="prod-list">' + rows + '</div>' +
-        '</div>' +
-      '</div>';
-  }).join("");
-  renderResult(false);
-  renderDecor();
-}
-
-/* Resultado */
-function renderResult(animate){
-  const room = currentRoom();
-  const w = parseNum(els.w.value), l = parseNum(els.l.value);
-  if (!(w > 0) || !(l > 0)){
-    els.result.innerHTML =
-      '<div class="result__hero"><span class="lbl">Resultado</span></div>' +
-      '<p class="result__empty">Preencha os dois lados do cômodo para ver o tamanho e os materiais. Não sabe medir? Toque em "me ajuda" acima.</p>';
-    return;
-  }
-  const out = room.compute(w, l);
-  const lines = out.lines.map(x => "<li><span>" + x.label + "</span><b>" + x.value + "</b></li>").join("");
-  const summedNote = (store.summed && store.summed[room.id])
-    ? '<p class="result__note">Você somou as partes de um cômodo irregular. O <b>chão</b> (piso, argamassa, rejunte) está certo. Já <b>tinta e rodapé</b> ficam aproximados — meça a volta toda do cômodo com a trena e compre 10% a mais.</p>'
-    : '';
-  els.result.innerHTML =
-    '<div class="result__hero"><span class="lbl">' + out.hero.unit + '</span>' +
-    '<span class="big">' + out.hero.value + '<small>m²</small></span></div>' +
-    '<ul class="result__list">' + lines + '</ul>' +
-    '<p class="result__note">Esse valor é uma estimativa. Na obra sempre sobra recorte e perda, então compre uns 10% a mais do que a conta mostra.</p>' +
-    summedNote;
-  if (animate && !reduceMotion){
-    els.result.classList.remove("is-updated");
-    void els.result.offsetWidth;
-    els.result.classList.add("is-updated");
-  }
-}
-
-/* Estilo / decoração */
-function renderStyleNav(){
-  els.stylenav.innerHTML = "";
-  STYLES.forEach(st => {
-    const b = document.createElement("button");
-    b.className = "spill";
-    b.type = "button";
-    b.setAttribute("role", "tab");
-    b.setAttribute("aria-selected", String(st.id === store.style));
-    b.textContent = st.label;
-    b.addEventListener("click", () => {
-      store.style = st.id; persist();
-      renderStyleNav(); renderDecor();
-      b.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", inline: "center", block: "nearest" });
-    });
-    els.stylenav.appendChild(b);
-  });
-}
-function decorFromBase(item, st){
-  const lo = Math.round(item.price[0] * st.mult / 5) * 5;
-  const hi = Math.round(item.price[1] * st.mult / 5) * 5;
-  return {
-    name: item.base + " " + st.q2,
-    price: "R$ " + nf(lo, 0) + "–" + nf(hi, 0),
-    q: item.q + " " + st.kw,
-    baseQ: item.q,
-    eco: hi <= 60,
-  };
-}
-function renderDecor(){
-  const room = currentRoom(), st = currentStyle();
-  els.decorTitle.textContent = "Decoração · " + room.label;
-  els.decorIntro.textContent = "Enfeites para " + room.label.toLowerCase() + " no estilo " + st.label.toLowerCase() + ". Troque o estilo e a lista muda inteira.";
-  els.moodSwatches.innerHTML = st.swatches.map(c => '<i style="background:' + c + '"></i>').join("");
-  els.moodText.textContent = st.blurb;
-  const extra = (room.decorExtra || []).filter(e => (e.styles || []).indexOf(st.id) > -1);
-  const base  = (room.decorBase || []).map(it => decorFromBase(it, st));
-  const list  = extra.concat(base);
-  CUR.decor = list;
-  els.decorCount.innerHTML = "<b>" + list.length + "</b> ideias de decoração neste estilo · só lojas online";
-  els.decorList.innerHTML = list.map((p, i) => productRow(p, "decor", i)).join("");
-}
-
-/* Abrir / fechar etapas */
-els.stagesWrap.addEventListener("click", (e) => {
-  const head = e.target.closest(".stage__head");
-  if (!head) return;
-  const open = head.getAttribute("aria-expanded") !== "true";
-  head.setAttribute("aria-expanded", String(open));
-  if (head.nextElementSibling) head.nextElementSibling.hidden = !open;
-});
-els.stagesToggle.addEventListener("click", () => {
-  allStagesOpen = !allStagesOpen;
-  Array.prototype.forEach.call(els.stagesWrap.querySelectorAll(".stage__head"), (h) => {
-    h.setAttribute("aria-expanded", String(allStagesOpen));
-    if (h.nextElementSibling) h.nextElementSibling.hidden = !allStagesOpen;
-  });
-  els.stagesToggle.textContent = allStagesOpen ? "Fechar todas as etapas" : "Abrir todas as etapas";
-});
-
-/* Inputs */
-function onInput(){
-  const id = currentRoom().id;
-  store.inputs[id] = { w: els.w.value, l: els.l.value };
-  store.summed[id] = false;   // digitou à mão: não é mais medida somada
-  persist();
-  renderResult(false);
-}
-els.w.addEventListener("input", onInput);
-els.l.addEventListener("input", onInput);
-els.form.addEventListener("submit", (e) => {
-  e.preventDefault();
-  els.w.blur(); els.l.blur();
-  renderResult(true);
-  if (!reduceMotion) els.result.scrollIntoView({ behavior: "smooth", block: "center" });
-});
-
-/* Delegação: adicionar ao orçamento + steppers */
-document.addEventListener("click", (e) => {
-  const add = e.target.closest(".addbtn");
-  if (add){
-    const it = (CUR[add.dataset.src] || [])[+add.dataset.idx];
-    if (it){
-      addToBudget(it);
-      const old = add.textContent;
-      add.textContent = "Adicionado ✓";
-      add.classList.add("is-added");
-      setTimeout(() => { add.textContent = old; add.classList.remove("is-added"); }, 1200);
-    }
-    return;
-  }
-  const step = e.target.closest("[data-bq]");
-  if (step){
-    const b = store.budget.find(x => x.q === step.dataset.q);
-    if (b){
-      b.qty += (step.dataset.bq === "+" ? 1 : -1);
-      if (b.qty < 1) store.budget = store.budget.filter(x => x.q !== b.q);
-      persist(); renderBudget();
-    }
-    return;
-  }
-  const rm = e.target.closest("[data-brm]");
-  if (rm){
-    store.budget = store.budget.filter(x => x.q !== rm.dataset.brm);
-    persist(); renderBudget();
-  }
-});
-
-els.budgetCopy.addEventListener("click", () => {
-  const txt = budgetText();
-  const done = () => { const o = els.budgetCopy.textContent; els.budgetCopy.textContent = "Lista copiada ✓"; setTimeout(() => els.budgetCopy.textContent = o, 1500); };
-  if (navigator.clipboard && navigator.clipboard.writeText){
-    navigator.clipboard.writeText(txt).then(done).catch(() => window.prompt("Copie a lista:", txt));
-  } else {
-    window.prompt("Copie a lista:", txt);
-  }
-});
-els.budgetMaps.addEventListener("click", () => {
-  window.open(linkLojaLocal(""), "_blank", "noopener");
-});
-els.budgetClear.addEventListener("click", () => {
-  store.budget = []; persist(); renderBudget();
-});
-
-/* ── "Como medir" — janela flutuante + somador de partes ──────── */
-const howto = {
-  modal: $("howtoModal"), openBtn: $("howtoBtn"), closeBtn: $("howtoClose"),
-  rows: $("adderRows"), addBtn: $("adderAdd"), total: $("adderTotal"), useBtn: $("adderUse"),
-};
-let howtoReturnFocus = null;
-function adderAddRow(){
-  const row = document.createElement("div");
-  row.className = "adder__row";
-  row.innerHTML =
-    '<input type="text" inputmode="decimal" placeholder="Largura (m)" aria-label="Largura do pedaço" />' +
-    '<span class="x">×</span>' +
-    '<input type="text" inputmode="decimal" placeholder="Compr. (m)" aria-label="Comprimento do pedaço" />' +
-    '<span class="adder__sub">= 0,00</span>' +
-    '<button type="button" class="adder__del" data-adel aria-label="Remover parte">×</button>';
-  howto.rows.appendChild(row);
-}
-function adderRecalc(){
-  let total = 0;
-  Array.prototype.forEach.call(howto.rows.children, (row) => {
-    const ins = row.querySelectorAll("input");
-    const a = parseNum(ins[0].value), b = parseNum(ins[1].value);
-    const sub = (a > 0 && b > 0) ? a * b : 0;
-    total += sub;
-    row.querySelector(".adder__sub").textContent = "= " + nf(sub, 2);
-  });
-  howto.total.textContent = nf(total, 2) + " m²";
-  howto.useBtn.disabled = !(total > 0);
-  return total;
-}
-function howtoOpen(){
-  howtoReturnFocus = document.activeElement;
-  howto.modal.hidden = false;
-  document.body.style.overflow = "hidden";
-  if (!howto.rows.children.length){ adderAddRow(); adderAddRow(); }
-  adderRecalc();
-  howto.closeBtn.focus();
-}
-function howtoHide(){
-  howto.modal.hidden = true;
-  document.body.style.overflow = "";
-  if (howtoReturnFocus && howtoReturnFocus.focus) howtoReturnFocus.focus();
-}
-howto.openBtn.addEventListener("click", howtoOpen);
-howto.closeBtn.addEventListener("click", howtoHide);
-howto.modal.addEventListener("click", (e) => { if (e.target.dataset && e.target.dataset.close !== undefined) howtoHide(); });
-document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !howto.modal.hidden) howtoHide(); });
-howto.addBtn.addEventListener("click", () => { adderAddRow(); });
-howto.rows.addEventListener("input", adderRecalc);
-howto.rows.addEventListener("click", (e) => {
-  const del = e.target.closest("[data-adel]");
-  if (del && howto.rows.children.length > 1){ del.closest(".adder__row").remove(); adderRecalc(); }
-});
-howto.useBtn.addEventListener("click", () => {
-  const total = adderRecalc();
-  if (!(total > 0)) return;
-  const w = Math.max(0.1, Number(Math.sqrt(total).toFixed(2)));
-  const l = Number((total / w).toFixed(2));
-  els.w.value = nf(w, 2);
-  els.l.value = nf(l, 2);
-  const id = currentRoom().id;
-  store.inputs[id] = { w: els.w.value, l: els.l.value };
-  store.summed[id] = true;    // veio do somador: marca como medida somada
-  persist();
-  howtoHide();
-  renderResult(true);
-  if (!reduceMotion) els.result.scrollIntoView({ behavior: "smooth", block: "center" });
-});
-
-/* Tema */
-function applyTheme(mode){
-  if (mode === "light" || mode === "dark") document.documentElement.setAttribute("data-theme", mode);
-  else document.documentElement.removeAttribute("data-theme");
-  const isDark = mode === "dark" || (mode !== "light" && window.matchMedia("(prefers-color-scheme: dark)").matches);
-  els.themeBtn.textContent = isDark ? "☀" : "☾";
-}
-let themeMode = "system";
-try { themeMode = localStorage.getItem("reformei.theme") || "system"; } catch (e) {}
-applyTheme(themeMode);
-els.themeBtn.addEventListener("click", () => {
-  themeMode = (themeMode === "dark") ? "light" : "dark";
-  try { localStorage.setItem("reformei.theme", themeMode); } catch (e) {}
-  applyTheme(themeMode);
-});
-window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => {
-  if (themeMode === "system") applyTheme("system");
-});
-
-/* Início */
-els.localBtn.href = linkLojaLocal("");
-function refreshPrecoData(){ const pd = $("precoData"); if (pd) pd.textContent = PRECO.atualizadoEm; }
-refreshPrecoData();
-renderRoomNav();
-renderStyleNav();
-renderRoom();      // dispara renderResult() e renderDecor()
-renderBudget();
-
-/* Livro de preços na nuvem (opcional). Se o banco não estiver disponível,
-   o app usa os preços do código normalmente. */
-(async function initPrecoDB(){
-  try {
-    const claudeObj = (typeof window !== "undefined") ? window.claude : null;
-    if (!claudeObj || typeof claudeObj.use !== "function") return;
-    const db = await claudeObj.use("db");
-    if (!db) return;
-    db.doc("precos/tabela").onSnapshot(function (snap) {
-      const d = (snap && snap.exists) ? snap.data() : null;
-      if (!d) return;
-      aplicaPrecos(d);
-    }, function () { /* erro de assinatura: segue com preços do código */ });
-  } catch (e) { /* sem banco: preços do código */ }
-})();
-
-/* Livro de preços via arquivo — usado quando o app é hospedado fora do
-   claude.ai (ex.: Railway). Edite precos.json e faça novo deploy para
-   atualizar. No claude.ai o fetch é bloqueado e este bloco não faz nada. */
-function aplicaPrecos(d){
-  if (!d || typeof d !== "object") return;
-  if (typeof d.reajuste === "number" && d.reajuste > 0) PRECO.reajuste = d.reajuste;
-  if (typeof d.atualizadoEm === "string" && d.atualizadoEm) PRECO.atualizadoEm = d.atualizadoEm;
-  if (d.overrides && typeof d.overrides === "object") PRICE_OVERRIDES = d.overrides;
-  refreshPrecoData();
-  renderRoom();
-  renderBudget();
-}
-(function initPrecoJSON(){
-  try {
-    fetch("precos.json", { cache: "no-store" })
-      .then(function (r){ return r.ok ? r.json() : null; })
-      .then(function (d){ if (d) aplicaPrecos(d); })
-      .catch(function (){});
-  } catch (e) {}
-})();
-</script>
+<footer class="wrap">
+  <p>
+    O Reformei é uma ferramenta de estimativa: os preços são de referência e variam por região.
+    O app usa links de afiliado — se você comprar pelas lojas, o Reformei pode receber uma comissão, sem custo a mais para você.
+    Como Associado da Amazon, o Reformei recebe por compras qualificadas.
+  </p>
+</footer>
