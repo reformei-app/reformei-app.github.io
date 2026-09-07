@@ -51,6 +51,7 @@
   }
 
   *{box-sizing:border-box}
+  [hidden]{display:none!important}
   html,body{margin:0}
   body{
     background:var(--surface-2);
@@ -98,29 +99,36 @@
   }
   .pwa-cta:focus-visible{outline:none;box-shadow:var(--ring)}
 
-  .roomnav{
-    display:flex;gap:6px;overflow-x:auto;
-    padding:10px 14px 8px;
-    background:color-mix(in srgb, var(--bg) 94%, transparent);
-    backdrop-filter:saturate(1.4) blur(8px);
-    border-bottom:1px solid var(--border);
-    -webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;cursor:grab;
-    scrollbar-width:thin;scrollbar-color:var(--border) transparent;
+  #homeView,#roomView{display:flex;flex-direction:column;gap:16px}
+  .home-q{margin:4px 0 0;font-family:"Sora","Figtree",sans-serif;font-weight:700;font-size:18px;letter-spacing:-.01em;color:var(--text)}
+  .roomgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+  .roomcell{
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;
+    min-height:94px;padding:10px 6px;border-radius:14px;cursor:pointer;
+    border:1px solid var(--border);background:var(--surface);color:var(--text);
+    font:inherit;font-weight:700;font-size:11.5px;text-align:center;line-height:1.15;
   }
-  .roomnav:active{cursor:grabbing}
-  .roomnav::-webkit-scrollbar{height:6px}
-  .roomnav::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
-  .roomnav::-webkit-scrollbar-track{background:transparent}
-  .rpill{
-    flex:0 0 auto;display:flex;align-items:center;gap:6px;
-    padding:8px 13px;border-radius:999px;
-    border:1px solid var(--border);background:var(--surface);
-    color:var(--text-soft);font:inherit;font-weight:650;font-size:12.5px;
-    white-space:nowrap;cursor:pointer;
+  .roomcell svg{width:26px;height:26px;fill:none;stroke:var(--flame);stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+  .roomcell:hover,.roomcell:focus-visible{border-color:var(--flame);background:var(--flame-wash);color:var(--flame-ink);outline:none}
+  .roomcell:active{transform:translateY(1px)}
+  .backbtn{
+    align-self:flex-start;display:inline-flex;align-items:center;gap:6px;
+    font:inherit;font-weight:700;font-size:12.5px;color:var(--flame-ink);
+    background:none;border:none;cursor:pointer;padding:2px 0;
   }
-  .rpill svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
-  .rpill[aria-selected="true"]{background:var(--flame);border-color:var(--flame);color:#1A2530}
-  .rpill:focus-visible{outline:none;box-shadow:var(--ring)}
+  .backbtn:focus-visible{outline:none;box-shadow:var(--ring);border-radius:6px}
+  .budget__add{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px}
+  .budget__add input{
+    flex:1 1 150px;min-width:0;font:inherit;font-size:14px;
+    padding:9px 10px;border-radius:9px;border:1.5px solid var(--border);background:var(--bg);color:var(--text);
+  }
+  .budget__add input#budgetAddPrice{flex:1 1 110px}
+  .budget__add input:focus{outline:none;border-color:var(--flame);box-shadow:var(--ring)}
+  .budget__add button{
+    flex:0 0 auto;font:inherit;font-weight:800;font-size:12.5px;padding:9px 14px;border-radius:9px;
+    border:1px dashed var(--flame);background:var(--flame-wash);color:var(--flame-ink);cursor:pointer;
+  }
+  .budget__empty{margin:10px 0 2px;font-size:12px;color:var(--text-soft);line-height:1.5}
 
   /* ── Conteúdo ───────────────────────────────────────────────── */
   main{flex:1;padding:18px 16px 44px;display:flex;flex-direction:column;gap:16px}
@@ -350,12 +358,18 @@
       </a>
       <button class="theme" id="themeBtn" type="button" aria-label="Alternar tema claro e escuro"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
     </header>
-    <nav class="roomnav" id="roomnav" role="tablist" aria-label="Ambientes"></nav>
   </div>
 
   <main>
-    <p class="lede">Descubra quanto material sua reforma vai precisar, cômodo por cômodo, e monte um orçamento pra comparar o preço nas lojas ou na casa de material perto de você.</p>
-    <button class="pwa-cta" id="pwaInstall" type="button" hidden>📲 Instalar o Reformei no celular</button>
+    <section id="homeView">
+      <p class="lede">Descubra quanto material sua reforma vai precisar, cômodo por cômodo, e monte um orçamento pra comparar o preço nas lojas ou na casa de material perto de você.</p>
+      <button class="pwa-cta" id="pwaInstall" type="button" hidden>📲 Instalar o Reformei no celular</button>
+      <h2 class="home-q">O que você vai reformar?</h2>
+      <div class="roomgrid" id="roomgrid"></div>
+    </section>
+
+    <section id="roomView" hidden>
+    <button class="backbtn" id="backBtn" type="button">← Escolher outro cômodo</button>
 
     <section class="room-head">
       <span class="ico" id="roomIco" aria-hidden="true"></span>
@@ -408,8 +422,13 @@
 
     <section class="shop" id="budgetSec" hidden>
       <h3>Meu orçamento para a loja</h3>
-      <p>Junte os itens que quiser, ajuste as quantidades e leve — ou mande pelo WhatsApp — para a casa de material de construção perto de você pedir o preço fechado.</p>
+      <p>Junte os itens dos materiais acima, ajuste as quantidades e inclua também o que não está na lista. Depois leve — ou mande pelo WhatsApp — para a casa de material de construção perto de você pedir o preço fechado.</p>
       <div class="prod-list" id="budgetList"></div>
+      <div class="budget__add">
+        <input id="budgetAddName" type="text" autocomplete="off" placeholder="Item que não está na lista (ex.: torneira de jardim)" />
+        <input id="budgetAddPrice" type="text" inputmode="decimal" autocomplete="off" placeholder="preço aprox. (opcional)" />
+        <button id="budgetAddBtn" type="button">+ Incluir</button>
+      </div>
       <div class="budget__foot">
         <div class="budget__total">Estimativa online: <b id="budgetTotal">—</b></div>
         <div class="budget__actions">
@@ -418,6 +437,7 @@
           <button id="budgetClear" type="button" class="ghost">Limpar</button>
         </div>
       </div>
+    </section>
     </section>
 
     <footer>
@@ -1386,15 +1406,18 @@ function persist(){ try { localStorage.setItem(STORE_KEY, JSON.stringify(store))
    ──────────────────────────────────────────────────────────────── */
 const $ = (id) => document.getElementById(id);
 const els = {
-  roomnav: $("roomnav"), ico: $("roomIco"), title: $("roomTitle"), tagline: $("roomTagline"),
+  ico: $("roomIco"), title: $("roomTitle"), tagline: $("roomTagline"),
   hint: $("roomHint"), w: $("w"), l: $("l"), form: $("form"), result: $("result"),
   shopTitle: $("shopTitle"), shopIntro: $("shopIntro"), stagesWrap: $("stagesWrap"),
   localBtn: $("localBtn"), stagesToggle: $("stagesToggle"),
   decorTitle: $("decorTitle"), decorIntro: $("decorIntro"), decorCount: $("decorCount"),
   stylenav: $("stylenav"), moodSwatches: $("moodSwatches"), moodText: $("moodText"),
   decorList: $("decorList"), themeBtn: $("themeBtn"),
+  homeView: $("homeView"), roomView: $("roomView"), roomgrid: $("roomgrid"),
+  backBtn: $("backBtn"), brand: document.querySelector(".brand"),
   budgetSec: $("budgetSec"), budgetList: $("budgetList"), budgetTotal: $("budgetTotal"),
   budgetCopy: $("budgetCopy"), budgetMaps: $("budgetMaps"), budgetClear: $("budgetClear"),
+  budgetAddName: $("budgetAddName"), budgetAddPrice: $("budgetAddPrice"), budgetAddBtn: $("budgetAddBtn"),
 };
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 const currentRoom  = () => ROOMS.find(r => r.id === store.tab) || ROOMS[0];
@@ -1439,8 +1462,12 @@ function addToBudget(item){
 }
 function renderBudget(){
   const list = store.budget;
-  els.budgetSec.hidden = list.length === 0;
-  if (!list.length){ els.budgetList.innerHTML = ""; return; }
+  els.budgetSec.hidden = false;
+  if (!list.length){
+    els.budgetList.innerHTML = '<p class="budget__empty">Sua lista está vazia. Toque em <b>+ Adicionar ao orçamento</b> nos materiais acima, ou escreva logo abaixo um item que não está na lista.</p>';
+    els.budgetTotal.textContent = "—";
+    return;
+  }
   let lo = 0, hi = 0;
   els.budgetList.innerHTML = list.map(b => {
     const p = parsePrice(b.price);
@@ -1473,24 +1500,30 @@ function budgetText(){
   return lines.join("\n");
 }
 
-/* Navegação de ambientes */
-function renderRoomNav(){
-  els.roomnav.innerHTML = "";
-  ROOMS.forEach(room => {
-    const b = document.createElement("button");
-    b.className = "rpill";
-    b.type = "button";
-    b.setAttribute("role", "tab");
-    b.setAttribute("aria-selected", String(room.id === store.tab));
-    b.innerHTML = ICONS[room.id] + "<span>" + room.label + "</span>";
-    b.addEventListener("click", () => {
-      store.tab = room.id; persist();
-      renderRoomNav(); renderRoom();
-      b.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", inline: "center", block: "nearest" });
-    });
-    els.roomnav.appendChild(b);
-  });
+/* Tela inicial: escolher o cômodo numa grade */
+function renderRoomGrid(){
+  els.roomgrid.innerHTML = ROOMS.map(function (r){
+    return '<button class="roomcell" type="button" data-room="' + r.id + '">' + ICONS[r.id] + '<span>' + esc(r.label) + '</span></button>';
+  }).join("");
 }
+function showHome(){
+  els.roomView.hidden = true;
+  els.homeView.hidden = false;
+  window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" });
+}
+function showRoom(id){
+  if (id) { store.tab = id; persist(); }
+  renderRoom();
+  els.homeView.hidden = true;
+  els.roomView.hidden = false;
+  window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" });
+}
+els.roomgrid.addEventListener("click", function (e){
+  const cell = e.target.closest(".roomcell");
+  if (cell) showRoom(cell.dataset.room);
+});
+els.backBtn.addEventListener("click", function (){ showHome(); });
+if (els.brand) els.brand.addEventListener("click", function (e){ e.preventDefault(); showHome(); });
 
 /* Ambiente */
 function renderRoom(){
@@ -1522,7 +1555,7 @@ function renderRoom(){
       return html;
     }).join("");
     const num = (si < 9 ? "0" : "") + (si + 1);
-    const open = si === 1; // a primeira etapa do cômodo já vem aberta
+    const open = false; // toda etapa começa fechada (a pessoa abre a que quiser)
     return '<div class="stage">' +
         '<button class="stage__head" type="button" aria-expanded="' + open + '">' +
           '<span class="stage__chev" aria-hidden="true">▸</span>' +
@@ -1692,6 +1725,34 @@ els.budgetClear.addEventListener("click", () => {
   store.budget = []; persist(); renderBudget();
 });
 
+/* Incluir um item que não está na lista */
+function addCustomToBudget(name, priceRaw){
+  name = String(name || "").trim();
+  if (!name) return false;
+  let price = String(priceRaw || "").trim();
+  if (price) { if (!/r\$/i.test(price)) price = "R$ " + price; }
+  else { price = "a combinar"; }
+  store.budget.push({
+    name: name, price: price, qty: 1, custom: true,
+    q: "livre-" + Date.now().toString(36) + Math.random().toString(36).slice(2, 6)
+  });
+  persist();
+  renderBudget();
+  return true;
+}
+els.budgetAddBtn.addEventListener("click", () => {
+  if (addCustomToBudget(els.budgetAddName.value, els.budgetAddPrice.value)) {
+    els.budgetAddName.value = "";
+    els.budgetAddPrice.value = "";
+  }
+  els.budgetAddName.focus();
+});
+[els.budgetAddName, els.budgetAddPrice].forEach((inp) => {
+  inp.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") { e.preventDefault(); els.budgetAddBtn.click(); }
+  });
+});
+
 /* ── "Como medir" — janela flutuante + somador de partes ──────── */
 const howto = {
   modal: $("howtoModal"), openBtn: $("howtoBtn"), closeBtn: $("howtoClose"),
@@ -1812,12 +1873,12 @@ function enableRowScroll(el){
 els.localBtn.href = linkLojaLocal("");
 function refreshPrecoData(){ const pd = $("precoData"); if (pd) pd.textContent = PRECO.atualizadoEm; }
 refreshPrecoData();
-renderRoomNav();
+renderRoomGrid();
 renderStyleNav();
-renderRoom();      // dispara renderResult() e renderDecor()
+renderRoom();      // pré-renderiza o cômodo salvo (fica oculto até escolher)
 renderBudget();
-enableRowScroll(els.roomnav);
 enableRowScroll(els.stylenav);
+showHome();        // sempre abre na tela inicial "O que você vai reformar?"
 
 /* Livro de preços na nuvem (opcional). Se o banco não estiver disponível,
    o app usa os preços do código normalmente. */
