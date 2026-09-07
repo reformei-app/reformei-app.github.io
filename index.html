@@ -1,7 +1,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <title>Reformei</title>
-<meta name="description" content="App gratuito que calcula quanto material sua reforma precisa, cômodo por cômodo, e ajuda a comparar preço." />
+<meta name="description" content="Calcule quanto sua reforma vai custar — materiais, etapas e orçamento pra loja, cômodo por cômodo. Acesso pelo Hotmart." />
 <link rel="icon" type="image/png" href="favicon.png" />
 <link rel="apple-touch-icon" href="apple-touch-icon.png" />
 <link rel="manifest" href="/manifest.webmanifest" />
@@ -137,21 +137,20 @@
       <img class="brand__logo" src="logo.png" alt="" width="40" height="40" />
       <b>Reform<i>ei</i></b>
     </span>
-    <a class="btn" href="app.html">Abrir o app</a>
+    <a class="btn" data-buy href="#">Garantir acesso</a>
   </div>
 </header>
 
 <main class="wrap">
   <section class="hero">
     <div>
-      <h1>Saiba quanto sua reforma vai custar antes de começar.</h1>
-      <p class="lede">O Reformei é um app gratuito que calcula quanto material sua obra precisa — cômodo por cômodo — e ajuda a comparar o preço antes de comprar.</p>
+      <h1>Saiba quanto sua reforma vai custar — antes de gastar o primeiro real.</h1>
+      <p class="lede">O Reformei calcula quanto material sua obra precisa, cômodo por cômodo, monta a lista completa por etapa e o orçamento pronto pra levar na loja.</p>
       <div class="cta">
-        <a class="btn" href="app.html">Abrir o app</a>
-        <button class="btn btn--ghost" id="pwaInstall" type="button" hidden>📲 Instalar no celular</button>
+        <a class="btn" data-buy href="#">Garantir meu acesso</a>
         <a class="btn btn--ghost" href="#como">Como funciona</a>
       </div>
-      <small>Funciona direto no navegador — e dá pra instalar como app, sem ocupar quase nada.</small>
+      <small>Pagamento único pelo Hotmart. Acesso liberado na hora, com as atualizações incluídas.</small>
     </div>
 
     <div class="phone" aria-hidden="true">
@@ -228,6 +227,19 @@
   </section>
 
   <section>
+    <h2>No acesso, você tem</h2>
+    <p class="sub">Uma compra. Tudo dentro.</p>
+    <div class="steps">
+      <div class="step"><h3>9 cômodos</h3><p>Banheiro, cozinha, quarto, sala, lavanderia, varanda, escritório, corredor e área livre.</p></div>
+      <div class="step"><h3>Lista da obra em 13 etapas</h3><p>Do preparo à limpeza, na ordem certa, com preço de referência item por item.</p></div>
+      <div class="step"><h3>Decoração em 7 estilos</h3><p>Do minimalista ao divertido, com ideias que combinam com cada cômodo.</p></div>
+      <div class="step"><h3>Orçamento pra loja</h3><p>Junta os itens numa lista e manda no WhatsApp pra pedir o preço fechado.</p></div>
+      <div class="step"><h3>Preços revisados a cada 15 dias</h3><p>A tabela de referência é atualizada de perto — e você não paga de novo por isso.</p></div>
+      <div class="step"><h3>Funciona em qualquer celular</h3><p>Abre no navegador, guarda suas medidas e dá pra usar até sem internet.</p></div>
+    </div>
+  </section>
+
+  <section>
     <div class="who">
       <h2>Para quem é</h2>
       <p>Para quem vai reformar com o orçamento contado e não quer ser pego de surpresa no meio da obra. O Reformei mostra o tamanho do gasto antes de tirar o dinheiro do bolso e ajuda a economizar comparando onde comprar.</p>
@@ -236,20 +248,25 @@
 </main>
 
 <div class="band">
-  <h2>Pronta para calcular sua reforma?</h2>
-  <p>É grátis e abre direto no navegador.</p>
-  <a class="btn" href="app.html">Abrir o Reformei</a>
+  <h2>Comece a obra sabendo quanto ela custa.</h2>
+  <p>Acesso pelo Hotmart, liberado na hora.</p>
+  <a class="btn" data-buy href="#">Garantir meu acesso</a>
 </div>
 
 <footer class="wrap">
   <p>
-    O Reformei é uma ferramenta de estimativa: os preços são de referência e variam por região.
-    O app usa links de afiliado — se você comprar pelas lojas, o Reformei pode receber uma comissão, sem custo a mais para você.
-    Como Associado da Amazon, o Reformei recebe por compras qualificadas.
+    O Reformei é uma ferramenta de estimativa: os preços são de referência, revisados a cada 15 dias, e variam por região. Some 10% de folga na hora de comprar.
+    <br /><span style="font-size:.85em;opacity:.7">Como Associado da Amazon, o Reformei ganha com compras qualificadas.</span>
   </p>
 </footer>
 
 <script>
+/* ▼▼▼ COLE AQUI O LINK DA SUA PÁGINA DE VENDAS NO HOTMART ▼▼▼ */
+var HOTMART = "COLE_AQUI_O_LINK_DO_HOTMART";
+/* ▲▲▲ é só trocar essa linha e publicar de novo ▲▲▲ */
+Array.prototype.forEach.call(document.querySelectorAll("[data-buy]"), function (a) {
+  a.href = HOTMART; a.target = "_blank"; a.rel = "noopener";
+});
 (function () {
   if ("serviceWorker" in navigator) {
     window.addEventListener("load", function () {
