@@ -1409,7 +1409,7 @@ const ROOMS = [
    5) ESTADO + PERSISTÊNCIA
    ──────────────────────────────────────────────────────────────── */
 const STORE_KEY = "reformei.v4";
-let store = { tab: "banheiro", style: "contemporaneo", inputs: {}, budget: [], summed: {} };
+let store = { tab: "banheiro", style: "contemporaneo", inputs: {}, budget: [], summed: {}, calc: {} };
 try {
   const saved = JSON.parse(localStorage.getItem(STORE_KEY) || "{}");
   if (saved && typeof saved === "object") store = Object.assign(store, saved);
@@ -1417,7 +1417,12 @@ try {
 store.inputs = store.inputs || {};
 store.budget = Array.isArray(store.budget) ? store.budget : [];
 store.summed = (store.summed && typeof store.summed === "object") ? store.summed : {};
-ROOMS.forEach(r => { if (!store.inputs[r.id]) store.inputs[r.id] = { ...r.example }; });
+store.calc = (store.calc && typeof store.calc === "object") ? store.calc : {};
+ROOMS.forEach(r => {
+  const v = store.inputs[r.id];
+  if (!v) store.inputs[r.id] = {};
+  else if (r.example && v.w === r.example.w && v.l === r.example.l && !store.calc[r.id]) store.inputs[r.id] = {};
+});
 if (!ROOMS.some(r => r.id === store.tab)) store.tab = "banheiro";
 if (!STYLES.some(s => s.id === store.style)) store.style = "contemporaneo";
 function persist(){ try { localStorage.setItem(STORE_KEY, JSON.stringify(store)); } catch (e) {} }
@@ -1592,18 +1597,22 @@ function renderRoom(){
         '</div>' +
       '</div>';
   }).join("");
-  renderResult(false);
+  if (store.calc[room.id]) renderResult(false);
+  else resultEmpty();
   renderDecor();
 }
 
 /* Resultado */
+function resultEmpty(){
+  els.result.innerHTML =
+    '<div class="result__hero"><span class="lbl">Resultado</span></div>' +
+    '<p class="result__empty">Preencha os dois lados e toque em <b>Calcular materiais</b>.</p>';
+}
 function renderResult(animate){
   const room = currentRoom();
   const w = parseNum(els.w.value), l = parseNum(els.l.value);
   if (!(w > 0) || !(l > 0)){
-    els.result.innerHTML =
-      '<div class="result__hero"><span class="lbl">Resultado</span></div>' +
-      '<p class="result__empty">Preencha os dois lados para ver o tamanho e os materiais.</p>';
+    resultEmpty();
     return;
   }
   const out = room.compute(w, l);
@@ -1697,13 +1706,14 @@ function onInput(){
   store.inputs[id] = { w: els.w.value, l: els.l.value };
   store.summed[id] = false;   // digitou à mão: não é mais medida somada
   persist();
-  renderResult(false);
+  if (store.calc[id]) renderResult(false);   // já calculou: atualiza ao vivo
 }
 els.w.addEventListener("input", onInput);
 els.l.addEventListener("input", onInput);
 els.form.addEventListener("submit", (e) => {
   e.preventDefault();
   els.w.blur(); els.l.blur();
+  store.calc[currentRoom().id] = true; persist();
   renderResult(true);
   if (!reduceMotion) els.result.scrollIntoView({ behavior: "smooth", block: "center" });
 });
@@ -1845,7 +1855,8 @@ howto.useBtn.addEventListener("click", () => {
   els.l.value = nf(l, 2);
   const id = currentRoom().id;
   store.inputs[id] = { w: els.w.value, l: els.l.value };
-  store.summed[id] = true;    // veio do somador: marca como medida somada
+  store.summed[id] = true;    // veio do somador
+  store.calc[id] = true;
   persist();
   howtoHide();
   renderResult(true);
