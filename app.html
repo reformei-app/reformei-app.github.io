@@ -186,12 +186,13 @@
   /* ── Vitrines ──────────────────────────────────────────────── */
   .shop h3{margin:0 0 3px;font-family:"Sora","Figtree",sans-serif;font-weight:700;font-size:15px;display:flex;align-items:center;gap:8px}
   .shop h3::before{content:"";width:14px;height:3px;border-radius:2px;background:var(--flame)}
-  .shop > p{margin:0 0 12px;font-size:12px;color:var(--text-soft)}
-  .shop__toggle{width:100%;display:flex;align-items:center;justify-content:space-between;gap:8px;background:none;border:none;padding:0;margin:0 0 3px;cursor:pointer;font:inherit;color:inherit;text-align:left}
-  .shop__toggle h3{margin:0}
-  .shop__toggle:focus-visible{outline:none;box-shadow:var(--ring);border-radius:6px}
-  .shop__chev{flex:none;font-size:12px;color:var(--flame);transition:transform .15s ease}
-  .shop__toggle[aria-expanded="false"] .shop__chev{transform:rotate(-90deg)}
+  .shop > p,.sec-body > p{margin:0 0 12px;font-size:12px;color:var(--text-soft)}
+  .sec-head{width:100%;display:flex;align-items:center;gap:9px;background:none;border:none;padding:4px 0;margin:0;cursor:pointer;font:inherit;color:var(--text);text-align:left}
+  .sec-head:focus-visible{outline:none;box-shadow:var(--ring);border-radius:6px}
+  .sec-head__chev{flex:none;font-size:12px;color:var(--flame);transition:transform .15s ease}
+  .sec-head[aria-expanded="true"] .sec-head__chev{transform:rotate(90deg)}
+  .sec-head__ttl{flex:1;min-width:0;font-family:"Sora","Figtree",sans-serif;font-weight:700;font-size:15px;letter-spacing:-.01em}
+  .sec-head__meta{flex:none;font-size:11px;font-weight:800;color:var(--flame-ink)}
   .prod-list{display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--border);border-radius:16px;box-shadow:var(--shadow);overflow:hidden}
   .prod{padding:14px}
   .prod + .prod{border-top:1px solid var(--border)}
@@ -259,7 +260,7 @@
   .stage__panel{padding:0 13px 13px}
   .stage__panel .prod-list{box-shadow:none;border-radius:11px}
   .stage__note{margin:0 0 10px;font-size:11.5px;color:var(--text-soft)}
-  @media (prefers-reduced-motion: reduce){ .stage__chev{transition:none} }
+  @media (prefers-reduced-motion: reduce){ .stage__chev,.sec-head__chev{transition:none} }
 
   /* ── "Como medir" — link + janela flutuante ───────────────── */
   .howto-link{
@@ -416,19 +417,26 @@
     <section class="result" id="result" aria-live="polite"></section>
 
     <section class="shop">
-      <h3 id="shopTitle"></h3>
-      <p id="shopIntro"></p>
-      <a class="howto-link" id="localBtn" target="_blank" rel="noopener noreferrer">📍 Ver casas de material de construção perto de mim</a>
-      <button class="stages-toggle" id="stagesToggle" type="button">Abrir todas as etapas</button>
-      <div id="stagesWrap"></div>
+      <button class="sec-head" id="obraToggle" type="button" aria-expanded="true">
+        <span class="sec-head__chev" aria-hidden="true">▸</span>
+        <span class="sec-head__ttl" id="shopTitle"></span>
+        <span class="sec-head__meta" id="shopMeta"></span>
+      </button>
+      <div class="sec-body" id="obraBody">
+        <p id="shopIntro"></p>
+        <a class="howto-link" id="localBtn" target="_blank" rel="noopener noreferrer">📍 Ver casas de material de construção perto de mim</a>
+        <button class="stages-toggle" id="stagesToggle" type="button">Abrir todas as etapas</button>
+        <div id="stagesWrap"></div>
+      </div>
     </section>
 
     <section class="shop">
-      <button class="shop__toggle" id="decorToggle" type="button" aria-expanded="true">
-        <h3 id="decorTitle"></h3>
-        <span class="shop__chev" aria-hidden="true">▾</span>
+      <button class="sec-head" id="decorToggle" type="button" aria-expanded="true">
+        <span class="sec-head__chev" aria-hidden="true">▸</span>
+        <span class="sec-head__ttl" id="decorTitle"></span>
+        <span class="sec-head__meta" id="decorMeta"></span>
       </button>
-      <div id="decorBody">
+      <div class="sec-body" id="decorBody">
         <p id="decorIntro"></p>
         <div class="stylenav" id="stylenav" role="tablist" aria-label="Estilo de decoração"></div>
         <div class="mood">
@@ -1439,7 +1447,8 @@ const els = {
   decorTitle: $("decorTitle"), decorIntro: $("decorIntro"), decorCount: $("decorCount"),
   stylenav: $("stylenav"), moodSwatches: $("moodSwatches"), moodText: $("moodText"),
   decorList: $("decorList"), themeBtn: $("themeBtn"),
-  decorToggle: $("decorToggle"), decorBody: $("decorBody"),
+  obraToggle: $("obraToggle"), obraBody: $("obraBody"), shopMeta: $("shopMeta"),
+  decorToggle: $("decorToggle"), decorBody: $("decorBody"), decorMeta: $("decorMeta"),
   homeView: $("homeView"), roomView: $("roomView"), roomgrid: $("roomgrid"),
   backBtn: $("backBtn"), brand: document.querySelector(".brand"),
   budgetSec: $("budgetSec"), budgetList: $("budgetList"), budgetTotal: $("budgetTotal"),
@@ -1574,6 +1583,7 @@ function renderRoom(){
   CUR.prod = [];
   allStagesOpen = false;
   els.stagesToggle.textContent = "Abrir todas as etapas";
+  els.shopMeta.textContent = stages.length + " etapas";
   let gi = 0;
   els.stagesWrap.innerHTML = stages.map((stg, si) => {
     const rows = stg.itens.map((it) => {
@@ -1672,7 +1682,8 @@ function renderDecor(){
   const base  = (room.decorBase || []).map(it => decorFromBase(it, st));
   const list  = extra.concat(base);
   CUR.decor = list;
-  els.decorCount.innerHTML = "<b>" + list.length + "</b> ideias · só lojas online";
+  els.decorMeta.textContent = list.length + " ideias";
+  els.decorCount.textContent = "Só nas lojas online — Shopee, Mercado Livre, Amazon.";
   els.decorList.innerHTML = list.map((p, i) => productRow(p, "decor", i)).join("");
 }
 
@@ -1693,12 +1704,16 @@ els.stagesToggle.addEventListener("click", () => {
   els.stagesToggle.textContent = allStagesOpen ? "Fechar todas as etapas" : "Abrir todas as etapas";
 });
 
-/* Abrir / fechar a seção de decoração */
-els.decorToggle.addEventListener("click", () => {
-  const open = els.decorToggle.getAttribute("aria-expanded") !== "true";
-  els.decorToggle.setAttribute("aria-expanded", String(open));
-  els.decorBody.hidden = !open;
-});
+/* Abrir / fechar as seções (obra e decoração) */
+function bindSecToggle(btn, body){
+  btn.addEventListener("click", function(){
+    const open = btn.getAttribute("aria-expanded") !== "true";
+    btn.setAttribute("aria-expanded", String(open));
+    body.hidden = !open;
+  });
+}
+bindSecToggle(els.obraToggle, els.obraBody);
+bindSecToggle(els.decorToggle, els.decorBody);
 
 /* Inputs */
 function onInput(){
