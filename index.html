@@ -3,6 +3,7 @@
 <meta name="description" content="App gratuito que calcula quanto material sua reforma precisa, cômodo por cômodo, e ajuda a comparar preço." />
 <link rel="icon" type="image/png" href="favicon.png" />
 <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+<link rel="manifest" href="/manifest.webmanifest" />
 <meta name="theme-color" content="#1A2530" />
 <style>
   :root{
@@ -146,9 +147,10 @@
       <p class="lede">O Reformei é um app gratuito que calcula quanto material sua obra precisa — cômodo por cômodo — e ajuda a comparar o preço antes de comprar.</p>
       <div class="cta">
         <a class="btn" href="app.html">Abrir o app</a>
+        <button class="btn btn--ghost" id="pwaInstall" type="button" hidden>📲 Instalar no celular</button>
         <a class="btn btn--ghost" href="#como">Como funciona</a>
       </div>
-      <small>Funciona no navegador do celular, sem instalar nada.</small>
+      <small>Funciona direto no navegador — e dá pra instalar como app, sem ocupar quase nada.</small>
     </div>
 
     <div class="phone" aria-hidden="true">
@@ -245,3 +247,27 @@
     Como Associado da Amazon, o Reformei recebe por compras qualificadas.
   </p>
 </footer>
+
+<script>
+(function () {
+  if ("serviceWorker" in navigator) {
+    window.addEventListener("load", function () {
+      navigator.serviceWorker.register("/sw.js").catch(function () {});
+    });
+  }
+  var btn = document.getElementById("pwaInstall");
+  var deferred = null;
+  var standalone = window.matchMedia("(display-mode: standalone)").matches || window.navigator.standalone === true;
+  window.addEventListener("beforeinstallprompt", function (e) {
+    e.preventDefault();
+    deferred = e;
+    if (btn && !standalone) btn.hidden = false;
+  });
+  if (btn) btn.addEventListener("click", function () {
+    if (!deferred) return;
+    deferred.prompt();
+    deferred.userChoice.then(function () { deferred = null; btn.hidden = true; });
+  });
+  window.addEventListener("appinstalled", function () { if (btn) btn.hidden = true; });
+})();
+</script>

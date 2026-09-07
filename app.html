@@ -3,6 +3,7 @@
 <meta name="description" content="Calculadora de reforma por ambiente, com estilo de acabamento, orçamento e comparação de lojas." />
 <link rel="icon" type="image/png" href="favicon.png" />
 <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+<link rel="manifest" href="/manifest.webmanifest" />
 <meta name="theme-color" content="#1A2530" />
 <style>
   /* ─────────────────────────────────────────────────────────────
@@ -87,6 +88,14 @@
   }
   .theme svg{display:block;width:18px;height:18px}
   .theme:focus-visible{outline:none;box-shadow:var(--ring)}
+
+  .pwa-cta{
+    display:flex;align-items:center;justify-content:center;gap:8px;
+    width:100%;margin:-2px 0 2px;font:inherit;font-weight:800;font-size:13px;
+    padding:11px 14px;border-radius:12px;cursor:pointer;
+    border:1px solid var(--flame);background:var(--flame-wash);color:var(--flame-ink);
+  }
+  .pwa-cta:focus-visible{outline:none;box-shadow:var(--ring)}
 
   .roomnav{
     display:flex;gap:6px;overflow-x:auto;
@@ -345,6 +354,7 @@
 
   <main>
     <p class="lede">Descubra quanto material sua reforma vai precisar, cômodo por cômodo, e monte um orçamento pra comparar o preço nas lojas ou na casa de material perto de você.</p>
+    <button class="pwa-cta" id="pwaInstall" type="button" hidden>📲 Instalar o Reformei no celular</button>
 
     <section class="room-head">
       <span class="ico" id="roomIco" aria-hidden="true"></span>
@@ -1843,5 +1853,29 @@ function aplicaPrecos(d){
       .then(function (d){ if (d) aplicaPrecos(d); })
       .catch(function (){});
   } catch (e) {}
+})();
+</script>
+
+<script>
+(function () {
+  if ("serviceWorker" in navigator) {
+    window.addEventListener("load", function () {
+      navigator.serviceWorker.register("/sw.js").catch(function () {});
+    });
+  }
+  var btn = document.getElementById("pwaInstall");
+  var deferred = null;
+  var standalone = window.matchMedia("(display-mode: standalone)").matches || window.navigator.standalone === true;
+  window.addEventListener("beforeinstallprompt", function (e) {
+    e.preventDefault();
+    deferred = e;
+    if (btn && !standalone) btn.hidden = false;
+  });
+  if (btn) btn.addEventListener("click", function () {
+    if (!deferred) return;
+    deferred.prompt();
+    deferred.userChoice.then(function () { deferred = null; btn.hidden = true; });
+  });
+  window.addEventListener("appinstalled", function () { if (btn) btn.hidden = true; });
 })();
 </script>
