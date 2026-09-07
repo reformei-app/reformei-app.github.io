@@ -138,7 +138,6 @@
 
   /* ── Conteúdo ───────────────────────────────────────────────── */
   main{flex:1;padding:18px 16px 44px;display:flex;flex-direction:column;gap:16px}
-  .lede{margin:0;font-size:13.5px;color:var(--text-soft);max-width:42ch}
 
   .room-head{display:flex;align-items:center;gap:11px}
   .room-head .ico{
@@ -350,6 +349,9 @@
   @media (max-width:340px){
     .fields{grid-template-columns:1fr}
     .store{flex-basis:calc(50% - 3px)}
+    .roomgrid{gap:6px}
+    .roomcell{min-height:94px;font-size:11px;padding:9px 4px}
+    .roomcell .ic{width:40px;height:40px}
   }
 </style>
 
@@ -415,7 +417,7 @@
       <h3><span id="shopTitle"></span><span class="sec-count" id="shopMeta"></span></h3>
       <p id="shopIntro"></p>
       <a class="howto-link" id="localBtn" target="_blank" rel="noopener noreferrer">📍 Ver casas de material de construção perto de mim</a>
-      <button class="stages-toggle" id="stagesToggle" type="button">Abrir todas as etapas</button>
+      <button class="stages-toggle" id="stagesToggle" type="button">Abrir tudo</button>
       <div id="stagesWrap"></div>
 
       <div class="stage" id="decorStage">
@@ -450,6 +452,7 @@
       <div class="budget__foot">
         <div class="budget__total">Estimativa online: <b id="budgetTotal">—</b></div>
         <div class="budget__actions">
+          <button id="budgetWa" type="button">Enviar no WhatsApp</button>
           <button id="budgetCopy" type="button">Copiar lista</button>
           <button id="budgetMaps" type="button">Lojas perto de mim</button>
           <button id="budgetClear" type="button" class="ghost">Limpar</button>
@@ -1442,7 +1445,7 @@ const els = {
   homeView: $("homeView"), roomView: $("roomView"), roomgrid: $("roomgrid"),
   backBtn: $("backBtn"), brand: document.querySelector(".brand"),
   budgetSec: $("budgetSec"), budgetList: $("budgetList"), budgetTotal: $("budgetTotal"),
-  budgetCopy: $("budgetCopy"), budgetMaps: $("budgetMaps"), budgetClear: $("budgetClear"),
+  budgetCopy: $("budgetCopy"), budgetMaps: $("budgetMaps"), budgetClear: $("budgetClear"), budgetWa: $("budgetWa"),
   budgetAddName: $("budgetAddName"), budgetAddPrice: $("budgetAddPrice"), budgetAddBtn: $("budgetAddBtn"),
 };
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -1572,7 +1575,7 @@ function renderRoom(){
   ]);
   CUR.prod = [];
   allStagesOpen = false;
-  els.stagesToggle.textContent = "Abrir todas as etapas";
+  els.stagesToggle.textContent = "Abrir tudo";
   els.shopMeta.textContent = (stages.length + 1) + " etapas";
   els.decorNum.textContent = (stages.length + 1 < 10 ? "0" : "") + (stages.length + 1);
   let gi = 0;
@@ -1688,11 +1691,11 @@ els.stagesWrap.addEventListener("click", (e) => {
 });
 els.stagesToggle.addEventListener("click", () => {
   allStagesOpen = !allStagesOpen;
-  Array.prototype.forEach.call(els.stagesWrap.querySelectorAll(".stage__head"), (h) => {
+  Array.prototype.forEach.call(document.querySelectorAll("#stagesWrap .stage__head, #decorStage .stage__head"), (h) => {
     h.setAttribute("aria-expanded", String(allStagesOpen));
     if (h.nextElementSibling) h.nextElementSibling.hidden = !allStagesOpen;
   });
-  els.stagesToggle.textContent = allStagesOpen ? "Fechar todas as etapas" : "Abrir todas as etapas";
+  els.stagesToggle.textContent = allStagesOpen ? "Fechar tudo" : "Abrir tudo";
 });
 
 /* Abrir / fechar as seções (obra e decoração) */
@@ -1762,6 +1765,9 @@ els.budgetCopy.addEventListener("click", () => {
   } else {
     window.prompt("Copie a lista:", txt);
   }
+});
+els.budgetWa.addEventListener("click", () => {
+  window.open("https://wa.me/?text=" + encodeURIComponent(budgetText()), "_blank", "noopener");
 });
 els.budgetMaps.addEventListener("click", () => {
   window.open(linkLojaLocal(""), "_blank", "noopener");
