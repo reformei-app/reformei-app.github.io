@@ -1470,14 +1470,35 @@ const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/"/g, "&quot;").repl
 let CUR = { prod: [], decor: [] };
 let allStagesOpen = false;
 let currentView = "home";
-let LAST = { room: null, out: null };   // último cálculo, p/ os botões do resultado
 
 function copyToClipboard(txt, btn, okLabel){
-  const restore = () => { if (!btn) return; const o = btn.getAttribute("data-o") || btn.textContent; btn.textContent = o; };
-  const done = () => { if (btn){ btn.setAttribute("data-o", btn.getAttribute("data-o") || btn.textContent); btn.textContent = okLabel || "Copiado ✓"; setTimeout(restore, 1500); } };
+  function flash(){
+    if (!btn) return;
+    if (!btn.dataset.o) btn.dataset.o = btn.textContent;
+    btn.textContent = okLabel || "Copiado ✓";
+    setTimeout(function(){ if (btn && btn.dataset.o) btn.textContent = btn.dataset.o; }, 1500);
+  }
+  function legacy(){
+    try {
+      var ta = document.createElement("textarea");
+      ta.value = txt;
+      ta.setAttribute("readonly", "");
+      ta.style.cssText = "position:fixed;top:-1000px;left:0;opacity:0";
+      document.body.appendChild(ta);
+      ta.focus(); ta.select();
+      try { ta.setSelectionRange(0, txt.length); } catch (e) {}
+      var ok = document.execCommand && document.execCommand("copy");
+      document.body.removeChild(ta);
+      return !!ok;
+    } catch (e) { return false; }
+  }
   if (navigator.clipboard && navigator.clipboard.writeText){
-    navigator.clipboard.writeText(txt).then(done).catch(() => window.prompt("Copie o texto:", txt));
-  } else { window.prompt("Copie o texto:", txt); }
+    navigator.clipboard.writeText(txt).then(flash, function(){
+      if (legacy()) flash(); else window.prompt("Copie o texto:", txt);
+    });
+  } else {
+    if (legacy()) flash(); else window.prompt("Copie o texto:", txt);
+  }
 }
 
 function storeLinks(q){
@@ -1657,7 +1678,6 @@ function renderResult(animate){
     return;
   }
   const out = room.compute(w, l);
-  LAST = { room: room, out: out };
   const lines = out.lines.map(x => "<li><span>" + x.label + "</span><b>" + x.value + "</b></li>").join("");
   const summedNote = (store.summed && store.summed[room.id])
     ? '<p class="result__note">Partes somadas: o <b>chão</b> está certo. <b>Tinta e rodapé</b> ficam aproximados — meça a volta toda e some 10%.</p>'
@@ -1697,15 +1717,20 @@ function addResultToBudget(room, out){
 }
 els.result.addEventListener("click", (e) => {
   const b = e.target.closest("[data-ra]");
-  if (!b || !LAST.room || !LAST.out) return;
+  if (!b) return;
+  const room = currentRoom();
+  const w = parseNum(els.w.value), l = parseNum(els.l.value);
+  if (!(w > 0) || !(l > 0)) return;
+  const out = room.compute(w, l);
   if (b.dataset.ra === "budget"){
-    addResultToBudget(LAST.room, LAST.out);
-    const o = b.textContent; b.textContent = "No orçamento ✓";
-    setTimeout(() => { b.textContent = o; }, 1500);
+    addResultToBudget(room, out);
+    if (!b.dataset.o) b.dataset.o = b.textContent;
+    b.textContent = "No orçamento ✓";
+    setTimeout(() => { if (b.dataset.o) b.textContent = b.dataset.o; }, 1500);
   } else if (b.dataset.ra === "copy"){
-    copyToClipboard(resultText(LAST.room, LAST.out), b, "Copiado ✓");
+    copyToClipboard(resultText(room, out), b, "Copiado ✓");
   } else if (b.dataset.ra === "wa"){
-    window.open("https://wa.me/?text=" + encodeURIComponent(resultText(LAST.room, LAST.out)), "_blank", "noopener");
+    window.open("https://wa.me/?text=" + encodeURIComponent(resultText(room, out)), "_blank", "noopener");
   }
 });
 
