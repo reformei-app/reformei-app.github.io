@@ -117,6 +117,12 @@
   .roomcell .ic svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
   .roomcell:hover,.roomcell:focus-visible{border-color:var(--flame);background:var(--flame-wash);color:var(--flame-ink);outline:none}
   .roomcell:active{transform:translateY(1px)}
+  .home-budget{
+    margin-top:2px;width:100%;font:inherit;font-weight:800;font-size:13px;
+    padding:12px 14px;border-radius:12px;cursor:pointer;text-align:left;
+    border:1px solid var(--flame);background:var(--flame-wash);color:var(--flame-ink);
+  }
+  .home-budget:focus-visible{outline:none;box-shadow:var(--ring)}
   .backbtn{
     align-self:flex-start;display:inline-flex;align-items:center;gap:6px;
     font:inherit;font-weight:700;font-size:12.5px;color:var(--flame-ink);
@@ -178,6 +184,10 @@
   .result__list li{display:flex;align-items:baseline;justify-content:space-between;gap:14px;font-size:13.5px}
   .result__list li span{color:var(--result-soft)}
   .result__list li b{font-weight:700;font-variant-numeric:tabular-nums;color:var(--flame);white-space:nowrap}
+  .result__actions{display:flex;flex-wrap:wrap;gap:7px;margin-top:14px;padding-top:12px;border-top:1px solid rgba(255,255,255,.12)}
+  .result__actions button{flex:1 1 92px;font:inherit;font-weight:800;font-size:12px;padding:9px 10px;border-radius:10px;cursor:pointer;border:1px solid rgba(255,255,255,.24);background:rgba(255,255,255,.07);color:var(--result-text)}
+  .result__actions button.pri{background:var(--flame);border-color:var(--flame);color:#1A2530;flex-basis:100%}
+  .result__actions button:focus-visible{outline:none;box-shadow:0 0 0 3px rgba(242,116,32,.55)}
   .result__note{margin:14px 0 0;font-size:11px;color:var(--result-soft);line-height:1.45}
   .result__note b{color:var(--result-text);font-weight:700}
   .result__empty{margin:6px 0 2px;font-size:14px;color:var(--result-soft)}
@@ -379,6 +389,7 @@
       </div>
       <p class="home-q">O que você vai reformar?</p>
       <div class="roomgrid" id="roomgrid"></div>
+      <button class="home-budget" id="homeBudgetLink" type="button" hidden></button>
     </section>
 
     <section id="roomView" hidden>
@@ -439,6 +450,7 @@
       </div>
     </div>
     </section>
+    </section>
 
     <section class="shop" id="budgetSec" hidden>
       <h3>Meu orçamento para a loja</h3>
@@ -458,7 +470,6 @@
           <button id="budgetClear" type="button" class="ghost">Limpar</button>
         </div>
       </div>
-    </section>
     </section>
 
     <footer>
@@ -1446,6 +1457,7 @@ const els = {
   backBtn: $("backBtn"), brand: document.querySelector(".brand"),
   budgetSec: $("budgetSec"), budgetList: $("budgetList"), budgetTotal: $("budgetTotal"),
   budgetCopy: $("budgetCopy"), budgetMaps: $("budgetMaps"), budgetClear: $("budgetClear"), budgetWa: $("budgetWa"),
+  homeBudgetLink: $("homeBudgetLink"),
   budgetAddName: $("budgetAddName"), budgetAddPrice: $("budgetAddPrice"), budgetAddBtn: $("budgetAddBtn"),
 };
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -1457,6 +1469,16 @@ const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/"/g, "&quot;").repl
 /* Itens visíveis agora, para o botão "adicionar ao orçamento" */
 let CUR = { prod: [], decor: [] };
 let allStagesOpen = false;
+let currentView = "home";
+let LAST = { room: null, out: null };   // último cálculo, p/ os botões do resultado
+
+function copyToClipboard(txt, btn, okLabel){
+  const restore = () => { if (!btn) return; const o = btn.getAttribute("data-o") || btn.textContent; btn.textContent = o; };
+  const done = () => { if (btn){ btn.setAttribute("data-o", btn.getAttribute("data-o") || btn.textContent); btn.textContent = okLabel || "Copiado ✓"; setTimeout(restore, 1500); } };
+  if (navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(txt).then(done).catch(() => window.prompt("Copie o texto:", txt));
+  } else { window.prompt("Copie o texto:", txt); }
+}
 
 function storeLinks(q){
   return ["shopee", "mercadolivre", "amazon"].map(k => {
@@ -1491,7 +1513,12 @@ function addToBudget(item){
 }
 function renderBudget(){
   const list = store.budget;
-  els.budgetSec.hidden = false;
+  // na tela inicial só aparece se tiver item; num cômodo aparece sempre
+  els.budgetSec.hidden = (currentView === "home" && !list.length);
+  if (els.homeBudgetLink){
+    els.homeBudgetLink.hidden = !(currentView === "home" && list.length);
+    els.homeBudgetLink.textContent = "🧾 Meu orçamento · " + list.length + (list.length === 1 ? " item" : " itens");
+  }
   if (!list.length){
     els.budgetList.innerHTML = '<p class="budget__empty">Nada na lista ainda. Some itens dos materiais acima, ou escreva abaixo.</p>';
     els.budgetTotal.textContent = "—";
@@ -1501,15 +1528,17 @@ function renderBudget(){
   els.budgetList.innerHTML = list.map(b => {
     const p = parsePrice(b.price);
     lo += p.lo * b.qty; hi += p.hi * b.qty;
+    const qtyBlock = b.fromCalc
+      ? '<span></span>'
+      : '<div class="budget__qty">' +
+          '<button type="button" data-bq="-" data-q="' + esc(b.q) + '" aria-label="Menos um">−</button>' +
+          '<span>' + b.qty + '</span>' +
+          '<button type="button" data-bq="+" data-q="' + esc(b.q) + '" aria-label="Mais um">+</button>' +
+        '</div>';
     return '<div class="prod">' +
         '<div class="prod__top"><span class="prod__name">' + esc(b.name) + '</span>' +
         '<span class="prod__price">' + esc(b.price) + '</span></div>' +
-        '<div class="budget__row">' +
-          '<div class="budget__qty">' +
-            '<button type="button" data-bq="-" data-q="' + esc(b.q) + '" aria-label="Menos um">−</button>' +
-            '<span>' + b.qty + '</span>' +
-            '<button type="button" data-bq="+" data-q="' + esc(b.q) + '" aria-label="Mais um">+</button>' +
-          '</div>' +
+        '<div class="budget__row">' + qtyBlock +
           '<button class="budget__rm" type="button" data-brm="' + esc(b.q) + '">Remover</button>' +
         '</div>' +
       '</div>';
@@ -1522,7 +1551,8 @@ function budgetText(){
   store.budget.forEach(b => {
     const p = parsePrice(b.price);
     lo += p.lo * b.qty; hi += p.hi * b.qty;
-    lines.push("- " + b.qty + "x " + b.name + "  (" + b.price + ")");
+    if (b.fromCalc) lines.push("- " + b.name);
+    else lines.push("- " + b.qty + "x " + b.name + "  (" + b.price + ")");
   });
   lines.push("", "Estimativa online: R$ " + nf(lo, 0) + "–" + nf(hi, 0));
   lines.push("Feito no app Reformei");
@@ -1537,13 +1567,17 @@ function renderRoomGrid(){
   }).join("");
 }
 function showHome(){
+  currentView = "home";
   els.roomView.hidden = true;
   els.homeView.hidden = false;
+  renderBudget();
   window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" });
 }
 function showRoom(id){
+  currentView = "room";
   if (id) { store.tab = id; persist(); }
   renderRoom();
+  renderBudget();
   els.homeView.hidden = true;
   els.roomView.hidden = false;
   window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" });
@@ -1553,6 +1587,9 @@ els.roomgrid.addEventListener("click", function (e){
   if (cell) showRoom(cell.dataset.room);
 });
 els.backBtn.addEventListener("click", function (){ showHome(); });
+if (els.homeBudgetLink) els.homeBudgetLink.addEventListener("click", function (){
+  els.budgetSec.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+});
 if (els.brand) els.brand.addEventListener("click", function (e){ e.preventDefault(); showHome(); });
 
 /* Ambiente */
@@ -1620,6 +1657,7 @@ function renderResult(animate){
     return;
   }
   const out = room.compute(w, l);
+  LAST = { room: room, out: out };
   const lines = out.lines.map(x => "<li><span>" + x.label + "</span><b>" + x.value + "</b></li>").join("");
   const summedNote = (store.summed && store.summed[room.id])
     ? '<p class="result__note">Partes somadas: o <b>chão</b> está certo. <b>Tinta e rodapé</b> ficam aproximados — meça a volta toda e some 10%.</p>'
@@ -1629,13 +1667,47 @@ function renderResult(animate){
     '<span class="big">' + out.hero.value + '<small>m²</small></span></div>' +
     '<ul class="result__list">' + lines + '</ul>' +
     '<p class="result__note">Estimativa. Compre 10% a mais para cobrir recortes e perdas.</p>' +
-    summedNote;
+    summedNote +
+    '<div class="result__actions">' +
+      '<button type="button" class="pri" data-ra="budget">Somar ao orçamento</button>' +
+      '<button type="button" data-ra="copy">Copiar</button>' +
+      '<button type="button" data-ra="wa">WhatsApp</button>' +
+    '</div>';
   if (animate && !reduceMotion){
     els.result.classList.remove("is-updated");
     void els.result.offsetWidth;
     els.result.classList.add("is-updated");
   }
 }
+function resultText(room, out){
+  const L = ["*Reforma · " + room.label + "*  (Reformei)", ""];
+  L.push(out.hero.unit + ": " + out.hero.value + " m²");
+  out.lines.forEach(x => L.push("- " + x.label + ": " + x.value));
+  L.push("", "Estimativa — compre uns 10% a mais.");
+  return L.join("\n");
+}
+function addResultToBudget(room, out){
+  const prefix = "calc:" + room.id + ":";
+  store.budget = store.budget.filter(b => String(b.q).indexOf(prefix) !== 0);
+  out.lines.forEach((x, i) => {
+    store.budget.push({ name: x.label + " — " + x.value, price: "a combinar", qty: 1, fromCalc: true, q: prefix + i });
+  });
+  persist();
+  renderBudget();
+}
+els.result.addEventListener("click", (e) => {
+  const b = e.target.closest("[data-ra]");
+  if (!b || !LAST.room || !LAST.out) return;
+  if (b.dataset.ra === "budget"){
+    addResultToBudget(LAST.room, LAST.out);
+    const o = b.textContent; b.textContent = "No orçamento ✓";
+    setTimeout(() => { b.textContent = o; }, 1500);
+  } else if (b.dataset.ra === "copy"){
+    copyToClipboard(resultText(LAST.room, LAST.out), b, "Copiado ✓");
+  } else if (b.dataset.ra === "wa"){
+    window.open("https://wa.me/?text=" + encodeURIComponent(resultText(LAST.room, LAST.out)), "_blank", "noopener");
+  }
+});
 
 /* Estilo / decoração */
 function renderStyleNav(){
@@ -1758,13 +1830,7 @@ document.addEventListener("click", (e) => {
 });
 
 els.budgetCopy.addEventListener("click", () => {
-  const txt = budgetText();
-  const done = () => { const o = els.budgetCopy.textContent; els.budgetCopy.textContent = "Lista copiada ✓"; setTimeout(() => els.budgetCopy.textContent = o, 1500); };
-  if (navigator.clipboard && navigator.clipboard.writeText){
-    navigator.clipboard.writeText(txt).then(done).catch(() => window.prompt("Copie a lista:", txt));
-  } else {
-    window.prompt("Copie a lista:", txt);
-  }
+  copyToClipboard(budgetText(), els.budgetCopy, "Lista copiada ✓");
 });
 els.budgetWa.addEventListener("click", () => {
   window.open("https://wa.me/?text=" + encodeURIComponent(budgetText()), "_blank", "noopener");
